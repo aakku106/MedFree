@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { convertToNepaliDate } from "@/lib/utils";
 
@@ -46,11 +47,11 @@ export default async function ServiceDetailPage({ params }) {
         <div className="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
           <nav className="mb-6 text-sm">
-            <a
+            <Link
               href="/services"
               className="text-emerald-600 hover:text-emerald-700">
               ← Back to Services
-            </a>
+            </Link>
           </nav>
 
           {/* Header Section */}

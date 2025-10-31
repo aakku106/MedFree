@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 
 export default function NotFound() {
@@ -14,11 +15,11 @@ export default function NotFound() {
             The service you&apos;re looking for doesn&apos;t exist or has been
             removed.
           </p>
-          <a
+          <Link
             href="/services"
             className="inline-flex items-center px-6 py-3 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition-colors">
             Browse All Services
-          </a>
+          </Link>
         </div>
       </div>
     </>
