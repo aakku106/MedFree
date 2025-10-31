@@ -1,13 +1,21 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import ServiceCard from "@/components/ServiceCard";
 import { getUserLocation, debounce } from "@/lib/utils";
 
+// Cache configuration for localStorage
+const CACHE_KEY = "medfree_services_cache";
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_VERSION = "v1"; // Increment this to invalidate all caches
+
 export default function ServicesPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const isMounted = useRef(false);
+  const cacheChecked = useRef(false);
+  const servicesRef = useRef([]);
 
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -49,9 +57,65 @@ export default function ServicesPage() {
     "Eye Test",
   ];
 
-  // Request location on mount
+  // Request location on mount (check cache first)
   useEffect(() => {
+    if (isMounted.current) return;
+    isMounted.current = true;
+
     const requestLocation = async () => {
+      // Try to restore from localStorage cache
+      try {
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (cached) {
+          const { data, timestamp, filters, version } = JSON.parse(cached);
+          const now = Date.now();
+
+          // Check if cache is still valid and filters match current URL params
+          const currentCategory = searchParams.get("category") || "all";
+          const currentDiagnosis = searchParams.get("diagnosis") || "all";
+          const currentSearch = searchParams.get("q") || "";
+
+          // Validate cache: version match, not expired, filters match
+          if (
+            version === CACHE_VERSION &&
+            now - timestamp < CACHE_DURATION &&
+            filters.category === currentCategory &&
+            filters.diagnosis === currentDiagnosis &&
+            filters.search === currentSearch
+          ) {
+            console.log("✅ Restored from localStorage cache");
+            setServices(data.services);
+            setTotalCount(data.total);
+            setHasMore(data.hasMore);
+            setPage(data.page);
+            servicesRef.current = data.services;
+            setLoading(false);
+            cacheChecked.current = true;
+
+            // Still get location for future fetches, but don't wait
+            getUserLocation().then((location) => {
+              if (location) {
+                setUserLocation(location);
+                setShowLocationPrompt(false);
+              } else {
+                setLocationDenied(true);
+                setShowLocationPrompt(false);
+              }
+            });
+            return;
+          } else {
+            console.log("🔄 Cache expired or filters changed, fetching fresh data");
+            // Clear expired cache
+            localStorage.removeItem(CACHE_KEY);
+          }
+        }
+      } catch (err) {
+        console.log("❌ Cache restore failed:", err);
+        // Clear corrupted cache
+        localStorage.removeItem(CACHE_KEY);
+      }
+
+      // Get user location
       const location = await getUserLocation();
       if (location) {
         setUserLocation(location);
@@ -60,10 +124,12 @@ export default function ServicesPage() {
         setLocationDenied(true);
         setShowLocationPrompt(false);
       }
+
+      cacheChecked.current = true;
     };
 
     requestLocation();
-  }, []);
+  }, [searchParams]); // Depend on searchParams instead of individual filter states
 
   // Fetch services
   const fetchServices = useCallback(
@@ -94,13 +160,66 @@ export default function ServicesPage() {
 
         if (reset) {
           setServices(data.services);
+          servicesRef.current = data.services;
         } else {
-          setServices((prev) => [...prev, ...data.services]);
+          const newServices = [...servicesRef.current, ...data.services];
+          setServices(newServices);
+          servicesRef.current = newServices;
         }
 
         setHasMore(data.hasMore);
         setTotalCount(data.total);
         setPage(pageNum);
+
+        // Cache the results in localStorage
+        try {
+          const cacheData = {
+            data: {
+              services: servicesRef.current,
+              total: data.total,
+              hasMore: data.hasMore,
+              page: pageNum,
+            },
+            timestamp: Date.now(),
+            filters: {
+              category: selectedCategory,
+              diagnosis: selectedDiagnosis,
+              search: searchQuery,
+            },
+            version: CACHE_VERSION,
+          };
+          
+          localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+          console.log("💾 Saved to localStorage cache");
+        } catch (err) {
+          console.log("❌ Cache save failed:", err);
+          // If localStorage is full, clear old cache and try again
+          if (err.name === "QuotaExceededError") {
+            localStorage.removeItem(CACHE_KEY);
+            try {
+              localStorage.setItem(
+                CACHE_KEY,
+                JSON.stringify({
+                  data: {
+                    services: servicesRef.current,
+                    total: data.total,
+                    hasMore: data.hasMore,
+                    page: pageNum,
+                  },
+                  timestamp: Date.now(),
+                  filters: {
+                    category: selectedCategory,
+                    diagnosis: selectedDiagnosis,
+                    search: searchQuery,
+                  },
+                  version: CACHE_VERSION,
+                })
+              );
+            } catch (retryErr) {
+              console.log("❌ Cache save retry failed:", retryErr);
+            }
+          }
+        }
       } catch (err) {
         console.error("Error fetching services:", err);
         setError("Failed to load services. Please try again.");
@@ -113,8 +232,14 @@ export default function ServicesPage() {
 
   // Initial fetch and refetch on filter changes
   useEffect(() => {
+    // Skip initial fetch if cache was just restored
+    if (cacheChecked.current && services.length > 0) {
+      cacheChecked.current = false;
+      return;
+    }
+
     fetchServices(1, true);
-  }, [fetchServices]);
+  }, [fetchServices, services.length]);
 
   // Update URL params
   useEffect(() => {
