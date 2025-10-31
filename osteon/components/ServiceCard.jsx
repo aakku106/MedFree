@@ -2,21 +2,25 @@ import Link from "next/link";
 
 export default function ServiceCard({ service }) {
   // Handle both old and new schema
-  const { 
-    _id, 
-    name, 
-    title, 
-    category, 
-    location, 
+  const {
+    _id,
+    name,
+    title,
+    category,
+    location,
     serviceDetails,
-    date, 
-    description, 
-    status 
+    date,
+    description,
+    status,
   } = service;
-  
+
   const displayName = name || title;
   const displayLocation = location || serviceDetails?.location;
-  const displayDate = date || (serviceDetails?.nepaliDate ? { nepaliDate: serviceDetails.nepaliDate } : null);
+  const displayDate =
+    date ||
+    (serviceDetails?.nepaliDate
+      ? { nepaliDate: serviceDetails.nepaliDate }
+      : null);
 
   const getStatusBadge = (status) => {
     switch (status?.toLowerCase()) {
@@ -145,7 +149,9 @@ export default function ServiceCard({ service }) {
                 />
               </svg>
               <span>
-                {displayLocation.district || displayLocation.address?.split(',')[0] || "Location TBA"}
+                {displayLocation.district ||
+                  displayLocation.address?.split(",")[0] ||
+                  "Location TBA"}
               </span>
             </div>
           )}
@@ -165,14 +171,13 @@ export default function ServiceCard({ service }) {
                 />
               </svg>
               <span>
-                {displayDate.start 
+                {displayDate.start
                   ? new Date(displayDate.start).toLocaleDateString("en-US", {
                       month: "short",
                       day: "numeric",
                       year: "numeric",
                     })
-                  : displayDate.nepaliDate || "Date TBA"
-                }
+                  : displayDate.nepaliDate || "Date TBA"}
               </span>
             </div>
           )}
