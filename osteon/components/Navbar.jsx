@@ -39,8 +39,8 @@ export default function Navbar() {
                 className="menu menu-sm dropdown-content mt-3 z-[60] p-3 shadow-lg bg-white rounded-2xl w-64 border border-slate-200"
               >
                 <li>
-                  <Link 
-                    href="/" 
+                  <Link
+                    href="/"
                     onClick={() => setIsMenuOpen(false)}
                     className="py-3 px-4 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium"
                   >
@@ -48,8 +48,8 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/services" 
+                  <Link
+                    href="/services"
                     onClick={() => setIsMenuOpen(false)}
                     className="py-3 px-4 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium"
                   >
@@ -57,8 +57,8 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    href="/about" 
+                  <Link
+                    href="/about"
                     onClick={() => setIsMenuOpen(false)}
                     className="py-3 px-4 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium"
                   >
@@ -90,24 +90,24 @@ export default function Navbar() {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 gap-2">
             <li>
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className="px-5 py-2.5 rounded-full hover:bg-blue-50 hover:text-blue-600 font-medium transition-all"
               >
                 Home
               </Link>
             </li>
             <li>
-              <Link 
-                href="/services" 
+              <Link
+                href="/services"
                 className="px-5 py-2.5 rounded-full hover:bg-blue-50 hover:text-blue-600 font-medium transition-all"
               >
                 Services
               </Link>
             </li>
             <li>
-              <Link 
-                href="/about" 
+              <Link
+                href="/about"
                 className="px-5 py-2.5 rounded-full hover:bg-blue-50 hover:text-blue-600 font-medium transition-all"
               >
                 About

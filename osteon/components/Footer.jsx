@@ -27,33 +27,36 @@ export default function Footer() {
             </p>
             <p className="text-slate-600 leading-relaxed max-w-md">
               Providing real-time information about free government medical
-              services, health camps, and medications across Nepal. Making healthcare accessible to everyone.
+              services, health camps, and medications across Nepal. Making
+              healthcare accessible to everyone.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-bold text-slate-800 mb-4">Quick Links</h3>
+            <h3 className="text-lg font-bold text-slate-800 mb-4">
+              Quick Links
+            </h3>
             <ul className="space-y-3">
               <li>
-                <Link 
-                  href="/services" 
+                <Link
+                  href="/services"
                   className="text-slate-600 hover:text-blue-600 transition-colors font-medium flex items-center gap-2"
                 >
                   <span>→</span> Services
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/about" 
+                <Link
+                  href="/about"
                   className="text-slate-600 hover:text-blue-600 transition-colors font-medium flex items-center gap-2"
                 >
                   <span>→</span> About Us
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/contact" 
+                <Link
+                  href="/contact"
                   className="text-slate-600 hover:text-blue-600 transition-colors font-medium flex items-center gap-2"
                 >
                   <span>→</span> Contact
@@ -67,16 +70,16 @@ export default function Footer() {
             <h3 className="text-lg font-bold text-slate-800 mb-4">Legal</h3>
             <ul className="space-y-3">
               <li>
-                <Link 
-                  href="/privacy" 
+                <Link
+                  href="/privacy"
                   className="text-slate-600 hover:text-blue-600 transition-colors font-medium flex items-center gap-2"
                 >
                   <span>→</span> Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/terms" 
+                <Link
+                  href="/terms"
                   className="text-slate-600 hover:text-blue-600 transition-colors font-medium flex items-center gap-2"
                 >
                   <span>→</span> Terms of Service
@@ -92,7 +95,8 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-slate-600 text-sm">
-            © {new Date().getFullYear()} Osteon. All rights reserved. Made with ❤️ for Nepal.
+            © {new Date().getFullYear()} Osteon. All rights reserved. Made with
+            ❤️ for Nepal.
           </p>
 
           {/* Social Links */}
