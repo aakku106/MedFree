@@ -164,7 +164,7 @@ const services = [
       "Deworming Treatment",
       "Breastfeeding Assessment and Counseling",
       "Family Planning Counseling",
-      "Postnatal Care Check (for new mothers)"
+      "Postnatal Care Check (for new mothers)",
     ],
     requirements: [
       "Bring child's immunization/vaccination card (blue card)",
@@ -175,13 +175,14 @@ const services = [
       "Bring previous prescription and medications if child is under treatment",
       "For postnatal mothers: mention delivery date and any complications",
       "Comfortable clothing for examination (loose-fitting clothes recommended)",
-      "If child has any allergies, inform the medical staff immediately"
+      "If child has any allergies, inform the medical staff immediately",
     ],
     location: {
       type: "Point",
       coordinates: [83.442, 27.639],
     },
-    address: "Manigram Women's Health Center, Tilottama-5, Manigram Bazaar Road, Rupandehi",
+    address:
+      "Manigram Women's Health Center, Tilottama-5, Manigram Bazaar Road, Rupandehi",
     city: "Manigram",
     district: "Rupandehi",
     date: new Date("2025-11-24"),
@@ -220,7 +221,7 @@ const services = [
       "Lazy Eye (Amblyopia) Screening for Children",
       "Digital Eye Strain Evaluation",
       "Age-Related Macular Degeneration Screening (for elderly)",
-      "Corneal Examination"
+      "Corneal Examination",
     ],
     requirements: [
       "Bring previous eyeglass prescription or old glasses if available",
@@ -232,7 +233,7 @@ const services = [
       "If you have had previous eye surgery, inform the doctor with operative notes",
       "Bring any prescription of current eye drops or medications",
       "For glaucoma suspects: family history of glaucoma should be mentioned",
-      "Wear sunglasses after pupil dilation (sun sensitivity)"
+      "Wear sunglasses after pupil dilation (sun sensitivity)",
     ],
     location: {
       type: "Point",
@@ -247,7 +248,8 @@ const services = [
     timeStart: "08:00 AM",
     timeEnd: "05:00 PM",
     capacity: 150,
-    contactPerson: "Dr. Bijay Kumar Yadav (MS Ophthalmology - Consultant Eye Surgeon)",
+    contactPerson:
+      "Dr. Bijay Kumar Yadav (MS Ophthalmology - Consultant Eye Surgeon)",
     contactPhone: "+977-9847567890",
     contactEmail: "eye@shankarnagar.health.np",
     isActive: true,
@@ -258,7 +260,8 @@ const services = [
     title: "Dental Health Checkup and Treatment Camp - Shankarnagar",
     description:
       "Comprehensive dental care camp providing professional oral health services completely free of cost. Our team of experienced dentists and dental hygienists from Shankarnagar Dental College will conduct thorough oral examinations, professional teeth cleaning (scaling and polishing), fluoride treatments, and minor restorative procedures including cavity fillings. This camp aims to promote oral health awareness and provide essential dental care to underserved populations. Special attention will be given to children's dental health with educational sessions on proper brushing techniques, flossing, and dietary habits for healthy teeth. We will also conduct screenings for oral cancer, gum disease, and other dental conditions. Free dental hygiene kits (toothbrush, toothpaste, dental floss) will be distributed to all participants. For cases requiring advanced treatment (root canal, extractions, dentures), we will provide referrals to partner dental clinics with subsidized rates. The camp welcomes people of all ages, from toddlers getting their first dental checkup to elderly citizens needing denture care.",
-    shortDescription: "Free comprehensive dental checkup, cleaning, and treatments with educational sessions.",
+    shortDescription:
+      "Free comprehensive dental checkup, cleaning, and treatments with educational sessions.",
     category: "Dental Care",
     diagnosisType: "Dental Checkup",
     whatItChecks: [
@@ -273,7 +276,7 @@ const services = [
       "Wisdom Teeth Assessment",
       "TMJ (Jaw Joint) Examination",
       "Pediatric Dental Assessment (for children)",
-      "Dental X-ray (if medically necessary)"
+      "Dental X-ray (if medically necessary)",
     ],
     requirements: [
       "Valid citizenship card, voter ID, or any government-issued photo ID",
@@ -284,7 +287,7 @@ const services = [
       "If you have diabetes or heart conditions, please inform staff beforehand",
       "Remove lipstick, lip balm, or any oral cosmetics before examination",
       "Bring previous dental records or X-rays if available",
-      "Denture wearers: bring your dentures for adjustment or cleaning"
+      "Denture wearers: bring your dentures for adjustment or cleaning",
     ],
     location: {
       type: "Point",
@@ -411,7 +414,7 @@ const services = [
       "Stress Test (Treadmill Test - for select high-risk patients)",
       "Ankle-Brachial Index (Peripheral Artery Disease Screening)",
       "Body Mass Index (BMI) and Waist-Hip Ratio",
-      "Thyroid Function Test (if clinically indicated)"
+      "Thyroid Function Test (if clinically indicated)",
     ],
     requirements: [
       "Valid citizenship card or government-issued photo ID (mandatory)",
@@ -425,7 +428,7 @@ const services = [
       "Diabetic patients: bring your glucose monitoring device and regular medications",
       "If you have a pacemaker or implantable cardiac device, inform staff immediately",
       "Arrive at least 30 minutes early for registration and preparation",
-      "For echo test: may need to change into hospital gown (provided free)"
+      "For echo test: may need to change into hospital gown (provided free)",
     ],
     location: {
       type: "Point",
@@ -440,7 +443,8 @@ const services = [
     timeStart: "06:00 AM",
     timeEnd: "02:00 PM",
     capacity: 180,
-    contactPerson: "Dr. Dipak Sharma (MD, DM Cardiology - Senior Consultant Cardiologist)",
+    contactPerson:
+      "Dr. Dipak Sharma (MD, DM Cardiology - Senior Consultant Cardiologist)",
     contactPhone: "+977-9857901234",
     contactEmail: "cardio@lumbinihospital.gov.np",
     isActive: true,
@@ -600,7 +604,7 @@ const services = [
       "Kidney Function Test (for diabetics)",
       "Foot Examination (diabetic foot screening)",
       "Retinopathy Risk Assessment",
-      "Neuropathy Screening (nerve function test)"
+      "Neuropathy Screening (nerve function test)",
     ],
     requirements: [
       "Strict fasting for 10-12 hours (no food, only plain water allowed)",
@@ -612,13 +616,14 @@ const services = [
       "If on thyroid medication, take it after the test",
       "Pregnant women should inform staff (different reference ranges apply)",
       "Arrive at least 45 minutes early for registration",
-      "Bring a light snack to eat after blood test"
+      "Bring a light snack to eat after blood test",
     ],
     location: {
       type: "Point",
       coordinates: [85.324, 27.7172],
     },
-    address: "Tribhuvan University Teaching Hospital, Endocrinology Department, Maharajgunj Medical Campus, Kathmandu",
+    address:
+      "Tribhuvan University Teaching Hospital, Endocrinology Department, Maharajgunj Medical Campus, Kathmandu",
     city: "Kathmandu",
     district: "Kathmandu",
     date: new Date("2025-11-17"),
@@ -626,7 +631,8 @@ const services = [
     timeStart: "07:00 AM",
     timeEnd: "01:00 PM",
     capacity: 200,
-    contactPerson: "Dr. Anil Sharma (MD, DM Endocrinology - Associate Professor)",
+    contactPerson:
+      "Dr. Anil Sharma (MD, DM Endocrinology - Associate Professor)",
     contactPhone: "+977-01-4412303",
     contactEmail: "endocrine@tuth.edu.np",
     isActive: true,
