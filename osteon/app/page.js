@@ -2,12 +2,12 @@ import Link from "next/link";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-cyan-50 via-blue-50 to-teal-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-cyan-50 via-blue-50 to-teal-50 px-4">
       <div className="max-w-3xl mx-auto text-center">
         {/* Headline */}
         <h1 className="text-5xl md:text-6xl font-bold mb-8 leading-tight text-slate-900">
           Easily Find and Access{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-teal-600">
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-600 to-teal-600">
             Free Medical Services
           </span>
         </h1>

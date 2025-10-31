@@ -56,7 +56,7 @@ export default function ServiceDetailPage() {
     return (
       <>
         <Navbar />
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-white">
+        <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-slate-50 to-white">
           <div className="text-center">
             <span className="loading loading-spinner loading-lg text-primary mb-4"></span>
             <p className="text-slate-600">Loading service details...</p>
@@ -71,7 +71,7 @@ export default function ServiceDetailPage() {
     return (
       <>
         <Navbar />
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-white">
+        <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-slate-50 to-white">
           <div className="card bg-base-100 shadow-xl max-w-md">
             <div className="card-body items-center text-center">
               <svg
@@ -120,7 +120,7 @@ export default function ServiceDetailPage() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <div className="min-h-screen bg-linear-to-b from-slate-50 to-white">
         {/* Breadcrumb */}
         <div className="bg-white shadow-sm">
           <div className="container mx-auto px-4 py-4">
@@ -381,7 +381,7 @@ export default function ServiceDetailPage() {
                             className="flex items-center gap-2 text-slate-700"
                           >
                             <svg
-                              className="w-5 h-5 text-success flex-shrink-0"
+                              className="w-5 h-5 text-success shrink-0"
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
@@ -421,7 +421,7 @@ export default function ServiceDetailPage() {
                     </h2>
                     <div className="alert alert-warning">
                       <svg
-                        className="w-6 h-6 flex-shrink-0"
+                        className="w-6 h-6 shrink-0"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"

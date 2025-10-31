@@ -44,7 +44,8 @@ export default function ServiceCard({ service }) {
             className="w-6 h-6"
             fill="none"
             stroke="currentColor"
-            viewBox="0 0 24 24">
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -59,7 +60,8 @@ export default function ServiceCard({ service }) {
             className="w-6 h-6"
             fill="none"
             stroke="currentColor"
-            viewBox="0 0 24 24">
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -74,7 +76,8 @@ export default function ServiceCard({ service }) {
             className="w-6 h-6"
             fill="none"
             stroke="currentColor"
-            viewBox="0 0 24 24">
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -89,7 +92,8 @@ export default function ServiceCard({ service }) {
             className="w-6 h-6"
             fill="none"
             stroke="currentColor"
-            viewBox="0 0 24 24">
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -102,7 +106,7 @@ export default function ServiceCard({ service }) {
   };
 
   return (
-    <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-base-200">
+    <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-base-200 rounded-2xl">
       <div className="card-body">
         <div className="flex items-start justify-between mb-2">
           <div className="flex items-center gap-3">
@@ -134,7 +138,8 @@ export default function ServiceCard({ service }) {
                 className="w-4 h-4 text-secondary"
                 fill="none"
                 stroke="currentColor"
-                viewBox="0 0 24 24">
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -162,7 +167,8 @@ export default function ServiceCard({ service }) {
                 className="w-4 h-4 text-accent"
                 fill="none"
                 stroke="currentColor"
-                viewBox="0 0 24 24">
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -190,7 +196,8 @@ export default function ServiceCard({ service }) {
               className="w-4 h-4"
               fill="none"
               stroke="currentColor"
-              viewBox="0 0 24 24">
+              viewBox="0 0 24 24"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

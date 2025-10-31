@@ -71,9 +71,9 @@ export default function ServicesPage() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <div className="min-h-screen bg-linear-to-b from-slate-50 to-white">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-cyan-600 to-teal-600 text-white py-16">
+        <section className="bg-linear-to-r from-cyan-600 to-teal-600 text-white py-16">
           <div className="container mx-auto px-4">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">
               Free Medical Services
@@ -86,7 +86,7 @@ export default function ServicesPage() {
 
         <div className="container mx-auto px-4 py-12">
           {/* Filters Section */}
-          <div className="card bg-base-100 shadow-xl mb-8">
+          <div className="card bg-base-100 shadow-xl mb-8 rounded-2xl border border-base-200">
             <div className="card-body">
               <h2 className="card-title mb-4">
                 <svg
