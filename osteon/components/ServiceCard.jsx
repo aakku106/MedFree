@@ -1,7 +1,22 @@
 import Link from "next/link";
 
 export default function ServiceCard({ service }) {
-  const { _id, name, category, location, date, description, status } = service;
+  // Handle both old and new schema
+  const { 
+    _id, 
+    name, 
+    title, 
+    category, 
+    location, 
+    serviceDetails,
+    date, 
+    description, 
+    status 
+  } = service;
+  
+  const displayName = name || title;
+  const displayLocation = location || serviceDetails?.location;
+  const displayDate = date || (serviceDetails?.nepaliDate ? { nepaliDate: serviceDetails.nepaliDate } : null);
 
   const getStatusBadge = (status) => {
     switch (status?.toLowerCase()) {
@@ -91,7 +106,7 @@ export default function ServiceCard({ service }) {
               {getCategoryIcon(category)}
             </div>
             <div>
-              <h3 className="card-title text-lg">{name}</h3>
+              <h3 className="card-title text-lg">{displayName}</h3>
               <p className="text-sm text-slate-500">{category}</p>
             </div>
           </div>
@@ -102,14 +117,14 @@ export default function ServiceCard({ service }) {
           )}
         </div>
 
-        <p className="text-slate-600 line-clamp-2 min-h-[3rem]">
+        <p className="text-slate-600 line-clamp-2 min-h-12">
           {description || "No description available"}
         </p>
 
         <div className="divider my-2"></div>
 
         <div className="flex flex-col gap-2 text-sm">
-          {location && (
+          {displayLocation && (
             <div className="flex items-center gap-2 text-slate-600">
               <svg
                 className="w-4 h-4 text-secondary"
@@ -130,12 +145,12 @@ export default function ServiceCard({ service }) {
                 />
               </svg>
               <span>
-                {location.district || location.address || "Location TBA"}
+                {displayLocation.district || displayLocation.address?.split(',')[0] || "Location TBA"}
               </span>
             </div>
           )}
 
-          {date && (
+          {displayDate && (
             <div className="flex items-center gap-2 text-slate-600">
               <svg
                 className="w-4 h-4 text-accent"
@@ -150,11 +165,14 @@ export default function ServiceCard({ service }) {
                 />
               </svg>
               <span>
-                {new Date(date.start).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                })}
+                {displayDate.start 
+                  ? new Date(displayDate.start).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })
+                  : displayDate.nepaliDate || "Date TBA"
+                }
               </span>
             </div>
           )}
