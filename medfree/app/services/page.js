@@ -6,9 +6,20 @@ import ServiceCard from "@/components/ServiceCard";
 import { getUserLocation, debounce } from "@/lib/utils";
 
 // Cache configuration for localStorage
+// Data persists across browser sessions and reloads
+// Cache is automatically cleared after 5 minutes or when filters change
 const CACHE_KEY = "medfree_services_cache";
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 const CACHE_VERSION = "v1"; // Increment this to invalidate all caches
+
+// Utility to clear cache manually (useful for debugging)
+// Usage in console: window.clearMedfreeCache()
+if (typeof window !== "undefined") {
+  window.clearMedfreeCache = () => {
+    localStorage.removeItem(CACHE_KEY);
+    console.log("🗑️ Medfree cache cleared!");
+  };
+}
 
 export default function ServicesPage() {
   const searchParams = useSearchParams();
@@ -104,7 +115,9 @@ export default function ServicesPage() {
             });
             return;
           } else {
-            console.log("🔄 Cache expired or filters changed, fetching fresh data");
+            console.log(
+              "🔄 Cache expired or filters changed, fetching fresh data"
+            );
             // Clear expired cache
             localStorage.removeItem(CACHE_KEY);
           }
@@ -188,7 +201,7 @@ export default function ServicesPage() {
             },
             version: CACHE_VERSION,
           };
-          
+
           localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
           console.log("💾 Saved to localStorage cache");
         } catch (err) {
