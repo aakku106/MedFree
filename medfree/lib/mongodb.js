@@ -44,6 +44,57 @@ export async function getServicesCollection() {
   await collection.createIndex({ category: 1 });
   await collection.createIndex({ diagnosisType: 1 });
   await collection.createIndex({ date: 1 });
+  await collection.createIndex({ isActive: 1 });
+  await collection.createIndex({ createdBy: 1 });
+
+  return collection;
+}
+
+/**
+ * Get the registrations collection with indexes
+ */
+export async function getRegistrationsCollection() {
+  const client = await clientPromise;
+  const db = client.db("medfree");
+  const collection = db.collection("registrations");
+
+  // Ensure indexes exist
+  await collection.createIndex({ serviceId: 1 });
+  await collection.createIndex({ userId: 1 });
+  await collection.createIndex({ status: 1 });
+  await collection.createIndex({ registeredAt: -1 });
+  // Compound index for user's upcoming registrations
+  await collection.createIndex({ userId: 1, status: 1 });
+
+  return collection;
+}
+
+/**
+ * Get the subscriptions collection with indexes
+ */
+export async function getSubscriptionsCollection() {
+  const client = await clientPromise;
+  const db = client.db("medfree");
+  const collection = db.collection("subscriptions");
+
+  // Ensure indexes exist
+  await collection.createIndex({ userId: 1 }, { unique: true });
+  await collection.createIndex({ enabled: 1 });
+  await collection.createIndex({ categories: 1 });
+
+  return collection;
+}
+
+/**
+ * Get the users collection (for saved services and preferences)
+ */
+export async function getUsersCollection() {
+  const client = await clientPromise;
+  const db = client.db("medfree");
+  const collection = db.collection("users");
+
+  // Ensure indexes exist
+  await collection.createIndex({ clerkId: 1 }, { unique: true });
 
   return collection;
 }
@@ -74,7 +125,75 @@ export async function getServicesCollection() {
  *   contactPerson: String,
  *   contactPhone: String,
  *   contactEmail: String,
- *   isActive: Boolean (default true),
+ *   images: Array<String> (Cloudinary/Vercel Blob URLs),
+ *   registeredCount: Number (cached count),
+ *   isActive: Boolean (default true, soft delete),
+ *   createdBy: String (Clerk user ID),
+ *   updatedBy: String (Clerk user ID),
+ *   createdAt: Date,
+ *   updatedAt: Date
+ * }
+ */
+
+/**
+ * Registration Schema (for reference):
+ * {
+ *   _id: ObjectId,
+ *   serviceId: ObjectId,
+ *   userId: String (Clerk user ID),
+ *   userName: String,
+ *   userPhone: String,
+ *   userEmail: String,
+ *   registrationCode: String (unique code for QR),
+ *   familyMembers: Array<String> (names of family members),
+ *   status: String ('confirmed', 'cancelled', 'attended', 'no-show'),
+ *   registeredAt: Date,
+ *   cancelledAt: Date,
+ *   attendedAt: Date,
+ *   notificationsSent: {
+ *     confirmation: Boolean,
+ *     reminder: Boolean
+ *   }
+ * }
+ */
+
+/**
+ * Subscription Schema (for reference):
+ * {
+ *   _id: ObjectId,
+ *   userId: String (Clerk user ID),
+ *   pushEndpoint: String (Web Push subscription endpoint),
+ *   pushKeys: {
+ *     p256dh: String,
+ *     auth: String
+ *   },
+ *   categories: Array<String> (interested categories),
+ *   location: {
+ *     city: String,
+ *     district: String,
+ *     radius: Number (km)
+ *   },
+ *   frequency: String ('instant', 'daily', 'weekly'),
+ *   enabled: Boolean,
+ *   createdAt: Date,
+ *   updatedAt: Date
+ * }
+ */
+
+/**
+ * User Schema (for reference):
+ * {
+ *   _id: ObjectId,
+ *   clerkId: String (unique Clerk user ID),
+ *   savedServices: Array<ObjectId> (service IDs),
+ *   preferences: {
+ *     categories: Array<String>,
+ *     location: {
+ *       city: String,
+ *       district: String
+ *     },
+ *     language: String ('en', 'ne')
+ *   },
  *   createdAt: Date,
  *   updatedAt: Date
  * }
