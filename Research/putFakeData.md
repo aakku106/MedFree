@@ -69,7 +69,7 @@ Create a script (e.g., a Node.js script) to populate a MongoDB Atlas database wi
   - Create a variety of services across different categories.
   - **Crucially, generate data for the following specific locations in Nepal:**
     1. **Manigram, Rupandehi:** (Approx. coordinates: `[83.44, 27.64]`)
-        - Create 3-4 services here (e.g., a general health camp, a vaccination drive).
+        - Create 3-4 services here (e.g., a general health camp, a vaccination drive).(this is our location)
     2. **Shankarnagar, Rupandehi:** (Approx. coordinates: `[83.46, 27.66]`)
         - Create 3-4 services here (e.g., an eye checkup camp).
     3. **Lumbini Provincial Hospital, Butwal:** (Approx. coordinates: `[83.45, 27.70]`)
