@@ -159,7 +159,8 @@ export default function ServicesPage() {
               Free Medical Services
             </h1>
             <p className="text-xl md:text-2xl text-center max-w-3xl mx-auto opacity-95 leading-relaxed">
-              Browse available government healthcare services across Nepal and find the help you need
+              Browse available government healthcare services across Nepal and
+              find the help you need
             </p>
           </div>
         </section>
@@ -207,7 +208,8 @@ export default function ServicesPage() {
                 </span>
               </div>
               <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-emerald-700 shadow-md">
-                📌 {locationMeta?.totalWithCoordinates ?? 0} services with location data
+                📌 {locationMeta?.totalWithCoordinates ?? 0} services with
+                location data
               </span>
             </div>
           )}
@@ -370,7 +372,9 @@ export default function ServicesPage() {
           {loading && (
             <div className="flex flex-col justify-center items-center py-24 bg-white rounded-2xl shadow-lg border border-slate-200">
               <span className="loading loading-spinner loading-lg text-blue-600 mb-4"></span>
-              <p className="text-slate-600 font-semibold text-lg">Loading amazing services for you...</p>
+              <p className="text-slate-600 font-semibold text-lg">
+                Loading amazing services for you...
+              </p>
             </div>
           )}
 
@@ -392,7 +396,9 @@ export default function ServicesPage() {
                   />
                 </svg>
                 <div>
-                  <p className="font-bold text-lg mb-1">Oops! Something went wrong</p>
+                  <p className="font-bold text-lg mb-1">
+                    Oops! Something went wrong
+                  </p>
                   <span className="text-base">{error}</span>
                 </div>
               </div>
@@ -422,7 +428,8 @@ export default function ServicesPage() {
                 No Services Found
               </h3>
               <p className="text-slate-600 mb-6 text-lg max-w-md mx-auto">
-                We couldn't find any services matching your criteria. Try adjusting your filters to discover more options.
+                We couldn't find any services matching your criteria. Try
+                adjusting your filters to discover more options.
               </p>
               <button
                 onClick={() =>

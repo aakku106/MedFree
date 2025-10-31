@@ -122,8 +122,12 @@ export default function ServiceCard({ service }) {
               {getCategoryIcon(category)}
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="card-title text-lg font-bold text-slate-800 mb-1 line-clamp-1">{displayName}</h3>
-              <p className="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full inline-block">{category}</p>
+              <h3 className="card-title text-lg font-bold text-slate-800 mb-1 line-clamp-1">
+                {displayName}
+              </h3>
+              <p className="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full inline-block">
+                {category}
+              </p>
             </div>
           </div>
           <div className="flex flex-col items-end gap-2 ml-2">
@@ -154,7 +158,11 @@ export default function ServiceCard({ service }) {
               </span>
             )}
             {status && (
-              <div className={`badge ${getStatusBadge(status)} gap-1 font-semibold`}>
+              <div
+                className={`badge ${getStatusBadge(
+                  status
+                )} gap-1 font-semibold`}
+              >
                 {status}
               </div>
             )}
@@ -226,8 +234,8 @@ export default function ServiceCard({ service }) {
         </div>
 
         <div className="card-actions justify-end mt-5">
-          <Link 
-            href={`/services/${_id}`} 
+          <Link
+            href={`/services/${_id}`}
             className="btn bg-blue-600 hover:bg-blue-700 text-white border-none shadow-md hover:shadow-lg transition-all px-6 rounded-full font-semibold group"
           >
             View Details

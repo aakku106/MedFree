@@ -11,7 +11,11 @@ export default function LandingPage() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-5 py-2.5 rounded-full font-semibold text-sm mb-8 shadow-sm">
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+              <path
+                fillRule="evenodd"
+                d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
+                clipRule="evenodd"
+              />
             </svg>
             Healthcare Made Accessible
           </div>
@@ -26,9 +30,9 @@ export default function LandingPage() {
 
           {/* Subheadline */}
           <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
-            Discover free medical checkups, health camps, and services provided by
-            the government near you. Access quality healthcare information all in one
-            place — because everyone deserves healthcare.
+            Discover free medical checkups, health camps, and services provided
+            by the government near you. Access quality healthcare information
+            all in one place — because everyone deserves healthcare.
           </p>
 
           {/* CTA Buttons */}
@@ -53,7 +57,7 @@ export default function LandingPage() {
               </svg>
               Find Free Services
             </Link>
-            
+
             <Link
               href="/about"
               className="inline-flex items-center justify-center gap-3 rounded-full bg-white hover:bg-slate-50 border-2 border-slate-300 px-10 py-4 text-lg font-bold text-slate-700 shadow-lg hover:shadow-xl transition-all duration-300"
@@ -80,38 +84,82 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
             <div className="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:shadow-xl transition-shadow">
               <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                <svg
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-3">Location-Based Search</h3>
+              <h3 className="text-xl font-bold text-slate-800 mb-3">
+                Location-Based Search
+              </h3>
               <p className="text-slate-600 leading-relaxed">
-                Find medical services near you with our intelligent location-based search.
+                Find medical services near you with our intelligent
+                location-based search.
               </p>
             </div>
 
             <div className="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:shadow-xl transition-shadow">
               <div className="w-14 h-14 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-3">Real-Time Updates</h3>
+              <h3 className="text-xl font-bold text-slate-800 mb-3">
+                Real-Time Updates
+              </h3>
               <p className="text-slate-600 leading-relaxed">
-                Get the latest information about ongoing and upcoming health camps.
+                Get the latest information about ongoing and upcoming health
+                camps.
               </p>
             </div>
 
             <div className="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:shadow-xl transition-shadow">
               <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-3">100% Free Services</h3>
+              <h3 className="text-xl font-bold text-slate-800 mb-3">
+                100% Free Services
+              </h3>
               <p className="text-slate-600 leading-relaxed">
-                All listed services are completely free and provided by government healthcare.
+                All listed services are completely free and provided by
+                government healthcare.
               </p>
             </div>
           </div>

@@ -59,7 +59,9 @@ export default function ServiceDetailPage() {
         <div className="min-h-screen flex items-center justify-center bg-slate-50">
           <div className="text-center bg-white p-12 rounded-2xl shadow-xl border border-slate-200">
             <span className="loading loading-spinner loading-lg text-blue-600 mb-6"></span>
-            <p className="text-slate-700 font-semibold text-xl">Loading service details...</p>
+            <p className="text-slate-700 font-semibold text-xl">
+              Loading service details...
+            </p>
           </div>
         </div>
         <Footer />
@@ -115,7 +117,10 @@ export default function ServiceDetailPage() {
             <div className="text-sm breadcrumbs">
               <ul className="flex items-center gap-2">
                 <li>
-                  <Link href="/" className="text-blue-600 hover:text-blue-700 font-semibold hover:underline flex items-center gap-1">
+                  <Link
+                    href="/"
+                    className="text-blue-600 hover:text-blue-700 font-semibold hover:underline flex items-center gap-1"
+                  >
                     🏠 Home
                   </Link>
                 </li>
@@ -141,58 +146,36 @@ export default function ServiceDetailPage() {
             <div className="card bg-white shadow-2xl mb-8 border border-slate-200 rounded-2xl">
               <div className="card-body p-8 md:p-12">
                 {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="badge badge-primary">
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-8">
+                  <div className="flex-1">
+                    <div className="flex flex-wrap items-center gap-3 mb-4">
+                      <span className="badge bg-blue-600 text-white border-none px-4 py-3 font-bold text-base">
                         {service.category}
                       </span>
                       {service.status && (
                         <span
-                          className={`badge ${getStatusBadge(service.status)}`}
+                          className={`badge ${getStatusBadge(
+                            service.status
+                          )} border-none px-4 py-3 font-bold text-base`}
                         >
                           {service.status}
                         </span>
                       )}
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-bold mb-2">
+                    <h1 className="text-4xl md:text-5xl font-extrabold mb-3 text-slate-900 leading-tight">
                       {service.name}
                     </h1>
                   </div>
                 </div>
 
-                <div className="divider"></div>
+                <div className="divider my-8"></div>
 
                 {/* Description */}
-                <div className="mb-6">
-                  <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                    <svg
-                      className="w-6 h-6 text-primary"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    Description
-                  </h2>
-                  <p className="text-slate-600 leading-relaxed">
-                    {service.description ||
-                      "No description available for this service."}
-                  </p>
-                </div>
-
-                {/* Location Details */}
-                {service.location && (
-                  <div className="mb-6">
-                    <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                <div className="mb-10">
+                  <h2 className="text-2xl font-bold mb-5 flex items-center gap-3 text-slate-900">
+                    <div className="bg-blue-100 p-2 rounded-lg">
                       <svg
-                        className="w-6 h-6 text-secondary"
+                        className="w-6 h-6 text-blue-600"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -201,33 +184,61 @@ export default function ServiceDetailPage() {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth={2}
-                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                        />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                       </svg>
+                    </div>
+                    Description
+                  </h2>
+                  <p className="text-slate-700 leading-relaxed text-lg bg-slate-50 p-6 rounded-xl border border-slate-200">
+                    {service.description ||
+                      "No description available for this service."}
+                  </p>
+                </div>
+
+                {/* Location Details */}
+                {service.location && (
+                  <div className="mb-10">
+                    <h2 className="text-2xl font-bold mb-5 flex items-center gap-3 text-slate-900">
+                      <div className="bg-purple-100 p-2 rounded-lg">
+                        <svg
+                          className="w-6 h-6 text-purple-600"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                        </svg>
+                      </div>
                       Location
                     </h2>
-                    <div className="bg-slate-50 rounded-lg p-4">
+                    <div className="bg-purple-50 rounded-xl p-6 border border-purple-200 space-y-3">
                       {service.location.address && (
-                        <p className="text-slate-700 mb-2">
-                          <span className="font-medium">Address:</span>{" "}
+                        <p className="text-slate-800 text-lg">
+                          <span className="font-bold text-purple-800">📍 Address:</span>{" "}
                           {service.location.address}
                         </p>
                       )}
                       {service.location.district && (
-                        <p className="text-slate-700 mb-2">
-                          <span className="font-medium">District:</span>{" "}
+                        <p className="text-slate-800 text-lg">
+                          <span className="font-bold text-purple-800">🗺️ District:</span>{" "}
                           {service.location.district}
                         </p>
                       )}
                       {service.location.coordinates && (
-                        <p className="text-slate-700">
-                          <span className="font-medium">Coordinates:</span>{" "}
+                        <p className="text-slate-800 text-lg">
+                          <span className="font-bold text-purple-800">🧭 Coordinates:</span>{" "}
                           {service.location.coordinates.latitude},{" "}
                           {service.location.coordinates.longitude}
                         </p>
@@ -238,31 +249,33 @@ export default function ServiceDetailPage() {
 
                 {/* Date & Time */}
                 {service.date && (
-                  <div className="mb-6">
-                    <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                      <svg
-                        className="w-6 h-6 text-accent"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      </svg>
+                  <div className="mb-10">
+                    <h2 className="text-2xl font-bold mb-5 flex items-center gap-3 text-slate-900">
+                      <div className="bg-emerald-100 p-2 rounded-lg">
+                        <svg
+                          className="w-6 h-6 text-emerald-600"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </div>
                       Schedule
                     </h2>
-                    <div className="bg-slate-50 rounded-lg p-4">
-                      <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-emerald-50 rounded-xl p-6 border border-emerald-200">
+                      <div className="grid md:grid-cols-2 gap-6">
                         {service.date.start && (
-                          <div>
-                            <p className="text-sm text-slate-500 mb-1">
-                              Start Date
+                          <div className="bg-white p-5 rounded-xl border border-emerald-200 shadow-sm">
+                            <p className="text-sm font-bold text-emerald-700 mb-2 uppercase tracking-wide">
+                              🚀 Start Date
                             </p>
-                            <p className="text-lg font-semibold text-slate-700">
+                            <p className="text-xl font-bold text-slate-800">
                               {new Date(service.date.start).toLocaleDateString(
                                 "en-US",
                                 {
@@ -276,11 +289,11 @@ export default function ServiceDetailPage() {
                           </div>
                         )}
                         {service.date.end && (
-                          <div>
-                            <p className="text-sm text-slate-500 mb-1">
-                              End Date
+                          <div className="bg-white p-5 rounded-xl border border-emerald-200 shadow-sm">
+                            <p className="text-sm font-bold text-emerald-700 mb-2 uppercase tracking-wide">
+                              🏁 End Date
                             </p>
-                            <p className="text-lg font-semibold text-slate-700">
+                            <p className="text-xl font-bold text-slate-800">
                               {new Date(service.date.end).toLocaleDateString(
                                 "en-US",
                                 {
@@ -433,10 +446,13 @@ export default function ServiceDetailPage() {
                 )}
 
                 {/* Action Buttons */}
-                <div className="card-actions justify-center mt-8 gap-4">
-                  <Link href="/services" className="btn btn-outline">
+                <div className="card-actions justify-center mt-12 gap-4 flex-col sm:flex-row">
+                  <Link 
+                    href="/services" 
+                    className="btn bg-white hover:bg-slate-50 border-2 border-slate-300 text-slate-700 shadow-lg hover:shadow-xl px-10 py-4 font-bold rounded-full text-lg group"
+                  >
                     <svg
-                      className="w-5 h-5"
+                      className="w-5 h-5 group-hover:-translate-x-1 transition-transform"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -453,7 +469,7 @@ export default function ServiceDetailPage() {
                   {service.contact?.phone && (
                     <a
                       href={`tel:${service.contact.phone}`}
-                      className="btn btn-primary"
+                      className="btn bg-blue-600 hover:bg-blue-700 text-white border-none shadow-lg hover:shadow-xl px-10 py-4 font-bold rounded-full text-lg"
                     >
                       <svg
                         className="w-5 h-5"
@@ -468,7 +484,7 @@ export default function ServiceDetailPage() {
                           d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                         />
                       </svg>
-                      Contact Now
+                      📞 Contact Now
                     </a>
                   )}
                 </div>
