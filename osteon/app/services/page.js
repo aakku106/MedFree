@@ -151,92 +151,99 @@ export default function ServicesPage() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-linear-to-b from-slate-50 to-white">
+      <div className="min-h-screen bg-slate-50">
         {/* Hero Section */}
-        <section className="bg-linear-to-r from-cyan-600 to-teal-600 text-white py-16">
+        <section className="bg-linear-to-r from-blue-600 via-purple-600 to-blue-600 text-white py-20">
           <div className="container mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">
+            <h1 className="text-4xl md:text-6xl font-extrabold mb-6 text-center">
               Free Medical Services
             </h1>
-            <p className="text-xl text-center max-w-2xl mx-auto opacity-90">
-              Browse available government healthcare services across Nepal
+            <p className="text-xl md:text-2xl text-center max-w-3xl mx-auto opacity-95 leading-relaxed">
+              Browse available government healthcare services across Nepal and find the help you need
             </p>
           </div>
         </section>
 
-        <div className="container mx-auto px-4 py-12">
+        <div className="container mx-auto px-4 py-12 max-w-7xl">
           {/* Location Status */}
           {locationState.status === "pending" && (
-            <div className="mb-6 flex items-center gap-3 rounded-2xl border border-cyan-200 bg-cyan-50 px-5 py-4 text-cyan-900 shadow-sm">
-              <span className="loading loading-spinner loading-sm text-cyan-600"></span>
-              <span className="font-medium">
-                Detecting your location to find nearby services…
+            <div className="mb-8 flex items-center gap-3 rounded-2xl border border-blue-200 bg-blue-50 px-6 py-5 text-blue-900 shadow-md">
+              <span className="loading loading-spinner loading-md text-blue-600"></span>
+              <span className="font-semibold text-lg">
+                📍 Detecting your location to find nearby services…
               </span>
             </div>
           )}
 
           {(locationState.status === "denied" ||
             locationState.status === "unsupported") && (
-            <div className="mb-6 flex flex-col gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-amber-900 shadow-sm sm:flex-row sm:items-center sm:justify-between">
-              <span className="text-sm sm:text-base">
-                {locationState.message ||
-                  "We couldn't use your location. Showing services across Nepal, sorted alphabetically."}
-              </span>
+            <div className="mb-8 flex flex-col gap-4 rounded-2xl border border-amber-300 bg-amber-50 px-6 py-5 text-amber-900 shadow-md sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">⚠️</span>
+                <span className="font-medium text-base">
+                  {locationState.message ||
+                    "We couldn't use your location. Showing services across Nepal, sorted alphabetically."}
+                </span>
+              </div>
               {locationState.status === "denied" && (
                 <button
                   onClick={handleLocationRetry}
-                  className="inline-flex items-center justify-center rounded-full bg-amber-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-amber-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
+                  className="inline-flex items-center justify-center rounded-full bg-amber-600 px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-amber-700 hover:shadow-lg"
                 >
-                  Retry location
+                  Retry Location
                 </button>
               )}
             </div>
           )}
 
           {locationState.status === "granted" && locationMeta?.locationSort && (
-            <div className="mb-6 flex flex-col gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-emerald-900 shadow-sm sm:flex-row sm:items-center sm:justify-between">
-              <span className="text-sm sm:text-base">
-                Showing services closest to you first.
-                {locationMeta?.totalWithCoordinates === 0 &&
-                  " Some listings do not include coordinates and appear after nearby results."}
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1 text-sm font-semibold text-emerald-700 shadow-inner">
-                {locationMeta?.totalWithCoordinates ?? 0} services with location
-                data
+            <div className="mb-8 flex flex-col gap-4 rounded-2xl border border-emerald-300 bg-emerald-50 px-6 py-5 text-emerald-900 shadow-md sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">✅</span>
+                <span className="font-medium text-base">
+                  Showing services closest to you first.
+                  {locationMeta?.totalWithCoordinates === 0 &&
+                    " Some listings do not include coordinates and appear after nearby results."}
+                </span>
+              </div>
+              <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-emerald-700 shadow-md">
+                📌 {locationMeta?.totalWithCoordinates ?? 0} services with location data
               </span>
             </div>
           )}
 
           {/* Filters Section */}
-          <div className="card mb-8 rounded-2xl border border-slate-200 bg-white shadow-xl">
-            <div className="card-body">
-              <h2 className="card-title mb-4 text-slate-900">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
-                  />
-                </svg>
+          <div className="card mb-10 rounded-2xl border border-slate-200 bg-white shadow-xl">
+            <div className="card-body p-8">
+              <h2 className="text-2xl font-bold mb-6 text-slate-900 flex items-center gap-3">
+                <div className="bg-blue-100 p-2 rounded-lg">
+                  <svg
+                    className="w-6 h-6 text-blue-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+                    />
+                  </svg>
+                </div>
                 Filter Services
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* Category Filter */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium text-slate-600">
-                      Category
+                    <span className="label-text font-bold text-slate-700 text-base">
+                      🏥 Category
                     </span>
                   </label>
                   <select
-                    className="select select-bordered w-full border-slate-300 bg-white text-slate-800 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-100"
+                    className="select select-bordered w-full border-2 border-slate-300 bg-white text-slate-800 font-semibold focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100 rounded-xl py-3"
                     value={filters.category}
                     onChange={(e) =>
                       handleFilterChange("category", e.target.value)
@@ -254,12 +261,12 @@ export default function ServicesPage() {
                 {/* District Filter */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium text-slate-600">
-                      District
+                    <span className="label-text font-bold text-slate-700 text-base">
+                      📍 District
                     </span>
                   </label>
                   <select
-                    className="select select-bordered w-full border-slate-300 bg-white text-slate-800 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-100"
+                    className="select select-bordered w-full border-2 border-slate-300 bg-white text-slate-800 font-semibold focus:border-purple-500 focus:outline-none focus:ring-4 focus:ring-purple-100 rounded-xl py-3"
                     value={filters.district}
                     onChange={(e) =>
                       handleFilterChange("district", e.target.value)
@@ -277,12 +284,12 @@ export default function ServicesPage() {
                 {/* Status Filter */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium text-slate-600">
-                      Status
+                    <span className="label-text font-bold text-slate-700 text-base">
+                      ⚡ Status
                     </span>
                   </label>
                   <select
-                    className="select select-bordered w-full border-slate-300 bg-white text-slate-800 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-100"
+                    className="select select-bordered w-full border-2 border-slate-300 bg-white text-slate-800 font-semibold focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-100 rounded-xl py-3"
                     value={filters.status}
                     onChange={(e) =>
                       handleFilterChange("status", e.target.value)
@@ -298,78 +305,81 @@ export default function ServicesPage() {
 
               {/* Active Filters */}
               {(filters.category || filters.district || filters.status) && (
-                <div className="mt-4 flex flex-wrap items-center gap-2 text-slate-600">
-                  <span className="text-sm font-semibold text-slate-700">
-                    Active Filters:
-                  </span>
-                  {filters.category && (
-                    <div className="badge badge-primary gap-2 text-white">
-                      {filters.category}
-                      <button
-                        onClick={() => handleFilterChange("category", "")}
-                        className="hover:text-error"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  )}
-                  {filters.district && (
-                    <div className="badge badge-secondary gap-2 text-white">
-                      {filters.district}
-                      <button
-                        onClick={() => handleFilterChange("district", "")}
-                        className="hover:text-error"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  )}
-                  {filters.status && (
-                    <div className="badge badge-accent gap-2 text-white">
-                      {filters.status}
-                      <button
-                        onClick={() => handleFilterChange("status", "")}
-                        className="hover:text-error"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  )}
-                  <button
-                    onClick={() =>
-                      setFilters({ category: "", district: "", status: "" })
-                    }
-                    className="text-sm font-semibold text-rose-600 hover:underline"
-                  >
-                    Clear All
-                  </button>
+                <div className="mt-6 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="text-base font-bold text-slate-700">
+                      🔍 Active Filters:
+                    </span>
+                    {filters.category && (
+                      <div className="badge bg-blue-600 text-white border-none gap-2 px-4 py-3 font-semibold">
+                        {filters.category}
+                        <button
+                          onClick={() => handleFilterChange("category", "")}
+                          className="hover:text-red-300 text-lg"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
+                    {filters.district && (
+                      <div className="badge bg-purple-600 text-white border-none gap-2 px-4 py-3 font-semibold">
+                        {filters.district}
+                        <button
+                          onClick={() => handleFilterChange("district", "")}
+                          className="hover:text-red-300 text-lg"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
+                    {filters.status && (
+                      <div className="badge bg-emerald-600 text-white border-none gap-2 px-4 py-3 font-semibold">
+                        {filters.status}
+                        <button
+                          onClick={() => handleFilterChange("status", "")}
+                          className="hover:text-red-300 text-lg"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
+                    <button
+                      onClick={() =>
+                        setFilters({ category: "", district: "", status: "" })
+                      }
+                      className="text-sm font-bold text-red-600 hover:text-red-700 hover:underline px-3 py-1 rounded-lg hover:bg-red-50 transition-all"
+                    >
+                      Clear All Filters
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
           </div>
 
           {/* Results Count */}
-          <div className="flex justify-between items-center mb-6">
-            <p className="text-slate-600">
+          <div className="flex justify-between items-center mb-8 bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+            <p className="text-slate-700 font-semibold text-lg">
               {loading
-                ? "Loading..."
-                : `Showing ${services.length} of ${pagination.total} services`}
+                ? "⏳ Loading services..."
+                : `📋 Showing ${services.length} of ${pagination.total} services`}
             </p>
           </div>
 
           {/* Loading State */}
           {loading && (
-            <div className="flex justify-center items-center py-20">
-              <span className="loading loading-spinner loading-lg text-primary"></span>
+            <div className="flex flex-col justify-center items-center py-24 bg-white rounded-2xl shadow-lg border border-slate-200">
+              <span className="loading loading-spinner loading-lg text-blue-600 mb-4"></span>
+              <p className="text-slate-600 font-semibold text-lg">Loading amazing services for you...</p>
             </div>
           )}
 
           {/* Error State */}
           {error && (
-            <div className="mb-6 flex flex-col gap-3 rounded-2xl border border-rose-200 bg-rose-50 px-5 py-4 text-rose-900 shadow-sm sm:flex-row sm:items-center">
-              <div className="flex items-center gap-3">
+            <div className="mb-8 flex flex-col gap-4 rounded-2xl border border-red-300 bg-red-50 px-6 py-6 text-red-900 shadow-md sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-start gap-3">
                 <svg
-                  className="h-6 w-6 text-rose-500"
+                  className="h-8 w-8 text-red-500 shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -381,13 +391,16 @@ export default function ServicesPage() {
                     d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                <span className="text-sm sm:text-base">{error}</span>
+                <div>
+                  <p className="font-bold text-lg mb-1">Oops! Something went wrong</p>
+                  <span className="text-base">{error}</span>
+                </div>
               </div>
               <button
                 onClick={fetchServices}
-                className="inline-flex w-full items-center justify-center rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-rose-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600 sm:w-auto"
+                className="inline-flex items-center justify-center rounded-full bg-red-600 px-6 py-3 text-base font-bold text-white shadow-md transition hover:bg-red-700 hover:shadow-lg"
               >
-                Retry
+                🔄 Retry
               </button>
             </div>
           )}
@@ -403,33 +416,21 @@ export default function ServicesPage() {
 
           {/* Empty State */}
           {!loading && !error && services.length === 0 && (
-            <div className="text-center py-20">
-              <svg
-                className="w-24 h-24 mx-auto text-slate-300 mb-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <h3 className="text-2xl font-bold text-slate-600 mb-2">
+            <div className="text-center py-24 bg-white rounded-2xl shadow-lg border border-slate-200">
+              <div className="text-8xl mb-6">😞</div>
+              <h3 className="text-3xl font-bold text-slate-700 mb-4">
                 No Services Found
               </h3>
-              <p className="text-slate-500 mb-4">
-                Try adjusting your filters to find more services
+              <p className="text-slate-600 mb-6 text-lg max-w-md mx-auto">
+                We couldn't find any services matching your criteria. Try adjusting your filters to discover more options.
               </p>
               <button
                 onClick={() =>
                   setFilters({ category: "", district: "", status: "" })
                 }
-                className="btn btn-primary"
+                className="btn bg-blue-600 hover:bg-blue-700 text-white border-none shadow-lg hover:shadow-xl px-8 py-3 text-lg font-bold rounded-full"
               >
-                Clear Filters
+                🔄 Clear All Filters
               </button>
             </div>
           )}

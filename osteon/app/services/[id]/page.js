@@ -56,10 +56,10 @@ export default function ServiceDetailPage() {
     return (
       <>
         <Navbar />
-        <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-slate-50 to-white">
-          <div className="text-center">
-            <span className="loading loading-spinner loading-lg text-primary mb-4"></span>
-            <p className="text-slate-600">Loading service details...</p>
+        <div className="min-h-screen flex items-center justify-center bg-slate-50">
+          <div className="text-center bg-white p-12 rounded-2xl shadow-xl border border-slate-200">
+            <span className="loading loading-spinner loading-lg text-blue-600 mb-6"></span>
+            <p className="text-slate-700 font-semibold text-xl">Loading service details...</p>
           </div>
         </div>
         <Footer />
@@ -71,38 +71,26 @@ export default function ServiceDetailPage() {
     return (
       <>
         <Navbar />
-        <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-slate-50 to-white">
-          <div className="card bg-base-100 shadow-xl max-w-md">
-            <div className="card-body items-center text-center">
-              <svg
-                className="w-16 h-16 text-error mb-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <h2 className="card-title text-2xl mb-2">
+        <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+          <div className="card bg-white shadow-2xl max-w-lg border border-red-200">
+            <div className="card-body items-center text-center p-10">
+              <div className="text-6xl mb-6">❌</div>
+              <h2 className="text-3xl font-bold text-slate-800 mb-3">
                 Error Loading Service
               </h2>
-              <p className="text-slate-600 mb-4">{error}</p>
-              <div className="card-actions">
+              <p className="text-slate-600 mb-8 text-lg">{error}</p>
+              <div className="card-actions flex-col sm:flex-row gap-4">
                 <button
                   onClick={() => router.push("/services")}
-                  className="btn btn-primary"
+                  className="btn bg-blue-600 hover:bg-blue-700 text-white border-none shadow-lg hover:shadow-xl px-8 py-3 font-bold rounded-full"
                 >
-                  Back to Services
+                  ← Back to Services
                 </button>
                 <button
                   onClick={fetchServiceDetail}
-                  className="btn btn-outline"
+                  className="btn bg-white hover:bg-slate-50 border-2 border-slate-300 text-slate-700 shadow-lg hover:shadow-xl px-8 py-3 font-bold rounded-full"
                 >
-                  Try Again
+                  🔄 Try Again
                 </button>
               </div>
             </div>
@@ -120,36 +108,38 @@ export default function ServiceDetailPage() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-linear-to-b from-slate-50 to-white">
+      <div className="min-h-screen bg-slate-50">
         {/* Breadcrumb */}
-        <div className="bg-white shadow-sm">
-          <div className="container mx-auto px-4 py-4">
+        <div className="bg-white shadow-md border-b border-slate-200">
+          <div className="container mx-auto px-4 py-5 max-w-6xl">
             <div className="text-sm breadcrumbs">
-              <ul>
+              <ul className="flex items-center gap-2">
                 <li>
-                  <Link href="/" className="text-primary hover:underline">
-                    Home
+                  <Link href="/" className="text-blue-600 hover:text-blue-700 font-semibold hover:underline flex items-center gap-1">
+                    🏠 Home
                   </Link>
                 </li>
+                <li className="text-slate-400">/</li>
                 <li>
                   <Link
                     href="/services"
-                    className="text-primary hover:underline"
+                    className="text-blue-600 hover:text-blue-700 font-semibold hover:underline flex items-center gap-1"
                   >
-                    Services
+                    🏥 Services
                   </Link>
                 </li>
-                <li className="text-slate-600">{service.name}</li>
+                <li className="text-slate-400">/</li>
+                <li className="text-slate-700 font-semibold">{service.name}</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="container mx-auto px-4 py-12">
-          <div className="max-w-4xl mx-auto">
+        <div className="container mx-auto px-4 py-12 max-w-6xl">
+          <div className="max-w-5xl mx-auto">
             {/* Main Card */}
-            <div className="card bg-base-100 shadow-2xl mb-8">
-              <div className="card-body">
+            <div className="card bg-white shadow-2xl mb-8 border border-slate-200 rounded-2xl">
+              <div className="card-body p-8 md:p-12">
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
                   <div>

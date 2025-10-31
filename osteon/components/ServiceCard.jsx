@@ -114,21 +114,21 @@ export default function ServiceCard({ service }) {
   };
 
   return (
-    <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-base-200 rounded-2xl">
-      <div className="card-body">
-        <div className="flex items-start justify-between mb-2">
-          <div className="flex items-center gap-3">
-            <div className="bg-primary/10 text-primary p-3 rounded-lg">
+    <div className="card bg-white shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-200 rounded-2xl overflow-hidden group">
+      <div className="card-body p-6">
+        <div className="flex items-start justify-between mb-4">
+          <div className="flex items-center gap-3 flex-1">
+            <div className="bg-blue-50 text-blue-600 p-3 rounded-xl group-hover:bg-blue-100 transition-colors">
               {getCategoryIcon(category)}
             </div>
-            <div>
-              <h3 className="card-title text-lg">{displayName}</h3>
-              <p className="text-sm text-slate-500">{category}</p>
+            <div className="flex-1 min-w-0">
+              <h3 className="card-title text-lg font-bold text-slate-800 mb-1 line-clamp-1">{displayName}</h3>
+              <p className="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full inline-block">{category}</p>
             </div>
           </div>
-          <div className="flex flex-col items-end gap-2">
+          <div className="flex flex-col items-end gap-2 ml-2">
             {distanceValue !== null && (
-              <span className="badge badge-outline gap-1">
+              <span className="badge badge-outline border-blue-300 text-blue-600 gap-1 font-semibold">
                 <svg
                   className="w-3.5 h-3.5"
                   fill="none"
@@ -139,13 +139,13 @@ export default function ServiceCard({ service }) {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M12 11c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
                   />
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M19.5 21l-7.5-9-7.5 9"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
                 {distanceValue < 1
@@ -154,24 +154,24 @@ export default function ServiceCard({ service }) {
               </span>
             )}
             {status && (
-              <div className={`badge ${getStatusBadge(status)} gap-1`}>
+              <div className={`badge ${getStatusBadge(status)} gap-1 font-semibold`}>
                 {status}
               </div>
             )}
           </div>
         </div>
 
-        <p className="text-slate-600 line-clamp-2 min-h-12">
+        <p className="text-slate-600 line-clamp-2 min-h-[3rem] leading-relaxed">
           {description || "No description available"}
         </p>
 
-        <div className="divider my-2"></div>
+        <div className="divider my-3"></div>
 
-        <div className="flex flex-col gap-2 text-sm">
+        <div className="flex flex-col gap-3 text-sm">
           {displayLocation && (
-            <div className="flex items-center gap-2 text-slate-600">
+            <div className="flex items-center gap-2 text-slate-700 bg-slate-50 px-3 py-2 rounded-lg">
               <svg
-                className="w-4 h-4 text-secondary"
+                className="w-5 h-5 text-purple-500 flex-shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -189,7 +189,7 @@ export default function ServiceCard({ service }) {
                   d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              <span>
+              <span className="font-medium">
                 {displayLocation.district ||
                   displayLocation.address?.split(",")[0] ||
                   "Location TBA"}
@@ -198,9 +198,9 @@ export default function ServiceCard({ service }) {
           )}
 
           {displayDate && (
-            <div className="flex items-center gap-2 text-slate-600">
+            <div className="flex items-center gap-2 text-slate-700 bg-slate-50 px-3 py-2 rounded-lg">
               <svg
-                className="w-4 h-4 text-accent"
+                className="w-5 h-5 text-emerald-500 flex-shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -212,7 +212,7 @@ export default function ServiceCard({ service }) {
                   d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                 />
               </svg>
-              <span>
+              <span className="font-medium">
                 {displayDate.start
                   ? new Date(displayDate.start).toLocaleDateString("en-US", {
                       month: "short",
@@ -225,11 +225,14 @@ export default function ServiceCard({ service }) {
           )}
         </div>
 
-        <div className="card-actions justify-end mt-4">
-          <Link href={`/services/${_id}`} className="btn btn-primary btn-sm">
+        <div className="card-actions justify-end mt-5">
+          <Link 
+            href={`/services/${_id}`} 
+            className="btn bg-blue-600 hover:bg-blue-700 text-white border-none shadow-md hover:shadow-lg transition-all px-6 rounded-full font-semibold group"
+          >
             View Details
             <svg
-              className="w-4 h-4"
+              className="w-4 h-4 group-hover:translate-x-1 transition-transform"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
