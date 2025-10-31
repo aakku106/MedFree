@@ -1,21 +1,21 @@
-'use client'
+"use client";
 
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
-import { useState } from 'react'
+import dynamic from "next/dynamic";
+import Link from "next/link";
+import { useState } from "react";
 
 // Lazy load Spline to prevent SSR issues
-const Spline = dynamic(() => import('@splinetool/react-spline'), {
+const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex items-center justify-center">
       <span className="loading loading-spinner loading-lg text-primary"></span>
     </div>
   ),
-})
+});
 
 export default function HomePage() {
-  const [splineLoaded, setSplineLoaded] = useState(false)
+  const [splineLoaded, setSplineLoaded] = useState(false);
 
   return (
     <div className="relative">
@@ -35,29 +35,30 @@ export default function HomePage() {
             <div className="badge badge-primary badge-lg mb-6 animate-pulse">
               Free Healthcare Information
             </div>
-            
+
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Discover{' '}
+              Discover{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-teal-600">
                 Free Medical Services
-              </span>{' '}
+              </span>{" "}
               in Nepal
             </h1>
-            
+
             <p className="text-xl md:text-2xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Stay informed about government-provided free checkups, medications, 
-              and health camps available in your area.
+              Stay informed about government-provided free checkups,
+              medications, and health camps available in your area.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/services" className="btn btn-primary btn-lg gap-2 shadow-lg hover:shadow-xl transition-all">
+              <Link
+                href="/services"
+                className="btn btn-primary btn-lg gap-2 shadow-lg hover:shadow-xl transition-all">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
+                  stroke="currentColor">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -67,7 +68,7 @@ export default function HomePage() {
                 </svg>
                 Explore Services
               </Link>
-              
+
               <Link href="/about" className="btn btn-outline btn-lg gap-2">
                 Learn More
                 <svg
@@ -75,8 +76,7 @@ export default function HomePage() {
                   className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
+                  stroke="currentColor">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -92,13 +92,17 @@ export default function HomePage() {
               <div className="stats shadow bg-white/80 backdrop-blur">
                 <div className="stat place-items-center">
                   <div className="stat-value text-primary">500+</div>
-                  <div className="stat-desc text-slate-600">Services Listed</div>
+                  <div className="stat-desc text-slate-600">
+                    Services Listed
+                  </div>
                 </div>
               </div>
               <div className="stats shadow bg-white/80 backdrop-blur">
                 <div className="stat place-items-center">
                   <div className="stat-value text-secondary">75+</div>
-                  <div className="stat-desc text-slate-600">Districts Covered</div>
+                  <div className="stat-desc text-slate-600">
+                    Districts Covered
+                  </div>
                 </div>
               </div>
               <div className="stats shadow bg-white/80 backdrop-blur">
@@ -126,8 +130,7 @@ export default function HomePage() {
             strokeLinejoin="round"
             strokeWidth="2"
             viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
+            stroke="currentColor">
             <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
           </svg>
         </div>
@@ -154,8 +157,7 @@ export default function HomePage() {
                     className="w-8 h-8 text-white"
                     fill="none"
                     stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                    viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -166,7 +168,8 @@ export default function HomePage() {
                 </div>
                 <h3 className="card-title text-2xl">Real-Time Updates</h3>
                 <p className="text-slate-600">
-                  Get instant notifications about new health camps and services in your area
+                  Get instant notifications about new health camps and services
+                  in your area
                 </p>
               </div>
             </div>
@@ -179,8 +182,7 @@ export default function HomePage() {
                     className="w-8 h-8 text-white"
                     fill="none"
                     stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                    viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -210,8 +212,7 @@ export default function HomePage() {
                     className="w-8 h-8 text-white"
                     fill="none"
                     stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                    viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -222,7 +223,8 @@ export default function HomePage() {
                 </div>
                 <h3 className="card-title text-2xl">Verified Information</h3>
                 <p className="text-slate-600">
-                  All services are verified and sourced from official government channels
+                  All services are verified and sourced from official government
+                  channels
                 </p>
               </div>
             </div>
@@ -237,13 +239,16 @@ export default function HomePage() {
             Ready to Access Free Healthcare?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-            Join thousands of Nepalis who have discovered free medical services through Osteon
+            Join thousands of Nepalis who have discovered free medical services
+            through Osteon
           </p>
-          <Link href="/services" className="btn btn-lg bg-white text-primary hover:bg-slate-100 border-none shadow-xl">
+          <Link
+            href="/services"
+            className="btn btn-lg bg-white text-primary hover:bg-slate-100 border-none shadow-xl">
             Get Started Now
           </Link>
         </div>
       </section>
     </div>
-  )
+  );
 }
