@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { UserButton, SignedIn, SignedOut, SignInButton } from '@clerk/nextjs'
-import { useState } from 'react'
+import Link from "next/link";
+import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import { useState } from "react";
 
 export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <nav className="navbar bg-base-100 shadow-md sticky top-0 z-50 px-4 lg:px-8">
@@ -15,15 +15,13 @@ export default function Navbar() {
             tabIndex={0}
             className="btn btn-ghost lg:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Menu"
-          >
+            aria-label="Menu">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+              stroke="currentColor">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -35,16 +33,21 @@ export default function Navbar() {
           {isMenuOpen && (
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-            >
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
               <li>
-                <Link href="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
+                <Link href="/" onClick={() => setIsMenuOpen(false)}>
+                  Home
+                </Link>
               </li>
               <li>
-                <Link href="/services" onClick={() => setIsMenuOpen(false)}>Services</Link>
+                <Link href="/services" onClick={() => setIsMenuOpen(false)}>
+                  Services
+                </Link>
               </li>
               <li>
-                <Link href="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
+                <Link href="/about" onClick={() => setIsMenuOpen(false)}>
+                  About
+                </Link>
               </li>
             </ul>
           )}
@@ -88,5 +91,5 @@ export default function Navbar() {
         </SignedIn>
       </div>
     </nav>
-  )
+  );
 }
