@@ -44,3 +44,5 @@ next-env.d.ts
 #ai_stuffs
 
 .copilot-instructions.md
+# clerk configuration (can include secrets)
+/.clerk/
