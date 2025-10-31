@@ -24,9 +24,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-      <html lang="en" data-theme="light">
+      <html lang="en" data-theme="light" suppressHydrationWarning>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          suppressHydrationWarning
         >
           <SmoothScroll />
           <main className="min-h-screen">{children}</main>
