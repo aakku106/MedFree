@@ -12,7 +12,15 @@ export default function ServiceCard({ service }) {
     date,
     description,
     status,
+    distanceKm,
   } = service;
+
+  const distanceValue =
+    typeof distanceKm === "number"
+      ? distanceKm
+      : typeof service.distance === "number"
+      ? service.distance
+      : null;
 
   const displayName = name || title;
   const displayLocation = location || serviceDetails?.location;
@@ -118,11 +126,39 @@ export default function ServiceCard({ service }) {
               <p className="text-sm text-slate-500">{category}</p>
             </div>
           </div>
-          {status && (
-            <div className={`badge ${getStatusBadge(status)} gap-1`}>
-              {status}
-            </div>
-          )}
+          <div className="flex flex-col items-end gap-2">
+            {distanceValue !== null && (
+              <span className="badge badge-outline gap-1">
+                <svg
+                  className="w-3.5 h-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 11c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19.5 21l-7.5-9-7.5 9"
+                  />
+                </svg>
+                {distanceValue < 1
+                  ? `${Math.round(distanceValue * 1000)} m`
+                  : `${distanceValue.toFixed(1)} km`}
+              </span>
+            )}
+            {status && (
+              <div className={`badge ${getStatusBadge(status)} gap-1`}>
+                {status}
+              </div>
+            )}
+          </div>
         </div>
 
         <p className="text-slate-600 line-clamp-2 min-h-12">

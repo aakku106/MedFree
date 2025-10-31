@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import ServiceCard from "@/components/ServiceCard";
 import Navbar from "@/components/Navbar";
@@ -10,6 +10,12 @@ export default function ServicesPage() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [locationState, setLocationState] = useState({
+    status: "idle",
+    coords: null,
+    message: "",
+  });
+  const [locationMeta, setLocationMeta] = useState(null);
   const [filters, setFilters] = useState({
     category: "",
     district: "",
@@ -22,11 +28,70 @@ export default function ServicesPage() {
     totalPages: 0,
   });
 
-  useEffect(() => {
-    fetchServices();
-  }, [filters, pagination.page]);
+  const requestLocation = useCallback(() => {
+    if (typeof window === "undefined" || !("geolocation" in navigator)) {
+      setLocationState({
+        status: "unsupported",
+        coords: null,
+        message: "Your browser does not support location detection.",
+      });
+      return;
+    }
 
-  const fetchServices = async () => {
+    setLocationState((prev) => ({
+      status: "pending",
+      coords: prev.coords,
+      message: "",
+    }));
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocationState({
+          status: "granted",
+          coords: {
+            latitude: Number(position.coords.latitude.toFixed(6)),
+            longitude: Number(position.coords.longitude.toFixed(6)),
+          },
+          message: "",
+        });
+      },
+      (geoError) => {
+        let message = "We could not access your location.";
+        const errorCode = geoError?.code;
+
+        if (errorCode === 1) {
+          message =
+            "Location access was denied. Showing national services instead.";
+        } else if (errorCode === 2) {
+          message =
+            "Location information is currently unavailable. Showing national services.";
+        } else if (errorCode === 3) {
+          message = "Location request timed out. You can retry if you wish.";
+        }
+
+        setLocationState({
+          status: "denied",
+          coords: null,
+          message,
+        });
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0,
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    requestLocation();
+  }, [requestLocation]);
+
+  const fetchServices = useCallback(async () => {
+    if (locationState.status === "pending" || locationState.status === "idle") {
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
@@ -40,6 +105,11 @@ export default function ServicesPage() {
       if (filters.district) params.append("district", filters.district);
       if (filters.status) params.append("status", filters.status);
 
+      if (locationState.status === "granted" && locationState.coords) {
+        params.append("lat", locationState.coords.latitude.toString());
+        params.append("lng", locationState.coords.longitude.toString());
+      }
+
       const response = await axios.get(`/api/services?${params}`);
 
       if (response.data.success) {
@@ -49,13 +119,23 @@ export default function ServicesPage() {
           total: response.data.pagination.total,
           totalPages: response.data.pagination.totalPages,
         }));
+        setLocationMeta(response.data.meta ?? null);
       }
     } catch (err) {
       setError(err.response?.data?.message || "Failed to load services");
+      setLocationMeta(null);
       console.error("Error fetching services:", err);
     } finally {
       setLoading(false);
     }
+  }, [filters, pagination.limit, pagination.page, locationState]);
+
+  useEffect(() => {
+    fetchServices();
+  }, [fetchServices]);
+
+  const handleLocationRetry = () => {
+    requestLocation();
   };
 
   const handleFilterChange = (key, value) => {
@@ -85,10 +165,52 @@ export default function ServicesPage() {
         </section>
 
         <div className="container mx-auto px-4 py-12">
+          {/* Location Status */}
+          {locationState.status === "pending" && (
+            <div className="mb-6 flex items-center gap-3 rounded-2xl border border-cyan-200 bg-cyan-50 px-5 py-4 text-cyan-900 shadow-sm">
+              <span className="loading loading-spinner loading-sm text-cyan-600"></span>
+              <span className="font-medium">
+                Detecting your location to find nearby services…
+              </span>
+            </div>
+          )}
+
+          {(locationState.status === "denied" ||
+            locationState.status === "unsupported") && (
+            <div className="mb-6 flex flex-col gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-amber-900 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+              <span className="text-sm sm:text-base">
+                {locationState.message ||
+                  "We couldn't use your location. Showing services across Nepal, sorted alphabetically."}
+              </span>
+              {locationState.status === "denied" && (
+                <button
+                  onClick={handleLocationRetry}
+                  className="inline-flex items-center justify-center rounded-full bg-amber-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-amber-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
+                >
+                  Retry location
+                </button>
+              )}
+            </div>
+          )}
+
+          {locationState.status === "granted" && locationMeta?.locationSort && (
+            <div className="mb-6 flex flex-col gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-emerald-900 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+              <span className="text-sm sm:text-base">
+                Showing services closest to you first.
+                {locationMeta?.totalWithCoordinates === 0 &&
+                  " Some listings do not include coordinates and appear after nearby results."}
+              </span>
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1 text-sm font-semibold text-emerald-700 shadow-inner">
+                {locationMeta?.totalWithCoordinates ?? 0} services with location
+                data
+              </span>
+            </div>
+          )}
+
           {/* Filters Section */}
-          <div className="card bg-base-100 shadow-xl mb-8 rounded-2xl border border-base-200">
+          <div className="card mb-8 rounded-2xl border border-slate-200 bg-white shadow-xl">
             <div className="card-body">
-              <h2 className="card-title mb-4">
+              <h2 className="card-title mb-4 text-slate-900">
                 <svg
                   className="w-6 h-6"
                   fill="none"
@@ -109,10 +231,12 @@ export default function ServicesPage() {
                 {/* Category Filter */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium">Category</span>
+                    <span className="label-text font-medium text-slate-600">
+                      Category
+                    </span>
                   </label>
                   <select
-                    className="select select-bordered w-full"
+                    className="select select-bordered w-full border-slate-300 bg-white text-slate-800 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-100"
                     value={filters.category}
                     onChange={(e) =>
                       handleFilterChange("category", e.target.value)
@@ -130,10 +254,12 @@ export default function ServicesPage() {
                 {/* District Filter */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium">District</span>
+                    <span className="label-text font-medium text-slate-600">
+                      District
+                    </span>
                   </label>
                   <select
-                    className="select select-bordered w-full"
+                    className="select select-bordered w-full border-slate-300 bg-white text-slate-800 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-100"
                     value={filters.district}
                     onChange={(e) =>
                       handleFilterChange("district", e.target.value)
@@ -151,10 +277,12 @@ export default function ServicesPage() {
                 {/* Status Filter */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium">Status</span>
+                    <span className="label-text font-medium text-slate-600">
+                      Status
+                    </span>
                   </label>
                   <select
-                    className="select select-bordered w-full"
+                    className="select select-bordered w-full border-slate-300 bg-white text-slate-800 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-100"
                     value={filters.status}
                     onChange={(e) =>
                       handleFilterChange("status", e.target.value)
@@ -170,10 +298,12 @@ export default function ServicesPage() {
 
               {/* Active Filters */}
               {(filters.category || filters.district || filters.status) && (
-                <div className="flex flex-wrap gap-2 mt-4">
-                  <span className="text-sm font-medium">Active Filters:</span>
+                <div className="mt-4 flex flex-wrap items-center gap-2 text-slate-600">
+                  <span className="text-sm font-semibold text-slate-700">
+                    Active Filters:
+                  </span>
                   {filters.category && (
-                    <div className="badge badge-primary gap-2">
+                    <div className="badge badge-primary gap-2 text-white">
                       {filters.category}
                       <button
                         onClick={() => handleFilterChange("category", "")}
@@ -184,7 +314,7 @@ export default function ServicesPage() {
                     </div>
                   )}
                   {filters.district && (
-                    <div className="badge badge-secondary gap-2">
+                    <div className="badge badge-secondary gap-2 text-white">
                       {filters.district}
                       <button
                         onClick={() => handleFilterChange("district", "")}
@@ -195,7 +325,7 @@ export default function ServicesPage() {
                     </div>
                   )}
                   {filters.status && (
-                    <div className="badge badge-accent gap-2">
+                    <div className="badge badge-accent gap-2 text-white">
                       {filters.status}
                       <button
                         onClick={() => handleFilterChange("status", "")}
@@ -209,7 +339,7 @@ export default function ServicesPage() {
                     onClick={() =>
                       setFilters({ category: "", district: "", status: "" })
                     }
-                    className="text-sm text-error hover:underline"
+                    className="text-sm font-semibold text-rose-600 hover:underline"
                   >
                     Clear All
                   </button>
@@ -236,22 +366,27 @@ export default function ServicesPage() {
 
           {/* Error State */}
           {error && (
-            <div className="alert alert-error shadow-lg">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            <div className="mb-6 flex flex-col gap-3 rounded-2xl border border-rose-200 bg-rose-50 px-5 py-4 text-rose-900 shadow-sm sm:flex-row sm:items-center">
+              <div className="flex items-center gap-3">
+                <svg
+                  className="h-6 w-6 text-rose-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span className="text-sm sm:text-base">{error}</span>
+              </div>
+              <button
+                onClick={fetchServices}
+                className="inline-flex w-full items-center justify-center rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-rose-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600 sm:w-auto"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span>{error}</span>
-              <button onClick={fetchServices} className="btn btn-sm">
                 Retry
               </button>
             </div>

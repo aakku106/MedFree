@@ -22,7 +22,7 @@ export default function LandingPage() {
         {/* Primary Action Button */}
         <Link
           href="/services"
-          className="btn btn-primary btn-lg gap-2 shadow-lg hover:shadow-xl transition-all text-lg px-8"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-600 px-8 py-3 text-lg font-semibold text-white shadow-lg transition-all duration-200 hover:bg-cyan-700 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
