@@ -193,7 +193,8 @@ export default function SettingsForm({ user }) {
           Preferred Categories
         </h2>
         <p className="text-sm text-gray-600 mb-4">
-          Select categories you&apos;re interested in to get relevant notifications
+          Select categories you&apos;re interested in to get relevant
+          notifications
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -333,7 +334,8 @@ export default function SettingsForm({ user }) {
               Notification Preferences
             </h3>
             <p className="text-sm text-gray-600 mb-3">
-              Manage your push notification settings and subscription preferences
+              Manage your push notification settings and subscription
+              preferences
             </p>
             <a
               href="/profile/notifications"
@@ -403,8 +405,8 @@ export default function SettingsForm({ user }) {
           Danger Zone
         </h2>
         <p className="text-sm text-red-700 mb-4">
-          Once you delete your account, there is no going back. Your registrations
-          and saved services will be permanently deleted.
+          Once you delete your account, there is no going back. Your
+          registrations and saved services will be permanently deleted.
         </p>
 
         {!showDeleteConfirm ? (
