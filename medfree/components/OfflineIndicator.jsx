@@ -7,14 +7,14 @@ export default function OfflineIndicator() {
 
   useEffect(() => {
     hasMounted.current = true;
-    
+
     // Check initial status
     const checkOnline = () => {
       if (hasMounted.current) {
         setIsOnline(navigator.onLine);
       }
     };
-    
+
     checkOnline();
 
     // Listen for online/offline events
