@@ -149,7 +149,7 @@ export default function SettingsForm({ userData }) {
             </label>
             <input
               type="text"
-              value={user?.fullName || user?.firstName || ""}
+              value={userData?.fullName || userData?.firstName || ""}
               disabled
               className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-600 cursor-not-allowed"
             />
@@ -164,7 +164,7 @@ export default function SettingsForm({ userData }) {
             </label>
             <input
               type="email"
-              value={user?.emailAddresses?.[0]?.emailAddress || ""}
+              value={userData?.email || ""}
               disabled
               className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-600 cursor-not-allowed"
             />
