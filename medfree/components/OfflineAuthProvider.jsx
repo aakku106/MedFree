@@ -25,7 +25,13 @@ export function OfflineAuthProvider({ children }) {
     if (clerkLoaded && clerkUser && navigator.onLine) {
       syncUserCache(clerkUser);
     }
-  }, [clerkUser, clerkLoaded]);
+    
+    // Clear cache when user signs out
+    if (clerkLoaded && !clerkUser && !isOffline) {
+      clearUserCache();
+      // offlineUser will be null naturally since getCachedUserData() returns null
+    }
+  }, [clerkUser, clerkLoaded, isOffline]);
 
   // Monitor online/offline status
   useEffect(() => {
