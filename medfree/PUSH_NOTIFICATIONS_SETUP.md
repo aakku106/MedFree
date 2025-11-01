@@ -2,10 +2,24 @@
 
 This guide explains how to set up and configure push notifications for MedFree.
 
+## Quick Start
+
+### Option 1: Use the Setup Script (Recommended)
+
+```bash
+cd medfree
+npm install web-push
+node scripts/generate-vapid-keys.js
+```
+
+This will generate VAPID keys and show you exactly what to add to your `.env` file.
+
+### Option 2: Manual Setup
+
 ## Prerequisites
 
 - Node.js installed
-- web-push package installed: `npm install web-push`
+- web-push package: `npm install web-push`
 
 ## Step 1: Generate VAPID Keys
 
@@ -16,9 +30,9 @@ cd medfree
 npx web-push generate-vapid-keys
 ```
 
-This will output something like:
+This will output:
 
-```
+```text
 =======================================
 Public Key:
 BEl62iUYgUivxIkv69yViEuiBIa-Ib27SErSH3tQKvI...
@@ -30,32 +44,39 @@ p6YVD7dXidko55jwmGMv4k_PLSVaW_HQtvjAfVe...
 
 ## Step 2: Add Keys to Environment Variables
 
-Add these keys to your `.env` or `.env.local` file:
+Add these keys to your `.env` file:
 
 ```env
 # Push Notifications (VAPID)
-NEXT_PUBLIC_VAPID_PUBLIC_KEY=your_public_key_here
-VAPID_PRIVATE_KEY=your_private_key_here
+NEXT_PUBLIC_VAPID_PUBLIC_KEY=BEl62iUYgUivxIkv69yViEuiBIa-Ib27SErSH3tQKvI...
+VAPID_PRIVATE_KEY=p6YVD7dXidko55jwmGMv4k_PLSVaW_HQtvjAfVe...
 VAPID_EMAIL=admin@medfree.com
 ```
 
 **Important:**
 
-- The public key must be prefixed with `NEXT_PUBLIC_` to be accessible in the browser
-- The private key should never be exposed to the client
+- The public key MUST be prefixed with `NEXT_PUBLIC_` (this makes it available to the browser)
+- The private key should NEVER be exposed to the client (no NEXT_PUBLIC_ prefix)
+- Replace with your ACTUAL keys from the output above (not the placeholder text)
+- The public key should be 88 characters long (base64 encoded P-256 key)
 - Replace the email with your actual contact email
 
-## Step 3: Test the Setup
+## Step 3: Restart Your Server
 
-1. Start the development server:
+**Critical:** You MUST restart your development server after adding environment variables:
 
-   ```bash
-   npm run dev
-   ```
+```bash
+# Stop the server (Ctrl+C)
+npm run dev
+```
+
+## Step 4: Test the Setup
+
+1. Open your browser to `http://localhost:3000`
 
 2. Sign in to the application
 
-3. Go to `/profile/notifications`
+3. Navigate to `/profile/notifications`
 
 4. Click "Enable Notifications"
 
