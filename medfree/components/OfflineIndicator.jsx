@@ -1,25 +1,34 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function OfflineIndicator() {
-  const [isOnline, setIsOnline] = useState(
-    typeof window !== "undefined" ? navigator.onLine : true
-  );
+  const [isOnline, setIsOnline] = useState(true);
+  const hasMounted = useRef(false);
 
   useEffect(() => {
-    // Listen for online/offline events
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
+    hasMounted.current = true;
 
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
+    // Check initial status
+    const checkOnline = () => {
+      if (hasMounted.current) {
+        setIsOnline(navigator.onLine);
+      }
+    };
+
+    checkOnline();
+
+    // Listen for online/offline events
+    window.addEventListener("online", checkOnline);
+    window.addEventListener("offline", checkOnline);
 
     return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
+      hasMounted.current = false;
+      window.removeEventListener("online", checkOnline);
+      window.removeEventListener("offline", checkOnline);
     };
   }, []);
 
+  // Don't render on server or when online
   if (isOnline) {
     return null;
   }

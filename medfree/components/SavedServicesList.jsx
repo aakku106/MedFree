@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import SaveButton from "./SaveButton";
-import { format, isPast } from "date-fns";
 
 export default function SavedServicesList() {
   const [services, setServices] = useState([]);
@@ -74,7 +73,14 @@ export default function SavedServicesList() {
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {services.map((service) => {
         const serviceDate = new Date(service.date);
-        const isExpired = isPast(serviceDate);
+        const isExpired = serviceDate < new Date();
+
+        // Format date as "MMM dd, yyyy"
+        const formattedDate = serviceDate.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
 
         return (
           <div
@@ -133,7 +139,8 @@ export default function SavedServicesList() {
                     />
                   </svg>
                   <span className="text-sm">
-                    {service.location.address}, {service.location.city}
+                    {service.address || service.city}
+                    {service.district && `, ${service.district}`}
                   </span>
                 </div>
 
@@ -152,13 +159,18 @@ export default function SavedServicesList() {
                     />
                   </svg>
                   <span className="text-sm">
-                    {format(serviceDate, "MMM dd, yyyy")} •{" "}
-                    {service.schedule.timeStart} - {service.schedule.timeEnd}
+                    {formattedDate}
+                    {service.timeStart && service.timeEnd && (
+                      <>
+                        {" "}
+                        • {service.timeStart} - {service.timeEnd}
+                      </>
+                    )}
                   </span>
                 </div>
 
                 {/* Capacity */}
-                {service.schedule.capacity && (
+                {service.capacity && (
                   <div className="flex items-center gap-2 text-gray-600">
                     <svg
                       className="w-5 h-5 flex-shrink-0"
@@ -174,7 +186,7 @@ export default function SavedServicesList() {
                     </svg>
                     <span className="text-sm">
                       Capacity: {service.registeredCount || 0}/
-                      {service.schedule.capacity}
+                      {service.capacity}
                     </span>
                   </div>
                 )}

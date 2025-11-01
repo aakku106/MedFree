@@ -1,30 +1,173 @@
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
-import Link from "next/link";
-import {
-  Calendar,
-  Heart,
-  Bell,
-  Settings,
-  Database,
-  User,
-  ChevronRight,
-  Activity,
-} from "lucide-react";
-import Navbar from "@/components/Navbar";
+"use client";
 
-export default async function ProfilePage() {
-  const user = await currentUser();
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import Navbar from "@/components/Navbar";
+import { useOfflineAuth } from "@/components/OfflineAuthProvider";
+import { useUser } from "@clerk/nextjs";
+
+// Icon Components
+const CalendarIcon = ({ className }) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+    />
+  </svg>
+);
+
+const HeartIcon = ({ className }) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+    />
+  </svg>
+);
+
+const BellIcon = ({ className }) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+    />
+  </svg>
+);
+
+const DatabaseIcon = ({ className }) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
+    />
+  </svg>
+);
+
+const SettingsIcon = ({ className }) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+    />
+  </svg>
+);
+
+const UserIcon = ({ className }) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+    />
+  </svg>
+);
+
+const ActivityIcon = ({ className }) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+    />
+  </svg>
+);
+
+const ChevronRightIcon = ({ className }) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9 5l7 7-7 7"
+    />
+  </svg>
+);
+
+export default function ProfilePage() {
+  const router = useRouter();
+  const { user, isLoaded, isSignedIn, isOffline } = useOfflineAuth();
+
+  useEffect(() => {
+    if (isLoaded && !isSignedIn && !isOffline) {
+      router.push("/sign-in");
+    }
+  }, [isLoaded, isSignedIn, isOffline, router]);
+
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <div className="flex items-center justify-center h-screen">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!user) {
-    redirect("/sign-in");
+    return null; // Will redirect
   }
 
   const profileSections = [
     {
       title: "My Registrations",
       description: "View your registered services and QR codes",
-      icon: Calendar,
+      icon: CalendarIcon,
       href: "/profile/registrations",
       color: "bg-blue-50 text-blue-600 border-blue-200",
       hoverColor: "hover:bg-blue-100",
@@ -32,7 +175,7 @@ export default async function ProfilePage() {
     {
       title: "Saved Services",
       description: "Services you&apos;ve bookmarked for later",
-      icon: Heart,
+      icon: HeartIcon,
       href: "/profile/saved",
       color: "bg-red-50 text-red-600 border-red-200",
       hoverColor: "hover:bg-red-100",
@@ -40,7 +183,7 @@ export default async function ProfilePage() {
     {
       title: "Notifications",
       description: "Manage your notification preferences",
-      icon: Bell,
+      icon: BellIcon,
       href: "/profile/notifications",
       color: "bg-purple-50 text-purple-600 border-purple-200",
       hoverColor: "hover:bg-purple-100",
@@ -48,7 +191,7 @@ export default async function ProfilePage() {
     {
       title: "Offline Cache",
       description: "Services cached for offline access",
-      icon: Database,
+      icon: DatabaseIcon,
       href: "/profile/cached",
       color: "bg-emerald-50 text-emerald-600 border-emerald-200",
       hoverColor: "hover:bg-emerald-100",
@@ -56,7 +199,7 @@ export default async function ProfilePage() {
     {
       title: "Settings",
       description: "Update preferences and account settings",
-      icon: Settings,
+      icon: SettingsIcon,
       href: "/profile/settings",
       color: "bg-gray-50 text-gray-600 border-gray-200",
       hoverColor: "hover:bg-gray-100",
@@ -68,24 +211,71 @@ export default async function ProfilePage() {
       <Navbar />
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Offline Warning */}
+          {isOffline && (
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+              <div className="flex items-start gap-3">
+                <svg
+                  className="h-5 w-5 text-yellow-600 mt-0.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
+                </svg>
+                <div>
+                  <h3 className="text-sm font-medium text-yellow-800">
+                    Offline Mode
+                  </h3>
+                  <p className="text-sm text-yellow-700 mt-1">
+                    You&apos;re viewing cached profile data. Some features may
+                    be limited until you reconnect.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Header */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
             <div className="flex items-center gap-4 mb-4">
-              <div className="h-16 w-16 bg-emerald-600 rounded-full flex items-center justify-center">
-                <User className="h-8 w-8 text-white" />
+              <div className="h-16 w-16 bg-emerald-600 rounded-full flex items-center justify-center overflow-hidden">
+                {user.imageUrl ? (
+                  <Image
+                    src={user.imageUrl}
+                    alt={user.fullName || user.firstName || "User"}
+                    width={64}
+                    height={64}
+                    className="h-16 w-16 rounded-full object-cover"
+                  />
+                ) : (
+                  <UserIcon className="h-8 w-8 text-white" />
+                )}
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">
-                  {user.fullName || user.firstName || "Welcome"}
+                  {user.fullName ||
+                    user.firstName ||
+                    user.lastName ||
+                    "Welcome"}
                 </h1>
                 <p className="text-gray-600">
-                  {user.emailAddresses?.[0]?.emailAddress}
+                  {user.emailAddresses?.[0]?.emailAddress || user.email}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Activity className="h-4 w-4 text-emerald-600" />
+              <ActivityIcon className="h-4 w-4 text-emerald-600" />
               <span>Manage your healthcare services and preferences</span>
+              {isOffline && (
+                <span className="ml-auto text-yellow-600 font-medium">
+                  • Offline
+                </span>
+              )}
             </div>
           </div>
 
@@ -112,7 +302,7 @@ export default async function ProfilePage() {
                         </p>
                       </div>
                     </div>
-                    <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-emerald-600 transition-colors shrink-0 mt-1" />
+                    <ChevronRightIcon className="h-5 w-5 text-gray-400 group-hover:text-emerald-600 transition-colors shrink-0 mt-1" />
                   </div>
                 </Link>
               );
