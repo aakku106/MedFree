@@ -2,6 +2,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import PWAProvider from "@/components/PWAProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,6 +15,19 @@ export const metadata = {
     "Easily find and access free medical services, checkups, and health camps provided by the government near you.",
   keywords:
     "free medical services, government health camps, Nepal healthcare, free checkups",
+  manifest: "/manifest.json",
+  themeColor: "#059669",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "MedFree",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -21,8 +35,10 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <body className={`${inter.variable} font-sans antialiased`}>
-          <SmoothScroll />
-          {children}
+          <PWAProvider>
+            <SmoothScroll />
+            {children}
+          </PWAProvider>
         </body>
       </html>
     </ClerkProvider>
