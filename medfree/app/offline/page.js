@@ -133,11 +133,11 @@ export default function OfflinePage() {
             Try Again
           </button>
 
-          <a
+          <Link
             href="/"
             className="block w-full px-6 py-3 bg-white text-gray-700 font-semibold rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors">
             Go to Home
-          </a>
+          </Link>
         </div>
 
         {/* Network Status Indicator */}
