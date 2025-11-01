@@ -2,6 +2,7 @@
 "use client";
 import Link from "next/link";
 import { formatDistance } from "@/lib/utils";
+import SaveButton from "./SaveButton";
 
 export default function ServiceCard({ service, userLocation = null }) {
   const formattedDate = new Date(service.date).toLocaleDateString("en-US", {
@@ -121,7 +122,7 @@ export default function ServiceCard({ service, userLocation = null }) {
             />
           </svg>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
