@@ -498,10 +498,6 @@ export default function RegisterButton({ service }) {
                     )}
                   </button>
                 </div>
-                    className="flex-1 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium disabled:opacity-50">
-                    {loading ? "Registering..." : "Confirm Registration"}
-                  </button>
-                </div>
               </form>
             </div>
           </div>
