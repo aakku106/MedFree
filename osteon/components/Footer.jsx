@@ -2,12 +2,16 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
+    // Footer Wrapper with background gradient and top border
     <footer className="bg-gradient-to-br from-slate-50 to-slate-100 border-t border-slate-200 mt-20">
       <div className="max-w-7xl mx-auto px-6 py-12">
+
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+
           {/* Brand Section */}
           <div className="lg:col-span-2">
+            {/* Logo and Brand Name */}
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-gradient-to-br from-blue-500 to-purple-600 p-2 rounded-xl shadow-md">
                 <svg
@@ -18,13 +22,16 @@ export default function Footer() {
                   <path d="M19.5 3.09L15 5.5l3 1.4V11l-3-1.4v5.5l1.47-.69a.42.42 0 0 0 .22-.37V9.32l1.79.84A.47.47 0 0 0 19 10a.5.5 0 0 0 .5-.5zm-4 7.81v-3.5L12 5.5v5.5zM20 12.5L14 15v-5.5l6-2.5zM12 12.5L6 15V9.5l6-2.5zM4 14.5v-5l6-2.5v5.5z" />
                 </svg>
               </div>
+              {/* Brand Name with gradient text */}
               <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Osteon
               </span>
             </div>
+            {/* Tagline */}
             <p className="text-lg font-semibold text-slate-800 mb-3">
               Bridging the gap in healthcare awareness
             </p>
+            {/* Short Description */}
             <p className="text-slate-600 leading-relaxed max-w-md">
               Providing real-time information about free government medical
               services, health camps, and medications across Nepal. Making
@@ -32,7 +39,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links Section */}
           <div>
             <h3 className="text-lg font-bold text-slate-800 mb-4">
               Quick Links
@@ -65,7 +72,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Legal */}
+          {/* Legal Section */}
           <div>
             <h3 className="text-lg font-bold text-slate-800 mb-4">Legal</h3>
             <ul className="space-y-3">
@@ -89,18 +96,20 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
+        {/* Divider Line */}
         <div className="border-t border-slate-300 my-8"></div>
 
-        {/* Bottom Section */}
+        {/* Bottom Footer Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          {/* Copyright */}
           <p className="text-slate-600 text-sm">
             © {new Date().getFullYear()} Osteon. All rights reserved. Made with
             ❤️ for Nepal.
           </p>
 
-          {/* Social Links */}
+          {/* Social Media Links */}
           <div className="flex items-center gap-4">
+            {/* Twitter */}
             <a
               href="https://twitter.com"
               target="_blank"
@@ -118,6 +127,8 @@ export default function Footer() {
                 <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
               </svg>
             </a>
+
+            {/* Facebook */}
             <a
               href="https://facebook.com"
               target="_blank"
@@ -135,6 +146,8 @@ export default function Footer() {
                 <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
               </svg>
             </a>
+
+            {/* GitHub */}
             <a
               href="https://github.com"
               target="_blank"
