@@ -1,16 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import {
-  Calendar,
-  Heart,
-  Bell,
-  Settings,
-  Database,
-  User,
-  ChevronRight,
-  Activity,
-} from "lucide-react";
 import Navbar from "@/components/Navbar";
 
 export default async function ProfilePage() {
