@@ -51,7 +51,7 @@ export default function Home() {
   }, [splineError]);
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
+    <div className="fixed inset-0 flex items-center justify-center overflow-hidden">
       {/* Spline 3D Background - interactive */}
       <div className="absolute inset-0 z-0 pointer-events-auto">
         {splineScene}
@@ -61,17 +61,17 @@ export default function Home() {
       <div className="absolute inset-0 z-5 bg-gradient-to-b from-white/30 via-transparent to-white/30 pointer-events-none"></div>
 
       {/* Content Overlay - allow clicks to pass through to Spline */}
-      <main className="relative z-10 max-w-4xl mx-auto text-center space-y-8 py-20 pointer-events-none">
+      <main className="relative z-10 w-full max-w-4xl mx-auto px-4 text-center space-y-6 pointer-events-none">
         {/* Hero Headline - text with glow background */}
         <div className="space-y-4">
-          <div className="inline-block bg-white/70 backdrop-blur-md px-8 py-6 rounded-3xl shadow-xl">
-            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight">
+          <div className="inline-block bg-white/70 px-8 py-6 rounded-3xl shadow-xl">
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
               Free Medical Care
               <span className="block text-emerald-600">For Everyone</span>
             </h1>
           </div>
-          <div className="inline-block bg-white/60 backdrop-blur-md px-6 py-4 rounded-2xl shadow-lg max-w-3xl">
-            <p className="text-xl md:text-2xl text-gray-800 font-medium leading-relaxed">
+          <div className="inline-block bg-white/60 px-6 py-4 rounded-2xl shadow-lg max-w-3xl">
+            <p className="text-lg md:text-xl text-gray-800 font-medium leading-relaxed">
               Easily find and access free medical services, checkups, and health
               camps provided by the government near you.
             </p>
@@ -79,11 +79,11 @@ export default function Home() {
         </div>
 
         {/* Features Grid - cards with subtle backgrounds */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto py-8">
-          <div className="flex flex-col items-center space-y-2 bg-white/70 backdrop-blur-md rounded-2xl p-6 shadow-lg hover:bg-white/80 transition-all">
-            <div className="w-14 h-14 bg-emerald-100 rounded-full flex items-center justify-center shadow-md">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+          <div className="flex flex-col items-center space-y-2 bg-white/70 rounded-2xl p-4 shadow-lg hover:bg-white/80 transition-all">
+            <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center shadow-md">
               <svg
-                className="w-7 h-7 text-emerald-600"
+                className="w-6 h-6 text-emerald-600"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -106,10 +106,10 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex flex-col items-center space-y-2 bg-white/70 backdrop-blur-md rounded-2xl p-6 shadow-lg hover:bg-white/80 transition-all">
-            <div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center shadow-md">
+          <div className="flex flex-col items-center space-y-2 bg-white/70 rounded-2xl p-4 shadow-lg hover:bg-white/80 transition-all">
+            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center shadow-md">
               <svg
-                className="w-7 h-7 text-blue-600"
+                className="w-6 h-6 text-blue-600"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -126,10 +126,10 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex flex-col items-center space-y-2 bg-white/70 backdrop-blur-md rounded-2xl p-6 shadow-lg hover:bg-white/80 transition-all">
-            <div className="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center shadow-md">
+          <div className="flex flex-col items-center space-y-2 bg-white/70 rounded-2xl p-4 shadow-lg hover:bg-white/80 transition-all">
+            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center shadow-md">
               <svg
-                className="w-7 h-7 text-purple-600"
+                className="w-6 h-6 text-purple-600"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -148,7 +148,7 @@ export default function Home() {
         </div>
 
         {/* CTA Button - enable clicks with strong presence */}
-        <div className="pt-8 pointer-events-auto">
+        <div className="pointer-events-auto">
           <button
             onClick={() => router.push("/services")}
             className="group relative inline-flex items-center justify-center px-10 py-5 text-lg font-bold text-white bg-emerald-600 rounded-full hover:bg-emerald-700 transition-all duration-300 shadow-2xl hover:shadow-emerald-500/50 hover:scale-110 ring-2 ring-white ring-offset-4 ring-offset-white/50">
@@ -169,8 +169,8 @@ export default function Home() {
         </div>
 
         {/* Trust Badge - subtle pill */}
-        <div className="pt-12">
-          <div className="inline-block bg-white/80 backdrop-blur-md px-6 py-3 rounded-full shadow-lg">
+        <div>
+          <div className="inline-block bg-white/80 px-6 py-3 rounded-full shadow-lg">
             <p className="text-sm text-gray-800 font-medium flex items-center gap-2">
               <svg
                 className="w-4 h-4 text-emerald-600"
