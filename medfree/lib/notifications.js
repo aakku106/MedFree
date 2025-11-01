@@ -220,16 +220,32 @@ export async function getNotificationPreferences() {
  * Convert base64 VAPID key to Uint8Array
  */
 function urlBase64ToUint8Array(base64String) {
-  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-  const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+  try {
+    // Remove any whitespace
+    const cleaned = base64String.trim();
+    
+    // Add padding if needed
+    const padding = "=".repeat((4 - (cleaned.length % 4)) % 4);
+    const base64 = (cleaned + padding).replace(/-/g, "+").replace(/_/g, "/");
 
-  const rawData = window.atob(base64);
-  const outputArray = new Uint8Array(rawData.length);
+    // Decode base64
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
 
-  for (let i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    
+    // Verify it's the right length for P-256 key (65 bytes uncompressed)
+    if (outputArray.length !== 65) {
+      console.warn(`VAPID key length is ${outputArray.length} bytes, expected 65 for P-256 key`);
+    }
+    
+    return outputArray;
+  } catch (error) {
+    console.error("Error converting VAPID key:", error);
+    throw new Error("Invalid VAPID public key format. Make sure it's a valid base64 string.");
   }
-  return outputArray;
 }
 
 /**
