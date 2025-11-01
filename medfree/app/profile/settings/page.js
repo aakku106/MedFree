@@ -1,28 +1,46 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import SettingsForm from "@/components/SettingsForm";
+import { useOfflineAuth } from "@/components/OfflineAuthProvider";
 
-export const metadata = {
-  title: "Settings - MedFree",
-  description: "Manage your account settings and preferences",
-};
+export default function SettingsPage() {
+  const router = useRouter();
+  const { user, isLoaded, isSignedIn, isOffline } = useOfflineAuth();
 
-export default async function SettingsPage() {
-  const { userId } = await auth();
-  const user = await currentUser();
+  useEffect(() => {
+    if (isLoaded && !isSignedIn && !isOffline) {
+      router.push("/sign-in");
+    }
+  }, [isLoaded, isSignedIn, isOffline, router]);
 
-  if (!userId) {
-    redirect("/sign-in");
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <div className="flex items-center justify-center h-screen">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
-  // Serialize user data to plain object for Client Component
+  if (!user) {
+    return null; // Will redirect
+  }
+
+  // User data for settings form
   const userData = {
     fullName: user?.fullName || null,
     firstName: user?.firstName || null,
     lastName: user?.lastName || null,
-    email: user?.emailAddresses?.[0]?.emailAddress || null,
+    email: user?.emailAddresses?.[0]?.emailAddress || user?.email || null,
   };
 
   return (
@@ -55,8 +73,36 @@ export default async function SettingsPage() {
             </p>
           </div>
 
+          {/* Offline Warning */}
+          {isOffline && (
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+              <div className="flex items-start gap-3">
+                <svg
+                  className="h-5 w-5 text-yellow-600 mt-0.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
+                </svg>
+                <div>
+                  <h3 className="text-sm font-medium text-yellow-800">
+                    Offline Mode
+                  </h3>
+                  <p className="text-sm text-yellow-700 mt-1">
+                    Account settings require an internet connection to update. Please reconnect to make changes.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Settings Form */}
-          <SettingsForm userData={userData} />
+          <SettingsForm userData={userData} isOffline={isOffline} />
         </div>
       </div>
     </>
