@@ -229,7 +229,7 @@ export default async function ProfilePage() {
                         </p>
                       </div>
                     </div>
-                    <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-emerald-600 transition-colors shrink-0 mt-1" />
+                    <ChevronRightIcon className="h-5 w-5 text-gray-400 group-hover:text-emerald-600 transition-colors shrink-0 mt-1" />
                   </div>
                 </Link>
               );
