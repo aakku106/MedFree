@@ -25,7 +25,7 @@ export function OfflineAuthProvider({ children }) {
     if (clerkLoaded && clerkUser && navigator.onLine) {
       syncUserCache(clerkUser);
     }
-    
+
     // Clear cache when user signs out
     if (clerkLoaded && !clerkUser && !isOffline) {
       clearUserCache();

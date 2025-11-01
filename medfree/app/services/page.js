@@ -244,7 +244,7 @@ export default function ServicesPage() {
         // Check if user is offline and we have cached data
         if (err.message === "OFFLINE" || !navigator.onLine) {
           console.log("📡 Device is offline, loading from cache...");
-          
+
           try {
             const cached = localStorage.getItem(CACHE_KEY);
             if (cached) {
