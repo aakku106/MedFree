@@ -55,7 +55,7 @@ export default function PWAInstallBanner() {
   return (
     <div
       id="pwa-install-banner"
-      className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white shadow-2xl transform transition-transform duration-500 ease-out">
+      className="fixed bottom-0 left-0 right-0 z-50 bg-linear-to-r from-emerald-600 to-emerald-700 text-white shadow-2xl transform transition-transform duration-500 ease-out">
       <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between flex-wrap gap-4">
           {/* Icon & Message */}
@@ -75,9 +75,7 @@ export default function PWAInstallBanner() {
               </svg>
             </div>
             <div>
-              <h3 className="text-lg font-bold mb-1">
-                Install MedFree App
-              </h3>
+              <h3 className="text-lg font-bold mb-1">Install MedFree App</h3>
               <p className="text-sm text-emerald-100">
                 Get quick access to free healthcare services. Works offline!
               </p>
