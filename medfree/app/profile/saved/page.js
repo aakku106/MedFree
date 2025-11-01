@@ -1,6 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import Navbar from "@/components/Navbar";
 import SavedServicesList from "@/components/SavedServicesList";
 
 export const metadata = {
@@ -16,37 +18,28 @@ export default async function SavedServicesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="mb-8">
             <Link
               href="/profile"
-              className="text-gray-600 hover:text-gray-900 transition-colors">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
+              className="inline-flex items-center text-emerald-600 hover:text-emerald-700 mb-4">
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Profile
             </Link>
             <h1 className="text-3xl font-bold text-gray-900">Saved Services</h1>
+            <p className="text-gray-600 mt-2">
+              Services you&apos;ve bookmarked for later review
+            </p>
           </div>
-          <p className="text-gray-600">
-            Services you&apos;ve bookmarked for later review
-          </p>
-        </div>
 
-        {/* Saved Services List */}
-        <SavedServicesList />
+          {/* Saved Services List */}
+          <SavedServicesList />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

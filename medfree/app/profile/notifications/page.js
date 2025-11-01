@@ -1,5 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import Navbar from "@/components/Navbar";
 import NotificationManager from "@/components/NotificationManager";
 import NotificationPreferences from "@/components/NotificationPreferences";
 import VapidSetupGuide from "@/components/VapidSetupGuide";
@@ -17,29 +20,38 @@ export default async function NotificationsPage() {
     process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY !== "your_public_key";
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">
-            Notification Settings
-          </h1>
-          <p className="mt-2 text-gray-600">
-            Manage how you receive updates about your services
-          </p>
-        </div>
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 py-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="mb-8">
+            <Link
+              href="/profile"
+              className="inline-flex items-center text-emerald-600 hover:text-emerald-700 mb-4">
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Profile
+            </Link>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Notification Settings
+            </h1>
+            <p className="mt-2 text-gray-600">
+              Manage how you receive updates about your services
+            </p>
+          </div>
 
-        <div className="space-y-6">
-          {/* Setup Guide (only show if not configured) */}
-          {!vapidConfigured && <VapidSetupGuide />}
+          <div className="space-y-6">
+            {/* Setup Guide (only show if not configured) */}
+            {!vapidConfigured && <VapidSetupGuide />}
 
-          {/* Enable/Disable Notifications */}
-          <NotificationManager />
+            {/* Enable/Disable Notifications */}
+            <NotificationManager />
 
-          {/* Notification Preferences */}
-          <NotificationPreferences />
+            {/* Notification Preferences */}
+            <NotificationPreferences />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

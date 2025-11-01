@@ -1,8 +1,9 @@
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
-import Link from "next/link";
-import { ArrowLeft, Database } from "lucide-react";
-import CachedServicesViewer from "@/components/CachedServicesViewer";
+import { currentUser } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
+import Link from 'next/link';
+import { ArrowLeft, Database } from 'lucide-react';
+import Navbar from '@/components/Navbar';
+import CachedServicesViewer from '@/components/CachedServicesViewer';
 
 export default async function CachedServicesPage() {
   const user = await currentUser();
@@ -12,7 +13,9 @@ export default async function CachedServicesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -68,7 +71,8 @@ export default async function CachedServicesPage() {
 
         {/* Cached Services List */}
         <CachedServicesViewer />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

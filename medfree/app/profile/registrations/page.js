@@ -1,6 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import Navbar from "@/components/Navbar";
 import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 import RegistrationCard from "@/components/RegistrationCard";
@@ -53,15 +55,23 @@ export default async function UserRegistrationsPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">My Registrations</h1>
-          <p className="mt-2 text-gray-600">
-            View and manage your healthcare service registrations
-          </p>
-        </div>
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="mb-8">
+            <Link
+              href="/profile"
+              className="inline-flex items-center text-emerald-600 hover:text-emerald-700 mb-4">
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Profile
+            </Link>
+            <h1 className="text-3xl font-bold text-gray-900">My Registrations</h1>
+            <p className="mt-2 text-gray-600">
+              View and manage your healthcare service registrations
+            </p>
+          </div>
 
         {/* Upcoming Registrations */}
         <section className="mb-12">
@@ -187,7 +197,8 @@ export default async function UserRegistrationsPage() {
             </div>
           </section>
         )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
