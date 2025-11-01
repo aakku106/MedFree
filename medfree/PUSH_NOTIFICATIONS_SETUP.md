@@ -56,7 +56,7 @@ VAPID_EMAIL=admin@medfree.com
 **Important:**
 
 - The public key MUST be prefixed with `NEXT_PUBLIC_` (this makes it available to the browser)
-- The private key should NEVER be exposed to the client (no NEXT_PUBLIC_ prefix)
+- The private key should NEVER be exposed to the client (no NEXT*PUBLIC* prefix)
 - Replace with your ACTUAL keys from the output above (not the placeholder text)
 - The public key should be 88 characters long (base64 encoded P-256 key)
 - Replace the email with your actual contact email
@@ -167,13 +167,47 @@ Push notifications are supported in:
 
 ## Troubleshooting
 
-### "VAPID keys not configured" error
+### ❌ "InvalidAccessError: applicationServerKey must contain a valid P-256 public key"
 
-- Make sure you've generated VAPID keys
-- Check that keys are added to `.env` or `.env.local`
-- Restart the development server after adding keys
+This error means the VAPID public key is invalid or not properly formatted.
 
-### Notifications not appearing
+**Solutions:**
+
+1. **Generate Real Keys:** The placeholder values won't work. Run:
+   ```bash
+   npx web-push generate-vapid-keys
+   ```
+
+2. **Copy the FULL key:** Make sure you copied the entire base64 string (88 characters)
+   - ✅ Correct: `BEl62iUYgUivxIkv69yViEuiBIa-Ib27SErSH3tQKvI_and_80_more_characters...`
+   - ❌ Wrong: `your_public_key` or truncated key
+
+3. **Check your .env file:**
+   ```env
+   # Make sure it looks like this (with REAL keys, not placeholders):
+   NEXT_PUBLIC_VAPID_PUBLIC_KEY=BEl62iUYgUivxIkv69yViEuiBIa...
+   ```
+
+4. **Restart the server:** Environment variables are only loaded at startup
+   ```bash
+   # Stop (Ctrl+C) and restart:
+   npm run dev
+   ```
+
+5. **Verify the key is loading:** Add this to check in browser console:
+   ```javascript
+   console.log('VAPID Key:', process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY);
+   // Should show the full key, not "your_public_key"
+   ```
+
+### ❌ "VAPID keys not configured" error
+
+- Make sure you've generated VAPID keys using `npx web-push generate-vapid-keys`
+- Check that keys are added to `.env` (not `.env.example`)
+- Verify the key has `NEXT_PUBLIC_` prefix for the public key
+- **Restart the development server** after adding keys
+
+### ❌ Notifications not appearing
 
 - Check browser notification permissions (should be "Allow")
 - Verify service worker is registered (check DevTools > Application > Service Workers)
