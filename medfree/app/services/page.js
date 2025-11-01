@@ -166,10 +166,17 @@ export default function ServicesPage() {
           params.append("lon", userLocation.longitude.toString());
         }
 
+        let data;
+
+        // Check if we're offline first
+        if (!navigator.onLine) {
+          throw new Error("OFFLINE");
+        }
+
         const response = await fetch(`/api/services?${params.toString()}`);
         if (!response.ok) throw new Error("Failed to fetch services");
 
-        const data = await response.json();
+        data = await response.json();
 
         if (reset) {
           setServices(data.services);
@@ -235,7 +242,61 @@ export default function ServicesPage() {
         }
       } catch (err) {
         console.error("Error fetching services:", err);
-        setError("Failed to load services. Please try again.");
+
+        // Check if user is offline and we have cached data
+        if (err.message === "OFFLINE" || !navigator.onLine) {
+          try {
+            const cached = localStorage.getItem(CACHE_KEY);
+            if (cached) {
+              const { data: cachedData } = JSON.parse(cached);
+
+              // Apply filters to cached data if any are active
+              let filteredServices = cachedData.services || [];
+
+              if (searchQuery) {
+                filteredServices = filteredServices.filter(
+                  (s) =>
+                    s.title
+                      ?.toLowerCase()
+                      .includes(searchQuery.toLowerCase()) ||
+                    s.description
+                      ?.toLowerCase()
+                      .includes(searchQuery.toLowerCase())
+                );
+              }
+
+              if (selectedCategory !== "all") {
+                filteredServices = filteredServices.filter(
+                  (s) => s.category === selectedCategory
+                );
+              }
+
+              if (selectedDiagnosis !== "all") {
+                filteredServices = filteredServices.filter((s) =>
+                  s.diagnosis?.includes(selectedDiagnosis)
+                );
+              }
+
+              setServices(filteredServices);
+              servicesRef.current = filteredServices;
+              setTotalCount(filteredServices.length);
+              setHasMore(false);
+              setError(
+                "You're offline. Showing cached services. Some filters may not be available."
+              );
+              console.log("📦 Loaded from cache while offline");
+              return;
+            }
+          } catch (cacheErr) {
+            console.error("Failed to load from cache:", cacheErr);
+          }
+
+          setError(
+            "You're offline and no cached data is available. Please connect to the internet."
+          );
+        } else {
+          setError("Failed to load services. Please try again.");
+        }
       } finally {
         setLoading(false);
       }
