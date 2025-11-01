@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import SaveButton from "./SaveButton";
-import { format, isPast } from "date-fns";
 
 export default function SavedServicesList() {
   const [services, setServices] = useState([]);
@@ -74,7 +73,14 @@ export default function SavedServicesList() {
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {services.map((service) => {
         const serviceDate = new Date(service.date);
-        const isExpired = isPast(serviceDate);
+        const isExpired = serviceDate < new Date();
+
+        // Format date as "MMM dd, yyyy"
+        const formattedDate = serviceDate.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
 
         return (
           <div
@@ -152,8 +158,8 @@ export default function SavedServicesList() {
                     />
                   </svg>
                   <span className="text-sm">
-                    {format(serviceDate, "MMM dd, yyyy")} •{" "}
-                    {service.schedule.timeStart} - {service.schedule.timeEnd}
+                    {formattedDate} • {service.schedule.timeStart} -{" "}
+                    {service.schedule.timeEnd}
                   </span>
                 </div>
 
