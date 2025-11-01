@@ -12,9 +12,9 @@ export default async function NotificationsPage() {
   }
 
   // Check if VAPID keys are configured
-  const vapidConfigured = 
-    process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY && 
-    process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY !== 'your_public_key';
+  const vapidConfigured =
+    process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY &&
+    process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY !== "your_public_key";
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
