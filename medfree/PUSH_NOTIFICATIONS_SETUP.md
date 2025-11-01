@@ -174,21 +174,25 @@ This error means the VAPID public key is invalid or not properly formatted.
 **Solutions:**
 
 1. **Generate Real Keys:** The placeholder values won't work. Run:
+
    ```bash
    npx web-push generate-vapid-keys
    ```
 
 2. **Copy the FULL key:** Make sure you copied the entire base64 string (88 characters)
+
    - ✅ Correct: `BEl62iUYgUivxIkv69yViEuiBIa-Ib27SErSH3tQKvI_and_80_more_characters...`
    - ❌ Wrong: `your_public_key` or truncated key
 
 3. **Check your .env file:**
+
    ```env
    # Make sure it looks like this (with REAL keys, not placeholders):
    NEXT_PUBLIC_VAPID_PUBLIC_KEY=BEl62iUYgUivxIkv69yViEuiBIa...
    ```
 
 4. **Restart the server:** Environment variables are only loaded at startup
+
    ```bash
    # Stop (Ctrl+C) and restart:
    npm run dev
@@ -196,7 +200,7 @@ This error means the VAPID public key is invalid or not properly formatted.
 
 5. **Verify the key is loading:** Add this to check in browser console:
    ```javascript
-   console.log('VAPID Key:', process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY);
+   console.log("VAPID Key:", process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY);
    // Should show the full key, not "your_public_key"
    ```
 
