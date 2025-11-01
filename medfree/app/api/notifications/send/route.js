@@ -51,7 +51,10 @@ export async function POST(request) {
 
     if (!vapidPublicKey || !vapidPrivateKey) {
       return NextResponse.json(
-        { error: "VAPID keys not configured. Run: npx web-push generate-vapid-keys" },
+        {
+          error:
+            "VAPID keys not configured. Run: npx web-push generate-vapid-keys",
+        },
         { status: 500 }
       );
     }
@@ -111,16 +114,13 @@ export async function POST(request) {
         await webpush.sendNotification(sub.subscription, payload);
         return { success: true, userId: sub.userId };
       } catch (error) {
-        console.error(
-          `Failed to send notification to ${sub.userId}:`,
-          error
-        );
-        
+        console.error(`Failed to send notification to ${sub.userId}:`, error);
+
         // If subscription is no longer valid, remove it
         if (error.statusCode === 410 || error.statusCode === 404) {
           await db.collection("subscriptions").deleteOne({ _id: sub._id });
         }
-        
+
         return { success: false, userId: sub.userId, error: error.message };
       }
     });
@@ -200,9 +200,6 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Get notification logs error:", error);
-    return NextResponse.json(
-      { error: "Failed to get logs" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to get logs" }, { status: 500 });
   }
 }
