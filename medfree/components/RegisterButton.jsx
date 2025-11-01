@@ -138,7 +138,7 @@ export default function RegisterButton({ service }) {
       {/* Registration Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
-          <div 
+          <div
             className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden animate-slideUp"
             onClick={(e) => e.stopPropagation()}>
             {/* Header with gradient background */}
@@ -159,7 +159,7 @@ export default function RegisterButton({ service }) {
                   />
                 </svg>
               </button>
-              
+
               <div className="flex items-center gap-3">
                 <div className="bg-white bg-opacity-20 rounded-full p-3">
                   <svg
@@ -206,11 +206,22 @@ export default function RegisterButton({ service }) {
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <p className="font-semibold text-gray-900 text-lg">{service.title}</p>
+                    <p className="font-semibold text-gray-900 text-lg">
+                      {service.title}
+                    </p>
                     <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-sm text-gray-600">
                       <span className="flex items-center gap-1">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          />
                         </svg>
                         {new Date(service.date).toLocaleDateString("en-US", {
                           month: "short",
@@ -218,14 +229,32 @@ export default function RegisterButton({ service }) {
                         })}
                       </span>
                       <span className="flex items-center gap-1">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
                         </svg>
                         {service.timeStart} - {service.timeEnd}
                       </span>
                       <span className="flex items-center gap-1">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                          />
                         </svg>
                         {service.location?.city}
                       </span>
@@ -237,8 +266,17 @@ export default function RegisterButton({ service }) {
               {error && (
                 <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-lg">
                   <div className="flex items-start">
-                    <svg className="w-5 h-5 text-red-500 mt-0.5 mr-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <svg
+                      className="w-5 h-5 text-red-500 mt-0.5 mr-3 shrink-0"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
                     </svg>
                     <p className="text-red-800 text-sm">{error}</p>
                   </div>
@@ -246,35 +284,47 @@ export default function RegisterButton({ service }) {
               )}
 
               {/* Registration Form */}
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Your Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="userName"
-                    value={formData.userName}
-                    onChange={handleChange}
-                    required
-                    placeholder="e.g., Ram Prasad Sharma"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                  />
-                </div>
+                            <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Personal Information Section */}
+                <div className="space-y-4">
+                  <h3 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                    <svg className="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    Personal Information
+                  </h3>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                      Full Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.userName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, userName: e.target.value })
+                      }
+                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                      placeholder="Enter your full name"
+                      required
+                    />
+                  </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone Number *
-                  </label>
-                  <input
-                    type="tel"
-                    name="userPhone"
-                    value={formData.userPhone}
-                    onChange={handleChange}
-                    required
-                    placeholder="e.g., 9841234567"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                  />
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                      Phone Number <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      value={formData.userPhone}
+                      onChange={(e) =>
+                        setFormData({ ...formData, userPhone: e.target.value })
+                      }
+                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                      placeholder="Enter your phone number"
+                      required
+                    />
+                  </div>
                 </div>
 
                 {/* Family Members */}
