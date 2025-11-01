@@ -94,7 +94,8 @@ export default function SettingsPage() {
                     Offline Mode
                   </h3>
                   <p className="text-sm text-yellow-700 mt-1">
-                    Account settings require an internet connection to update. Please reconnect to make changes.
+                    Account settings require an internet connection to update.
+                    Please reconnect to make changes.
                   </p>
                 </div>
               </div>

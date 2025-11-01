@@ -28,8 +28,9 @@ An error occurred in the Server Components render but no message was provided
 ```
 
 This happens because:
+
 - Middleware calls `clerkClient().users.getUser(userId)` → Fails offline
-- Profile pages call `auth()` or `currentUser()` → Fails offline  
+- Profile pages call `auth()` or `currentUser()` → Fails offline
 - API routes call `auth()` → Fails offline
 
 ---
@@ -107,23 +108,23 @@ We implement an **offline-first authentication system** that:
 **Key Functions:**
 
 ```javascript
-cacheUserData(userData)
+cacheUserData(userData);
 // Stores user data with 7-day expiration
 // Called automatically when user signs in
 
-getCachedUserData()
+getCachedUserData();
 // Retrieves cached user data when offline
 // Returns null if expired or not found
 
-clearUserCache()
+clearUserCache();
 // Removes cached data on sign out
 // Prevents data leaking to next user
 
-syncUserCache(clerkUser)
+syncUserCache(clerkUser);
 // Syncs Clerk user to cache format
 // Called by OfflineAuthProvider
 
-getOfflineAuth()
+getOfflineAuth();
 // Checks offline status and returns cached user
 // Used for quick offline detection
 ```
@@ -180,10 +181,10 @@ import { useOfflineAuth } from "@/components/OfflineAuthProvider";
 
 function MyComponent() {
   const { user, isLoaded, isSignedIn, isOffline } = useOfflineAuth();
-  
+
   if (!isLoaded) return <Loading />;
   if (!isSignedIn) return <SignIn />;
-  
+
   return (
     <div>
       {isOffline && <OfflineWarning />}
@@ -208,30 +209,32 @@ function MyComponent() {
 **Changes Made:**
 
 **Before (Server Component):**
+
 ```javascript
 import { currentUser } from "@clerk/nextjs/server";
 
 export default async function ProfilePage() {
-  const user = await currentUser();  // ❌ Fails offline
+  const user = await currentUser(); // ❌ Fails offline
   if (!user) redirect("/sign-in");
   // ...
 }
 ```
 
 **After (Client Component):**
+
 ```javascript
 "use client";
 import { useOfflineAuth } from "@/components/OfflineAuthProvider";
 
 export default function ProfilePage() {
   const { user, isLoaded, isSignedIn, isOffline } = useOfflineAuth();
-  
+
   useEffect(() => {
     if (isLoaded && !isSignedIn && !isOffline) {
       router.push("/sign-in");
     }
   }, [isLoaded, isSignedIn, isOffline]);
-  
+
   // ✅ Works offline with cached data
 }
 ```
@@ -247,22 +250,22 @@ export default function ProfilePage() {
 **Offline Warning Banner:**
 
 ```javascript
-{isOffline && (
-  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-    <div className="flex items-start gap-3">
-      <AlertIcon className="h-5 w-5 text-yellow-600" />
-      <div>
-        <h3 className="text-sm font-medium text-yellow-800">
-          Offline Mode
-        </h3>
-        <p className="text-sm text-yellow-700 mt-1">
-          You're viewing cached profile data. 
-          Some features may be limited until you reconnect.
-        </p>
+{
+  isOffline && (
+    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+      <div className="flex items-start gap-3">
+        <AlertIcon className="h-5 w-5 text-yellow-600" />
+        <div>
+          <h3 className="text-sm font-medium text-yellow-800">Offline Mode</h3>
+          <p className="text-sm text-yellow-700 mt-1">
+            You're viewing cached profile data. Some features may be limited
+            until you reconnect.
+          </p>
+        </div>
       </div>
     </div>
-  </div>
-)}
+  );
+}
 ```
 
 ---
@@ -275,7 +278,9 @@ export default function ProfilePage() {
 
 ```javascript
 <ClerkProvider>
-  <OfflineAuthProvider>  {/* ← New wrapper */}
+  <OfflineAuthProvider>
+    {" "}
+    {/* ← New wrapper */}
     <PWAProvider>
       <SmoothScroll />
       {children}
@@ -297,6 +302,7 @@ export default function ProfilePage() {
 ## ✅ What's Working Now
 
 ### Profile Hub Page
+
 - ✅ Loads offline with cached user data
 - ✅ Shows offline warning banner
 - ✅ Displays user avatar, name, email
@@ -304,12 +310,14 @@ export default function ProfilePage() {
 - ✅ No crashes when WiFi is off
 
 ### Services Page
+
 - ✅ Loads from localStorage cache when offline
 - ✅ Shows filtered cached services
 - ✅ Displays "You're offline. Showing cached services..." message
 - ✅ Search, category, diagnosis filters work on cached data
 
 ### Offline Indicator
+
 - ✅ Yellow banner appears when offline
 - ✅ Uses useRef pattern (no hydration errors)
 - ✅ Automatically shows/hides based on connection
@@ -323,19 +331,23 @@ export default function ProfilePage() {
 These pages still use server-side Clerk authentication:
 
 1. ❌ `/app/profile/registrations/page.js`
+
    - Uses: `const { userId } = await auth();`
    - Needs: Convert to client component with `useOfflineAuth()`
 
 2. ❌ `/app/profile/saved/page.js`
+
    - Uses: `const { userId } = await auth();`
    - Fetches from MongoDB (requires online)
    - Needs: Cache savedServices in localStorage
 
 3. ❌ `/app/profile/notifications/page.js`
+
    - Uses: `const { userId } = await auth();`
    - Needs: Convert to client component
 
 4. ❌ `/app/profile/settings/page.js`
+
    - Uses: `const { userId } = await auth();`
    - Uses: `const user = await currentUser();`
    - Needs: Convert to client component
@@ -350,13 +362,14 @@ These pages still use server-side Clerk authentication:
 **File:** `/medfree/middleware.ts`
 
 **Current Behavior:**
+
 ```typescript
 export default clerkMiddleware(async (auth, req) => {
-  const { userId } = await auth();  // ❌ Fails offline
-  
+  const { userId } = await auth(); // ❌ Fails offline
+
   // Admin routes
   const client = await clerkClient();
-  const user = await client.users.getUser(userId);  // ❌ Fails offline
+  const user = await client.users.getUser(userId); // ❌ Fails offline
   // ...
 });
 ```
@@ -364,6 +377,7 @@ export default clerkMiddleware(async (auth, req) => {
 **Problem:** Every request goes through middleware, even when offline.
 
 **Impact:**
+
 - Navigation between pages fails offline
 - Admin routes completely inaccessible
 - Profile routes require online check every time
@@ -437,18 +451,18 @@ Saved Services and Registrations need client-side data fetching:
 ```javascript
 useEffect(() => {
   if (!user || isOffline) return;
-  
+
   // Fetch from API when online
-  fetch('/api/profile/saved')
-    .then(res => res.json())
-    .then(data => setSavedServices(data))
-    .catch(err => console.error(err));
+  fetch("/api/profile/saved")
+    .then((res) => res.json())
+    .then((data) => setSavedServices(data))
+    .catch((err) => console.error(err));
 }, [user, isOffline]);
 
 // Show cached data when offline
 useEffect(() => {
   if (isOffline) {
-    const cached = localStorage.getItem('saved_services_cache');
+    const cached = localStorage.getItem("saved_services_cache");
     if (cached) setSavedServices(JSON.parse(cached));
   }
 }, [isOffline]);
@@ -469,7 +483,7 @@ export default clerkMiddleware(async (auth, req) => {
     // Client will handle auth with cached data
     return NextResponse.next();
   }
-  
+
   // Protect admin and write operations
   if (isAdminRoute(req)) {
     const { userId } = await auth();
@@ -483,8 +497,8 @@ export default clerkMiddleware(async (auth, req) => {
 ```typescript
 export default clerkMiddleware(async (auth, req) => {
   // Check if request headers indicate offline
-  const userAgent = req.headers.get('user-agent');
-  
+  const userAgent = req.headers.get("user-agent");
+
   // For profile routes, allow pass-through
   if (isProfileRoute(req)) {
     try {
@@ -495,7 +509,7 @@ export default clerkMiddleware(async (auth, req) => {
       return NextResponse.next();
     }
   }
-  
+
   // Admin routes must have online auth
   if (isAdminRoute(req)) {
     const { userId } = await auth();
@@ -513,26 +527,37 @@ export default clerkMiddleware(async (auth, req) => {
 Move user-specific MongoDB data to client-side cache:
 
 **Saved Services:**
+
 ```javascript
 // After fetching from API
-const savedServices = await fetch('/api/profile/saved').then(r => r.json());
-localStorage.setItem('saved_services_cache', JSON.stringify({
-  data: savedServices,
-  timestamp: Date.now(),
-}));
+const savedServices = await fetch("/api/profile/saved").then((r) => r.json());
+localStorage.setItem(
+  "saved_services_cache",
+  JSON.stringify({
+    data: savedServices,
+    timestamp: Date.now(),
+  })
+);
 ```
 
 **Registrations:**
+
 ```javascript
 // After fetching from API
-const registrations = await fetch('/api/profile/registrations').then(r => r.json());
-localStorage.setItem('registrations_cache', JSON.stringify({
-  data: registrations,
-  timestamp: Date.now(),
-}));
+const registrations = await fetch("/api/profile/registrations").then((r) =>
+  r.json()
+);
+localStorage.setItem(
+  "registrations_cache",
+  JSON.stringify({
+    data: registrations,
+    timestamp: Date.now(),
+  })
+);
 ```
 
 **Cache Invalidation:**
+
 - Clear on sign out
 - Auto-refresh when back online
 - 24-hour expiration
@@ -544,6 +569,7 @@ localStorage.setItem('registrations_cache', JSON.stringify({
 For write operations when offline:
 
 **IndexedDB Schema:**
+
 ```javascript
 {
   id: "action_123",
@@ -560,15 +586,16 @@ For write operations when offline:
 ```
 
 **Sync on Reconnection:**
+
 ```javascript
-window.addEventListener('online', async () => {
+window.addEventListener("online", async () => {
   const pendingActions = await getPendingActions();
-  
+
   for (const action of pendingActions) {
     try {
-      await fetch('/api/services/[id]/register', {
-        method: 'POST',
-        body: JSON.stringify(action.payload)
+      await fetch("/api/services/[id]/register", {
+        method: "POST",
+        body: JSON.stringify(action.payload),
       });
       await markActionComplete(action.id);
     } catch (error) {
@@ -585,65 +612,71 @@ window.addEventListener('online', async () => {
 ### Manual Testing Steps
 
 **Test 1: Profile Access Offline**
+
 - [ ] Visit `/profile` while online
 - [ ] Sign in with Clerk
 - [ ] Turn off WiFi
 - [ ] Refresh page
 - [ ] Expected: Profile loads with cached data + offline banner
-- [ ] Actual: _____
+- [ ] Actual: **\_**
 
 **Test 2: Services Page Offline**
+
 - [ ] Visit `/services` while online
 - [ ] Browse services (get cached)
 - [ ] Turn off WiFi
 - [ ] Refresh page
 - [ ] Expected: Cached services load + offline message
-- [ ] Actual: _____
+- [ ] Actual: **\_**
 
 **Test 3: Navigation Offline**
+
 - [ ] Turn off WiFi
 - [ ] Click "My Profile" in navbar
 - [ ] Expected: Profile loads (no crash)
 - [ ] Click "Services" link
 - [ ] Expected: Services load from cache
-- [ ] Actual: _____
+- [ ] Actual: **\_**
 
 **Test 4: Reconnection Sync**
+
 - [ ] Be offline with cached profile data
 - [ ] Turn WiFi back on
 - [ ] Wait 2-3 seconds
 - [ ] Expected: Offline banner disappears
 - [ ] Expected: Fresh data loads from Clerk
-- [ ] Actual: _____
+- [ ] Actual: **\_**
 
 **Test 5: Sign Out Cache Clear**
+
 - [ ] Be online and signed in
 - [ ] Sign out
 - [ ] Check localStorage
 - [ ] Expected: `medfree_user_cache` key is removed
-- [ ] Actual: _____
+- [ ] Actual: **\_**
 
 ---
 
 ## 📊 Current Status Summary
 
-| Component | Status | Notes |
-|-----------|--------|-------|
-| Offline Auth Utils | ✅ Complete | 7-day cache, auto-expiration |
-| OfflineAuthProvider | ✅ Complete | Auto-sync, online/offline detection |
-| Profile Hub Page | ✅ Complete | Works offline with cached data |
-| Registrations Page | ❌ Needs Update | Still uses server-side `auth()` |
-| Saved Services Page | ❌ Needs Update | Still uses server-side `auth()` |
-| Notifications Page | ❌ Needs Update | Still uses server-side `auth()` |
-| Settings Page | ❌ Needs Update | Still uses server-side `auth()` |
-| Cached Page | ❌ Needs Update | Still uses server-side `auth()` |
-| Middleware | ❌ Needs Update | Calls Clerk on every request |
-| Services Page | ✅ Complete | Offline cache fallback working |
-| Offline Indicator | ✅ Complete | No hydration errors |
+| Component           | Status          | Notes                               |
+| ------------------- | --------------- | ----------------------------------- |
+| Offline Auth Utils  | ✅ Complete     | 7-day cache, auto-expiration        |
+| OfflineAuthProvider | ✅ Complete     | Auto-sync, online/offline detection |
+| Profile Hub Page    | ✅ Complete     | Works offline with cached data      |
+| Registrations Page  | ❌ Needs Update | Still uses server-side `auth()`     |
+| Saved Services Page | ❌ Needs Update | Still uses server-side `auth()`     |
+| Notifications Page  | ❌ Needs Update | Still uses server-side `auth()`     |
+| Settings Page       | ❌ Needs Update | Still uses server-side `auth()`     |
+| Cached Page         | ❌ Needs Update | Still uses server-side `auth()`     |
+| Middleware          | ❌ Needs Update | Calls Clerk on every request        |
+| Services Page       | ✅ Complete     | Offline cache fallback working      |
+| Offline Indicator   | ✅ Complete     | No hydration errors                 |
 
 **Progress:** 40% Complete
 
 **Next Steps:**
+
 1. Convert 5 profile subpages (2 hours)
 2. Update middleware (30 minutes)
 3. Test all offline scenarios (1 hour)
@@ -654,13 +687,13 @@ window.addEventListener('online', async () => {
 
 ### localStorage Keys Used
 
-| Key | Purpose | Expiration | Size Limit |
-|-----|---------|------------|------------|
-| `medfree_user_cache` | User auth data | 7 days | ~1 KB |
-| `medfree_services_cache` | Services list | 1 hour | ~500 KB |
-| `saved_services_cache` | User saved services | 24 hours | ~50 KB |
-| `registrations_cache` | User registrations | 24 hours | ~50 KB |
-| `medfree_cached_services` | Offline cached services | Never | ~1 MB |
+| Key                       | Purpose                 | Expiration | Size Limit |
+| ------------------------- | ----------------------- | ---------- | ---------- |
+| `medfree_user_cache`      | User auth data          | 7 days     | ~1 KB      |
+| `medfree_services_cache`  | Services list           | 1 hour     | ~500 KB    |
+| `saved_services_cache`    | User saved services     | 24 hours   | ~50 KB     |
+| `registrations_cache`     | User registrations      | 24 hours   | ~50 KB     |
+| `medfree_cached_services` | Offline cached services | Never      | ~1 MB      |
 
 **Total Storage:** ~1.6 MB  
 **Browser Limit:** ~5-10 MB per domain
@@ -668,29 +701,32 @@ window.addEventListener('online', async () => {
 ### Network Detection Methods
 
 1. **Primary:** `navigator.onLine`
+
    - Browser API
    - Instant detection
    - Can have false positives (connected to WiFi but no internet)
 
 2. **Secondary:** API Ping (future)
+
    - Periodic fetch to `/api/health`
    - Confirms actual internet connectivity
    - More reliable but slower
 
 3. **Event Listeners:**
    ```javascript
-   window.addEventListener('online', handleOnline);
-   window.addEventListener('offline', handleOffline);
+   window.addEventListener("online", handleOnline);
+   window.addEventListener("offline", handleOffline);
    ```
 
 ### Error Handling Patterns
 
 **Clerk API Failures:**
+
 ```javascript
 try {
   const { userId } = await auth();
 } catch (error) {
-  if (error.message.includes('network')) {
+  if (error.message.includes("network")) {
     // Use cached auth
   } else {
     // Actual auth error
@@ -699,10 +735,11 @@ try {
 ```
 
 **Fetch Failures:**
+
 ```javascript
 try {
-  const res = await fetch('/api/services');
-  if (!res.ok) throw new Error('Fetch failed');
+  const res = await fetch("/api/services");
+  if (!res.ok) throw new Error("Fetch failed");
 } catch (error) {
   if (!navigator.onLine) {
     // Load from cache
@@ -724,13 +761,23 @@ export default function OfflineWarning({ message }) {
   return (
     <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
       <div className="flex items-start gap-3">
-        <svg className="h-5 w-5 text-yellow-600 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        <svg
+          className="h-5 w-5 text-yellow-600 mt-0.5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+          />
         </svg>
         <div>
           <h3 className="text-sm font-medium text-yellow-800">Offline Mode</h3>
           <p className="text-sm text-yellow-700 mt-1">
-            {message || "You're viewing cached data. Some features may be limited until you reconnect."}
+            {message ||
+              "You're viewing cached data. Some features may be limited until you reconnect."}
           </p>
         </div>
       </div>
@@ -765,14 +812,15 @@ No new environment variables needed. Existing Clerk keys work as-is.
 
 ### Browser Compatibility
 
-| Feature | Chrome | Firefox | Safari | Edge |
-|---------|--------|---------|--------|------|
-| localStorage | ✅ | ✅ | ✅ | ✅ |
-| navigator.onLine | ✅ | ✅ | ✅ | ✅ |
-| online/offline events | ✅ | ✅ | ✅ | ✅ |
-| Service Worker | ✅ | ✅ | ✅ | ✅ |
+| Feature               | Chrome | Firefox | Safari | Edge |
+| --------------------- | ------ | ------- | ------ | ---- |
+| localStorage          | ✅     | ✅      | ✅     | ✅   |
+| navigator.onLine      | ✅     | ✅      | ✅     | ✅   |
+| online/offline events | ✅     | ✅      | ✅     | ✅   |
+| Service Worker        | ✅     | ✅      | ✅     | ✅   |
 
 **Minimum Browser Versions:**
+
 - Chrome 61+ (Sep 2017)
 - Firefox 54+ (Jun 2017)
 - Safari 11.1+ (Mar 2018)
@@ -781,16 +829,19 @@ No new environment variables needed. Existing Clerk keys work as-is.
 ### Performance Impact
 
 **Initial Page Load (Online):**
+
 - +5ms (OfflineAuthProvider initialization)
 - +2ms (localStorage read on mount)
 - **Total:** Negligible
 
 **Offline Page Load:**
+
 - -500ms (no Clerk API calls)
 - +5ms (localStorage read)
 - **Total:** 500ms FASTER than before (no timeout retries)
 
 **Memory Usage:**
+
 - OfflineAuthProvider: ~10 KB
 - Event listeners: ~1 KB
 - **Total:** Minimal
@@ -840,6 +891,7 @@ No new environment variables needed. Existing Clerk keys work as-is.
 This implementation took 3 hours to design and implement. The key insight was realizing that Clerk's server-side authentication is incompatible with offline-first PWAs. By caching user data and switching to client-side authentication, we maintain a seamless user experience even without internet connectivity.
 
 The next developer working on this should focus on:
+
 1. Converting remaining profile pages
 2. Implementing IndexedDB for larger data sets
 3. Adding offline action queue for registrations
