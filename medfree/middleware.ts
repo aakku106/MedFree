@@ -20,10 +20,12 @@ export default clerkMiddleware(async (auth, req) => {
     } catch (error) {
       // Clerk API failed (likely offline or network error)
       // Allow pass-through so client-side cached auth can handle it
-      console.log("⚠️ Clerk auth check failed (possibly offline), allowing client-side auth");
+      console.log(
+        "⚠️ Clerk auth check failed (possibly offline), allowing client-side auth"
+      );
       return NextResponse.next();
     }
-    
+
     // If no userId and no error, redirect to sign-in
     const signInUrl = new URL("/sign-in", req.url);
     signInUrl.searchParams.set("redirect_url", req.url);
@@ -33,7 +35,7 @@ export default clerkMiddleware(async (auth, req) => {
   // Protect admin routes - require ONLINE authentication and admin email
   if (isAdminRoute(req)) {
     const { userId } = await auth();
-    
+
     if (!userId) {
       // Redirect to sign-in if not authenticated
       const signInUrl = new URL("/sign-in", req.url);
