@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start",
-  "lint": "eslint",
-  "seed": "node scripts/seedSampleData.js",
-  "seed-detailed": "node scripts/seedDetailedData.js"
-},
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "seed": "node scripts/seedSampleData.js",
+    "seed-detailed": "node scripts/seedDetailedData.js"
+  },
   "dependencies": {
     "@clerk/nextjs": "^6.34.1",
     "@hookform/resolvers": "^5.2.2",
