@@ -137,19 +137,33 @@ export default function RegisterButton({ service }) {
 
       {/* Registration Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              {/* Header */}
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">
-                  Register for Service
-                </h2>
-                <button
-                  onClick={() => setShowModal(false)}
-                  className="text-gray-400 hover:text-gray-600">
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
+          <div 
+            className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden animate-slideUp"
+            onClick={(e) => e.stopPropagation()}>
+            {/* Header with gradient background */}
+            <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 p-6 relative">
+              <button
+                onClick={() => setShowModal(false)}
+                className="absolute top-4 right-4 text-white hover:bg-white hover:bg-opacity-20 rounded-full p-2 transition-all">
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+              
+              <div className="flex items-center gap-3">
+                <div className="bg-white bg-opacity-20 rounded-full p-3">
                   <svg
-                    className="w-6 h-6"
+                    className="w-8 h-8 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -157,31 +171,77 @@ export default function RegisterButton({ service }) {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                     />
                   </svg>
-                </button>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">
+                    Complete Registration
+                  </h2>
+                  <p className="text-emerald-50 text-sm mt-1">
+                    Fill in your details to secure your spot
+                  </p>
+                </div>
               </div>
+            </div>
 
+            {/* Scrollable content */}
+            <div className="overflow-y-auto max-h-[calc(90vh-200px)] p-6">
               {/* Service Info */}
-              <div className="bg-gray-50 rounded-lg p-4 mb-6">
-                <p className="font-semibold text-gray-900">{service.title}</p>
-                <p className="text-sm text-gray-600 mt-1">
-                  {new Date(service.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}{" "}
-                  • {service.timeStart} - {service.timeEnd}
-                </p>
-                <p className="text-sm text-gray-600">
-                  {service.location?.city}, {service.location?.district}
-                </p>
+              <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-5 mb-6 border border-emerald-100">
+                <div className="flex items-start gap-3">
+                  <div className="shrink-0">
+                    <svg
+                      className="w-5 h-5 text-emerald-600 mt-0.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-gray-900 text-lg">{service.title}</p>
+                    <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-sm text-gray-600">
+                      <span className="flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        {new Date(service.date).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {service.timeStart} - {service.timeEnd}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        </svg>
+                        {service.location?.city}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {error && (
-                <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
-                  {error}
+                <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-lg">
+                  <div className="flex items-start">
+                    <svg className="w-5 h-5 text-red-500 mt-0.5 mr-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p className="text-red-800 text-sm">{error}</p>
+                  </div>
                 </div>
               )}
 
