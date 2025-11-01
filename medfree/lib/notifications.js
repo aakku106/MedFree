@@ -223,7 +223,7 @@ function urlBase64ToUint8Array(base64String) {
   try {
     // Remove any whitespace
     const cleaned = base64String.trim();
-    
+
     // Add padding if needed
     const padding = "=".repeat((4 - (cleaned.length % 4)) % 4);
     const base64 = (cleaned + padding).replace(/-/g, "+").replace(/_/g, "/");
@@ -235,16 +235,20 @@ function urlBase64ToUint8Array(base64String) {
     for (let i = 0; i < rawData.length; ++i) {
       outputArray[i] = rawData.charCodeAt(i);
     }
-    
+
     // Verify it's the right length for P-256 key (65 bytes uncompressed)
     if (outputArray.length !== 65) {
-      console.warn(`VAPID key length is ${outputArray.length} bytes, expected 65 for P-256 key`);
+      console.warn(
+        `VAPID key length is ${outputArray.length} bytes, expected 65 for P-256 key`
+      );
     }
-    
+
     return outputArray;
   } catch (error) {
     console.error("Error converting VAPID key:", error);
-    throw new Error("Invalid VAPID public key format. Make sure it's a valid base64 string.");
+    throw new Error(
+      "Invalid VAPID public key format. Make sure it's a valid base64 string."
+    );
   }
 }
 
