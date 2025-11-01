@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { getCachedServices } from "@/lib/pwa";
-import { Calendar, MapPin, Users, Database } from "lucide-react";
 import Link from "next/link";
 
 export default function CachedServicesViewer() {
@@ -53,7 +52,9 @@ export default function CachedServicesViewer() {
   if (cachedServices.length === 0) {
     return (
       <div className="bg-gray-50 rounded-lg p-8 text-center">
-        <Database className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+        <svg className="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+        </svg>
         <h3 className="text-lg font-medium text-gray-900 mb-2">
           No Cached Services
         </h3>
