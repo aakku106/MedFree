@@ -26,8 +26,17 @@ export default async function SavedServicesPage() {
             <Link
               href="/profile"
               className="inline-flex items-center text-emerald-600 hover:text-emerald-700 mb-4">
-              <svg className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <svg
+                className="h-4 w-4 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
               Back to Profile
             </Link>

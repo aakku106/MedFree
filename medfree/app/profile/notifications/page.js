@@ -1,7 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import NotificationManager from "@/components/NotificationManager";
 import NotificationPreferences from "@/components/NotificationPreferences";
