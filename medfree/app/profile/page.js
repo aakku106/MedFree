@@ -1,65 +1,65 @@
-import { currentUser } from '@clerk/nextjs/server';
-import { redirect } from 'next/navigation';
-import Link from 'next/link';
-import { 
-  Calendar, 
-  Heart, 
-  Bell, 
-  Settings, 
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import {
+  Calendar,
+  Heart,
+  Bell,
+  Settings,
   Database,
   User,
   ChevronRight,
-  Activity
-} from 'lucide-react';
-import Navbar from '@/components/Navbar';
+  Activity,
+} from "lucide-react";
+import Navbar from "@/components/Navbar";
 
 export default async function ProfilePage() {
   const user = await currentUser();
 
   if (!user) {
-    redirect('/sign-in');
+    redirect("/sign-in");
   }
 
   const profileSections = [
     {
-      title: 'My Registrations',
-      description: 'View your registered services and QR codes',
+      title: "My Registrations",
+      description: "View your registered services and QR codes",
       icon: Calendar,
-      href: '/profile/registrations',
-      color: 'bg-blue-50 text-blue-600 border-blue-200',
-      hoverColor: 'hover:bg-blue-100',
+      href: "/profile/registrations",
+      color: "bg-blue-50 text-blue-600 border-blue-200",
+      hoverColor: "hover:bg-blue-100",
     },
     {
-      title: 'Saved Services',
-      description: 'Services you&apos;ve bookmarked for later',
+      title: "Saved Services",
+      description: "Services you&apos;ve bookmarked for later",
       icon: Heart,
-      href: '/profile/saved',
-      color: 'bg-red-50 text-red-600 border-red-200',
-      hoverColor: 'hover:bg-red-100',
+      href: "/profile/saved",
+      color: "bg-red-50 text-red-600 border-red-200",
+      hoverColor: "hover:bg-red-100",
     },
     {
-      title: 'Notifications',
-      description: 'Manage your notification preferences',
+      title: "Notifications",
+      description: "Manage your notification preferences",
       icon: Bell,
-      href: '/profile/notifications',
-      color: 'bg-purple-50 text-purple-600 border-purple-200',
-      hoverColor: 'hover:bg-purple-100',
+      href: "/profile/notifications",
+      color: "bg-purple-50 text-purple-600 border-purple-200",
+      hoverColor: "hover:bg-purple-100",
     },
     {
-      title: 'Offline Cache',
-      description: 'Services cached for offline access',
+      title: "Offline Cache",
+      description: "Services cached for offline access",
       icon: Database,
-      href: '/profile/cached',
-      color: 'bg-emerald-50 text-emerald-600 border-emerald-200',
-      hoverColor: 'hover:bg-emerald-100',
+      href: "/profile/cached",
+      color: "bg-emerald-50 text-emerald-600 border-emerald-200",
+      hoverColor: "hover:bg-emerald-100",
     },
     {
-      title: 'Settings',
-      description: 'Update preferences and account settings',
+      title: "Settings",
+      description: "Update preferences and account settings",
       icon: Settings,
-      href: '/profile/settings',
-      color: 'bg-gray-50 text-gray-600 border-gray-200',
-      hoverColor: 'hover:bg-gray-100',
+      href: "/profile/settings",
+      color: "bg-gray-50 text-gray-600 border-gray-200",
+      hoverColor: "hover:bg-gray-100",
     },
   ];
 
@@ -76,7 +76,7 @@ export default async function ProfilePage() {
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">
-                  {user.fullName || user.firstName || 'Welcome'}
+                  {user.fullName || user.firstName || "Welcome"}
                 </h1>
                 <p className="text-gray-600">
                   {user.emailAddresses?.[0]?.emailAddress}
@@ -97,8 +97,7 @@ export default async function ProfilePage() {
                 <Link
                   key={section.href}
                   href={section.href}
-                  className={`group bg-white rounded-xl shadow-sm border border-gray-200 p-6 transition-all ${section.hoverColor} hover:shadow-md`}
-                >
+                  className={`group bg-white rounded-xl shadow-sm border border-gray-200 p-6 transition-all ${section.hoverColor} hover:shadow-md`}>
                   <div className="flex items-start justify-between">
                     <div className="flex items-start gap-4 flex-1">
                       <div className={`p-3 rounded-lg border ${section.color}`}>
@@ -128,20 +127,17 @@ export default async function ProfilePage() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/services"
-                className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium"
-              >
+                className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium">
                 Browse Services
               </Link>
               <Link
                 href="/profile/settings"
-                className="px-4 py-2 bg-white text-emerald-600 border border-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors font-medium"
-              >
+                className="px-4 py-2 bg-white text-emerald-600 border border-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors font-medium">
                 Update Preferences
               </Link>
               <Link
                 href="/profile/notifications"
-                className="px-4 py-2 bg-white text-emerald-600 border border-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors font-medium"
-              >
+                className="px-4 py-2 bg-white text-emerald-600 border border-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors font-medium">
                 Manage Notifications
               </Link>
             </div>
