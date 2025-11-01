@@ -28,7 +28,18 @@ export default async function NotificationsPage() {
             <Link
               href="/profile"
               className="inline-flex items-center text-emerald-600 hover:text-emerald-700 mb-4">
-              <ArrowLeft className="h-4 w-4 mr-2" />
+              <svg
+                className="h-4 w-4 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
               Back to Profile
             </Link>
             <h1 className="text-3xl font-bold text-gray-900">
