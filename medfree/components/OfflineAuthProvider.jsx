@@ -31,7 +31,7 @@ export function OfflineAuthProvider({ children }) {
   useEffect(() => {
     const updateOnlineStatus = () => {
       setIsOffline(!navigator.onLine);
-      
+
       // Load cached user when going offline
       if (!navigator.onLine) {
         const cached = getCachedUserData();
@@ -53,9 +53,7 @@ export function OfflineAuthProvider({ children }) {
 
   // Determine final user state
   const finalUser = isOffline ? offlineUser : clerkUser;
-  const finalIsSignedIn = isOffline
-    ? !!offlineUser
-    : isSignedIn;
+  const finalIsSignedIn = isOffline ? !!offlineUser : isSignedIn;
   const finalIsLoaded = isOffline ? true : clerkLoaded;
 
   return (
@@ -65,8 +63,7 @@ export function OfflineAuthProvider({ children }) {
         isLoaded: finalIsLoaded,
         isSignedIn: finalIsSignedIn,
         isOffline,
-      }}
-    >
+      }}>
       {children}
     </OfflineAuthContext.Provider>
   );

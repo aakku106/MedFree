@@ -232,7 +232,8 @@ export default function ProfilePage() {
                     Offline Mode
                   </h3>
                   <p className="text-sm text-yellow-700 mt-1">
-                    You&apos;re viewing cached profile data. Some features may be limited until you reconnect.
+                    You&apos;re viewing cached profile data. Some features may
+                    be limited until you reconnect.
                   </p>
                 </div>
               </div>
@@ -257,7 +258,10 @@ export default function ProfilePage() {
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">
-                  {user.fullName || user.firstName || user.lastName || "Welcome"}
+                  {user.fullName ||
+                    user.firstName ||
+                    user.lastName ||
+                    "Welcome"}
                 </h1>
                 <p className="text-gray-600">
                   {user.emailAddresses?.[0]?.emailAddress || user.email}

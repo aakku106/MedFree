@@ -1,6 +1,6 @@
 /**
  * Offline Authentication Utilities
- * 
+ *
  * Provides fallback authentication when Clerk is unavailable (offline mode).
  * Caches user data in localStorage for offline access.
  */
@@ -14,7 +14,7 @@ const AUTH_CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
  */
 export function cacheUserData(userData) {
   if (typeof window === "undefined") return;
-  
+
   try {
     const cacheData = {
       userId: userData.userId,
@@ -24,7 +24,7 @@ export function cacheUserData(userData) {
       imageUrl: userData.imageUrl,
       timestamp: Date.now(),
     };
-    
+
     localStorage.setItem(USER_CACHE_KEY, JSON.stringify(cacheData));
     console.log("✅ User data cached for offline access");
   } catch (error) {
@@ -38,19 +38,19 @@ export function cacheUserData(userData) {
  */
 export function getCachedUserData() {
   if (typeof window === "undefined") return null;
-  
+
   try {
     const cached = localStorage.getItem(USER_CACHE_KEY);
     if (!cached) return null;
-    
+
     const data = JSON.parse(cached);
-    
+
     // Check if cache is expired
     if (Date.now() - data.timestamp > AUTH_CACHE_DURATION) {
       localStorage.removeItem(USER_CACHE_KEY);
       return null;
     }
-    
+
     return data;
   } catch (error) {
     console.error("Failed to get cached user data:", error);
@@ -63,7 +63,7 @@ export function getCachedUserData() {
  */
 export function clearUserCache() {
   if (typeof window === "undefined") return;
-  
+
   try {
     localStorage.removeItem(USER_CACHE_KEY);
     console.log("✅ User cache cleared");
@@ -78,9 +78,9 @@ export function clearUserCache() {
  */
 export function getOfflineAuth() {
   if (typeof window === "undefined") return { isOffline: false, user: null };
-  
+
   const isOffline = !navigator.onLine;
-  
+
   if (isOffline) {
     const cachedUser = getCachedUserData();
     return {
@@ -89,7 +89,7 @@ export function getOfflineAuth() {
       isAuthenticated: !!cachedUser,
     };
   }
-  
+
   return {
     isOffline: false,
     user: null,
@@ -103,7 +103,7 @@ export function getOfflineAuth() {
  */
 export function syncUserCache(clerkUser) {
   if (!clerkUser) return;
-  
+
   const userData = {
     userId: clerkUser.id,
     email: clerkUser.emailAddresses?.[0]?.emailAddress,
@@ -111,6 +111,6 @@ export function syncUserCache(clerkUser) {
     lastName: clerkUser.lastName,
     imageUrl: clerkUser.imageUrl,
   };
-  
+
   cacheUserData(userData);
 }
