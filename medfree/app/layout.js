@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import PWAProvider from "@/components/PWAProvider";
+import { OfflineAuthProvider } from "@/components/OfflineAuthProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -35,10 +36,12 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <body className={`${inter.variable} font-sans antialiased`}>
-          <PWAProvider>
-            <SmoothScroll />
-            {children}
-          </PWAProvider>
+          <OfflineAuthProvider>
+            <PWAProvider>
+              <SmoothScroll />
+              {children}
+            </PWAProvider>
+          </OfflineAuthProvider>
         </body>
       </html>
     </ClerkProvider>

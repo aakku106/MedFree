@@ -1,7 +1,12 @@
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
+import { useOfflineAuth } from "@/components/OfflineAuthProvider";
+import { useUser } from "@clerk/nextjs";
 
 // Icon Components
 const CalendarIcon = ({ className }) => (
@@ -130,11 +135,32 @@ const ChevronRightIcon = ({ className }) => (
   </svg>
 );
 
-export default async function ProfilePage() {
-  const user = await currentUser();
+export default function ProfilePage() {
+  const router = useRouter();
+  const { user, isLoaded, isSignedIn, isOffline } = useOfflineAuth();
+
+  useEffect(() => {
+    if (isLoaded && !isSignedIn && !isOffline) {
+      router.push("/sign-in");
+    }
+  }, [isLoaded, isSignedIn, isOffline, router]);
+
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <div className="flex items-center justify-center h-screen">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!user) {
-    redirect("/sign-in");
+    return null; // Will redirect
   }
 
   const profileSections = [
@@ -185,24 +211,67 @@ export default async function ProfilePage() {
       <Navbar />
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Offline Warning */}
+          {isOffline && (
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+              <div className="flex items-start gap-3">
+                <svg
+                  className="h-5 w-5 text-yellow-600 mt-0.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
+                </svg>
+                <div>
+                  <h3 className="text-sm font-medium text-yellow-800">
+                    Offline Mode
+                  </h3>
+                  <p className="text-sm text-yellow-700 mt-1">
+                    You&apos;re viewing cached profile data. Some features may be limited until you reconnect.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Header */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
             <div className="flex items-center gap-4 mb-4">
-              <div className="h-16 w-16 bg-emerald-600 rounded-full flex items-center justify-center">
-                <UserIcon className="h-8 w-8 text-white" />
+              <div className="h-16 w-16 bg-emerald-600 rounded-full flex items-center justify-center overflow-hidden">
+                {user.imageUrl ? (
+                  <Image
+                    src={user.imageUrl}
+                    alt={user.fullName || user.firstName || "User"}
+                    width={64}
+                    height={64}
+                    className="h-16 w-16 rounded-full object-cover"
+                  />
+                ) : (
+                  <UserIcon className="h-8 w-8 text-white" />
+                )}
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">
-                  {user.fullName || user.firstName || "Welcome"}
+                  {user.fullName || user.firstName || user.lastName || "Welcome"}
                 </h1>
                 <p className="text-gray-600">
-                  {user.emailAddresses?.[0]?.emailAddress}
+                  {user.emailAddresses?.[0]?.emailAddress || user.email}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <ActivityIcon className="h-4 w-4 text-emerald-600" />
               <span>Manage your healthcare services and preferences</span>
+              {isOffline && (
+                <span className="ml-auto text-yellow-600 font-medium">
+                  • Offline
+                </span>
+              )}
             </div>
           </div>
 
