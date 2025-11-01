@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import RegisterButton from "@/components/RegisterButton";
 import { convertToNepaliDate } from "@/lib/utils";
 
 async function getService(id) {
@@ -183,8 +184,13 @@ export default async function ServiceDetailPage({ params }) {
 
             {/* Right Column - Logistics & Contact */}
             <div className="space-y-6">
-              {/* Service Details Card */}
+              {/* Registration Card */}
               <div className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-xl border-2 border-emerald-200 p-6 sticky top-24">
+                <RegisterButton service={service} />
+              </div>
+
+              {/* Service Details Card */}
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">
                   Service Details
                 </h3>
