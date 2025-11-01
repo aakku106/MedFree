@@ -1,14 +1,14 @@
-import { currentUser } from '@clerk/nextjs/server';
-import { redirect } from 'next/navigation';
-import Link from 'next/link';
-import { ArrowLeft, Database } from 'lucide-react';
-import CachedServicesViewer from '@/components/CachedServicesViewer';
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import { ArrowLeft, Database } from "lucide-react";
+import CachedServicesViewer from "@/components/CachedServicesViewer";
 
 export default async function CachedServicesPage() {
   const user = await currentUser();
 
   if (!user) {
-    redirect('/sign-in');
+    redirect("/sign-in");
   }
 
   return (
@@ -18,8 +18,7 @@ export default async function CachedServicesPage() {
         <div className="mb-8">
           <Link
             href="/profile"
-            className="inline-flex items-center text-emerald-600 hover:text-emerald-700 mb-4"
-          >
+            className="inline-flex items-center text-emerald-600 hover:text-emerald-700 mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Profile
           </Link>
@@ -50,7 +49,8 @@ export default async function CachedServicesPage() {
             <li className="flex items-start">
               <span className="text-emerald-600 mr-2">•</span>
               <span>
-                Cached services remain accessible even without an internet connection
+                Cached services remain accessible even without an internet
+                connection
               </span>
             </li>
             <li className="flex items-start">
@@ -61,9 +61,7 @@ export default async function CachedServicesPage() {
             </li>
             <li className="flex items-start">
               <span className="text-emerald-600 mr-2">•</span>
-              <span>
-                Registration requires an active internet connection
-              </span>
+              <span>Registration requires an active internet connection</span>
             </li>
           </ul>
         </div>
