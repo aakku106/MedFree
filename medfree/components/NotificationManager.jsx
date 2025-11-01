@@ -80,9 +80,11 @@ export default function NotificationManager() {
       }
 
       // Subscribe to push
+      // Access the environment variable from window (Next.js injects it)
       const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-      if (!vapidPublicKey) {
-        setError("VAPID public key not configured");
+      
+      if (!vapidPublicKey || vapidPublicKey === 'your_public_key') {
+        setError("VAPID public key not configured. Run: npx web-push generate-vapid-keys");
         setLoading(false);
         return;
       }

@@ -72,14 +72,32 @@ export async function getPushSubscription(registration) {
  */
 export async function subscribeToPush(registration, vapidPublicKey) {
   try {
+    // Validate the key before attempting subscription
+    if (!vapidPublicKey || vapidPublicKey === 'your_public_key') {
+      throw new Error("Invalid VAPID public key. Please run: npx web-push generate-vapid-keys and update your .env file");
+    }
+
+    // Check if the key looks like a valid base64 string
+    if (vapidPublicKey.length < 80) {
+      throw new Error("VAPID public key appears to be invalid (too short). It should be an 88-character base64 string.");
+    }
+
+    const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
+    
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(vapidPublicKey),
+      applicationServerKey,
     });
 
     return subscription;
   } catch (error) {
     console.error("Failed to subscribe to push notifications:", error);
+    
+    // Provide more helpful error messages
+    if (error.name === 'InvalidAccessError') {
+      throw new Error("Invalid VAPID key format. Please verify your NEXT_PUBLIC_VAPID_PUBLIC_KEY in .env is a valid P-256 public key from: npx web-push generate-vapid-keys");
+    }
+    
     throw error;
   }
 }
