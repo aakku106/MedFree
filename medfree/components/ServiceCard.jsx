@@ -23,10 +23,19 @@ export default function ServiceCard({ service, userLocation = null }) {
   }
 
   return (
-    <Link href={`/services/${service._id}`}>
-      <div className="group bg-white rounded-xl border border-gray-200 hover:border-emerald-400 hover:shadow-lg transition-all duration-300 p-6 h-full flex flex-col cursor-pointer">
+    <div className="group bg-white rounded-xl border border-gray-200 hover:border-emerald-400 hover:shadow-lg transition-all duration-300 p-6 h-full flex flex-col relative">
+      {/* Save Button - Absolute positioned */}
+      <div
+        className="absolute top-4 right-4 z-10"
+        onClick={(e) => e.preventDefault()}>
+        <SaveButton serviceId={service._id} />
+      </div>
+
+      <Link
+        href={`/services/${service._id}`}
+        className="flex flex-col h-full cursor-pointer">
         {/* Category Badge */}
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-3 pr-12">
           <span className="inline-block px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full">
             {service.category}
           </span>
@@ -61,7 +70,7 @@ export default function ServiceCard({ service, userLocation = null }) {
         </h3>
 
         {/* Short Description */}
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2 flex-grow">
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2 grow">
           {service.shortDescription}
         </p>
 
