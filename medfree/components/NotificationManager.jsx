@@ -83,15 +83,17 @@ export default function NotificationManager() {
       // Access the environment variable from window (Next.js injects it)
       const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
 
-      console.log('🔐 VAPID Key Check:', {
+      console.log("🔐 VAPID Key Check:", {
         exists: !!vapidPublicKey,
         length: vapidPublicKey?.length,
-        isPlaceholder: vapidPublicKey === 'your_public_key',
-        preview: vapidPublicKey ? vapidPublicKey.substring(0, 10) + '...' : 'undefined'
+        isPlaceholder: vapidPublicKey === "your_public_key",
+        preview: vapidPublicKey
+          ? vapidPublicKey.substring(0, 10) + "..."
+          : "undefined",
       });
 
       if (!vapidPublicKey || vapidPublicKey === "your_public_key") {
-        const setupMsg = 
+        const setupMsg =
           "⚠️ VAPID public key not configured!\n\n" +
           "Follow these steps:\n" +
           "1. Run: npx web-push generate-vapid-keys\n" +
@@ -99,7 +101,7 @@ export default function NotificationManager() {
           "   NEXT_PUBLIC_VAPID_PUBLIC_KEY=YOUR_KEY_HERE\n" +
           "3. Restart your dev server (npm run dev)\n\n" +
           "See PUSH_NOTIFICATIONS_SETUP.md for detailed instructions.";
-        
+
         console.error(setupMsg);
         setError(
           "VAPID keys not configured. Check browser console for setup instructions."

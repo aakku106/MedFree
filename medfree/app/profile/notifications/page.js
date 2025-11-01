@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import NotificationManager from "@/components/NotificationManager";
 import NotificationPreferences from "@/components/NotificationPreferences";
+import VapidSetupGuide from "@/components/VapidSetupGuide";
 
 export default async function NotificationsPage() {
   const { userId } = await auth();
@@ -9,6 +10,11 @@ export default async function NotificationsPage() {
   if (!userId) {
     redirect("/sign-in");
   }
+
+  // Check if VAPID keys are configured
+  const vapidConfigured = 
+    process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY && 
+    process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY !== 'your_public_key';
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -24,6 +30,9 @@ export default async function NotificationsPage() {
         </div>
 
         <div className="space-y-6">
+          {/* Setup Guide (only show if not configured) */}
+          {!vapidConfigured && <VapidSetupGuide />}
+
           {/* Enable/Disable Notifications */}
           <NotificationManager />
 

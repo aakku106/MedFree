@@ -28,7 +28,8 @@ export default function VapidSetupGuide() {
               🔐 VAPID Keys Required
             </h4>
             <p className="text-sm text-amber-800 mb-3">
-              Push notifications require VAPID keys to be configured. Follow these steps:
+              Push notifications require VAPID keys to be configured. Follow
+              these steps:
             </p>
             <ol className="text-sm text-amber-800 space-y-2 list-decimal list-inside ml-2">
               <li>
@@ -64,7 +65,11 @@ export default function VapidSetupGuide() {
         <button
           onClick={() => setShow(false)}
           className="text-amber-600 hover:text-amber-800 p-1 -mt-1 -mr-1">
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
