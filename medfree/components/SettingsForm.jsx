@@ -29,7 +29,7 @@ const DISTRICTS = [
   "Other",
 ];
 
-export default function SettingsForm({ user }) {
+export default function SettingsForm({ userData }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);

@@ -16,6 +16,14 @@ export default async function SettingsPage() {
     redirect("/sign-in");
   }
 
+  // Serialize user data to plain object for Client Component
+  const userData = {
+    fullName: user?.fullName || null,
+    firstName: user?.firstName || null,
+    lastName: user?.lastName || null,
+    email: user?.emailAddresses?.[0]?.emailAddress || null,
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,7 +54,7 @@ export default async function SettingsPage() {
         </div>
 
         {/* Settings Form */}
-        <SettingsForm user={user} />
+        <SettingsForm userData={userData} />
       </div>
     </div>
   );
