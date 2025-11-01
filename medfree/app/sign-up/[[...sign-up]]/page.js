@@ -33,11 +33,11 @@ export default function SignUpPage() {
         {/* Footer */}
         <p className="text-center text-sm text-gray-600 mt-8">
           Already have an account?{" "}
-          <a
+          <Link
             href="/sign-in"
             className="text-emerald-600 hover:text-emerald-700 font-medium">
             Sign in
-          </a>
+          </Link>
         </p>
       </div>
     </div>

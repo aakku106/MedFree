@@ -17,9 +17,11 @@ export default clerkMiddleware(async (auth, req) => {
       return NextResponse.redirect(signInUrl);
     }
 
-    // Check role from Clerk metadata
-    const metadata = sessionClaims?.metadata as { role?: string } | undefined;
-    const role = metadata?.role || "user";
+    // Check role from Clerk publicMetadata (not metadata)
+    const publicMetadata = sessionClaims?.publicMetadata as
+      | { role?: string }
+      | undefined;
+    const role = publicMetadata?.role || "user";
 
     if (role !== "admin" && role !== "agent") {
       // Unauthorized - redirect to home with error
