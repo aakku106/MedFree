@@ -1,27 +1,27 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { getCachedServices } from '@/lib/pwa';
-import { Calendar, MapPin, Users, Database } from 'lucide-react';
-import Link from 'next/link';
+import { useState, useEffect } from "react";
+import { getCachedServices } from "@/lib/pwa";
+import { Calendar, MapPin, Users, Database } from "lucide-react";
+import Link from "next/link";
 
 export default function CachedServicesViewer() {
   const [cachedServices, setCachedServices] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isOnline, setIsOnline] = useState(() => 
-    typeof window !== 'undefined' ? navigator.onLine : true
+  const [isOnline, setIsOnline] = useState(() =>
+    typeof window !== "undefined" ? navigator.onLine : true
   );
 
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, []);
 
@@ -35,7 +35,7 @@ export default function CachedServicesViewer() {
       const services = await getCachedServices();
       setCachedServices(services || []);
     } catch (error) {
-      console.error('Failed to load cached services:', error);
+      console.error("Failed to load cached services:", error);
       setCachedServices([]);
     } finally {
       setLoading(false);
@@ -58,16 +58,14 @@ export default function CachedServicesViewer() {
           No Cached Services
         </h3>
         <p className="text-gray-600 mb-6">
-          {isOnline 
-            ? 'View service details while online to cache them for offline access.'
-            : 'You need to view services while online first to access them offline.'
-          }
+          {isOnline
+            ? "View service details while online to cache them for offline access."
+            : "You need to view services while online first to access them offline."}
         </p>
         {isOnline && (
           <Link
             href="/services"
-            className="inline-block bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
-          >
+            className="inline-block bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors">
             Browse Services
           </Link>
         )}
@@ -84,8 +82,10 @@ export default function CachedServicesViewer() {
             Offline Cache Active
           </h3>
           <p className="text-sm text-blue-700">
-            {cachedServices.length} service{cachedServices.length !== 1 ? 's' : ''} available offline. 
-            {isOnline && ' You can view these even without an internet connection.'}
+            {cachedServices.length} service
+            {cachedServices.length !== 1 ? "s" : ""} available offline.
+            {isOnline &&
+              " You can view these even without an internet connection."}
           </p>
         </div>
       </div>
@@ -95,15 +95,17 @@ export default function CachedServicesViewer() {
           <Link
             key={service._id}
             href={`/services/${service._id}`}
-            className="block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden"
-          >
+            className="block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden">
             <div className="p-6">
               {/* Category Badge */}
               <div className="flex items-center justify-between mb-3">
                 <span className="inline-block bg-emerald-100 text-emerald-800 text-xs font-medium px-3 py-1 rounded-full">
                   {service.category}
                 </span>
-                <Database className="h-4 w-4 text-gray-400" title="Cached offline" />
+                <Database
+                  className="h-4 w-4 text-gray-400"
+                  title="Cached offline"
+                />
               </div>
 
               {/* Service Title */}
@@ -123,10 +125,10 @@ export default function CachedServicesViewer() {
               <div className="flex items-center text-sm text-gray-600 mb-2">
                 <Calendar className="h-4 w-4 mr-2 shrink-0" />
                 <span>
-                  {new Date(service.date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
+                  {new Date(service.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
                   })}
                   {service.time && ` • ${service.time}`}
                 </span>
@@ -136,7 +138,8 @@ export default function CachedServicesViewer() {
               <div className="flex items-center text-sm text-gray-600">
                 <Users className="h-4 w-4 mr-2 shrink-0" />
                 <span>
-                  {service.registeredCount || 0} / {service.maxCapacity} registered
+                  {service.registeredCount || 0} / {service.maxCapacity}{" "}
+                  registered
                 </span>
               </div>
 

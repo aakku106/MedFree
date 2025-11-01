@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import RegisterButton from "@/components/RegisterButton";
+import ServiceCacheWrapper from "@/components/ServiceCacheWrapper";
 import { convertToNepaliDate } from "@/lib/utils";
 
 async function getService(id) {
@@ -43,6 +44,7 @@ export default async function ServiceDetailPage({ params }) {
   return (
     <>
       <Navbar />
+      <ServiceCacheWrapper service={service} />
 
       <main className="min-h-screen bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
