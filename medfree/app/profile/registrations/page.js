@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 import RegistrationCard from "@/components/RegistrationCard";
@@ -121,10 +122,10 @@ export default async function UserRegistrationsPage() {
                   No Upcoming Services
                 </h3>
                 <p className="text-gray-600 mb-6">
-                  You don't have any upcoming service registrations. Browse
+                  You don&apos;t have any upcoming service registrations. Browse
                   available services to register.
                 </p>
-                <a
+                <Link
                   href="/services"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium">
                   <svg
@@ -140,7 +141,7 @@ export default async function UserRegistrationsPage() {
                     />
                   </svg>
                   Browse Services
-                </a>
+                </Link>
               </div>
             </div>
           )}
