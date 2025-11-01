@@ -1,0 +1,240 @@
+# Push Notifications Setup Guide
+
+This guide explains how to set up and configure push notifications for MedFree.
+
+## Prerequisites
+
+- Node.js installed
+- web-push package installed: `npm install web-push`
+
+## Step 1: Generate VAPID Keys
+
+VAPID (Voluntary Application Server Identification) keys are required for Web Push notifications.
+
+```bash
+cd medfree
+npx web-push generate-vapid-keys
+```
+
+This will output something like:
+
+```
+=======================================
+Public Key:
+BEl62iUYgUivxIkv69yViEuiBIa-Ib27SErSH3tQKvI...
+
+Private Key:
+p6YVD7dXidko55jwmGMv4k_PLSVaW_HQtvjAfVe...
+=======================================
+```
+
+## Step 2: Add Keys to Environment Variables
+
+Add these keys to your `.env` or `.env.local` file:
+
+```env
+# Push Notifications (VAPID)
+NEXT_PUBLIC_VAPID_PUBLIC_KEY=your_public_key_here
+VAPID_PRIVATE_KEY=your_private_key_here
+VAPID_EMAIL=admin@medfree.com
+```
+
+**Important:**
+
+- The public key must be prefixed with `NEXT_PUBLIC_` to be accessible in the browser
+- The private key should never be exposed to the client
+- Replace the email with your actual contact email
+
+## Step 3: Test the Setup
+
+1. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+2. Sign in to the application
+
+3. Go to `/profile/notifications`
+
+4. Click "Enable Notifications"
+
+5. Grant notification permission when prompted
+
+6. You should see a test notification appear
+
+## Step 4: Send Test Notification (Admin)
+
+1. Sign in as an admin user
+
+2. Go to `/admin/notifications`
+
+3. Fill in the notification form:
+
+   - Title: "Test Notification"
+   - Message: "This is a test push notification"
+   - Type: "Service Reminders"
+   - Target: "All subscribed users"
+
+4. Click "Send Notification"
+
+5. Check that registered users receive the notification
+
+## MongoDB Collections
+
+Push notifications use the following collections:
+
+### `subscriptions`
+
+Stores user push subscriptions:
+
+```javascript
+{
+  _id: ObjectId,
+  userId: "user_xxx",
+  endpoint: "https://fcm.googleapis.com/...",
+  subscription: {
+    endpoint: "https://fcm.googleapis.com/...",
+    keys: {
+      p256dh: "...",
+      auth: "..."
+    }
+  },
+  preferences: {
+    serviceReminders: true,
+    newServices: true,
+    updates: true,
+    marketing: false
+  },
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+### `notificationLogs`
+
+Tracks sent notifications:
+
+```javascript
+{
+  _id: ObjectId,
+  title: "Free Health Camp Tomorrow",
+  body: "Your registered health service...",
+  url: "/services/123",
+  serviceId: "service_id",
+  notificationType: "serviceReminders",
+  targetUserIds: ["user_1", "user_2"],
+  sentBy: "admin_user_id",
+  sentAt: Date,
+  successCount: 45,
+  failCount: 2,
+  totalRecipients: 47
+}
+```
+
+## Browser Compatibility
+
+Push notifications are supported in:
+
+- ✅ Chrome 50+ (desktop & Android)
+- ✅ Firefox 44+
+- ✅ Edge 17+
+- ✅ Opera 37+
+- ✅ Samsung Internet 5+
+- ❌ Safari (requires APNs setup - not included)
+- ❌ iOS Safari (not supported)
+
+## Troubleshooting
+
+### "VAPID keys not configured" error
+
+- Make sure you've generated VAPID keys
+- Check that keys are added to `.env` or `.env.local`
+- Restart the development server after adding keys
+
+### Notifications not appearing
+
+- Check browser notification permissions (should be "Allow")
+- Verify service worker is registered (check DevTools > Application > Service Workers)
+- Check browser console for errors
+- Ensure user has enabled notifications in `/profile/notifications`
+
+### "Service worker registration failed"
+
+- Ensure `sw.js` exists in the `public` folder
+- Check that the service worker scope is correct
+- Clear browser cache and reload
+
+### Subscription fails on production
+
+- Ensure your site is served over HTTPS (required for service workers)
+- Check that VAPID keys are properly set in production environment variables
+
+## Features Implemented
+
+✅ **FR032: Push Notification Infrastructure**
+
+- Service Worker for background notifications
+- Web Push API integration
+- VAPID authentication
+
+✅ **FR033: Notification Preferences**
+
+- User preference management page
+- Toggle for different notification types
+- Save/update preferences
+
+✅ **FR034: Notification Triggers**
+
+- Admin interface to send notifications
+- Target all users or specific users
+- Notification type filtering
+
+✅ **FR035: Notification Tracking**
+
+- Log all sent notifications
+- Track success/failure rates
+- Store notification history
+
+## Usage Examples
+
+### Send Service Reminder (24 hours before)
+
+```javascript
+// This would be in a cron job or scheduled task
+await fetch("/api/notifications/send", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    title: "Service Reminder",
+    body: "Your health service is tomorrow at 9 AM",
+    url: "/profile/registrations",
+    notificationType: "serviceReminders",
+    targetUserIds: ["user_123"],
+  }),
+});
+```
+
+### Notify About New Service
+
+```javascript
+await fetch("/api/notifications/send", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    title: "New Health Service Available",
+    body: "Free dental checkup in Kathmandu on Dec 15",
+    url: "/services/new_service_id",
+    notificationType: "newServices",
+    // targetUserIds not specified = send to all
+  }),
+});
+```
+
+## Next Steps
+
+- Set up automated reminders (cron job to send 24h before services)
+- Add notification templates
+- Implement notification scheduling
+- Add rich media (images in notifications)
+- Track notification click rates
