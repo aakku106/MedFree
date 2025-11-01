@@ -139,7 +139,8 @@ export default function SavedServicesList() {
                     />
                   </svg>
                   <span className="text-sm">
-                    {service.location.address}, {service.location.city}
+                    {service.address || service.city}
+                    {service.district && `, ${service.district}`}
                   </span>
                 </div>
 
