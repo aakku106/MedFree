@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { auth, clerkClient } from "@clerk/nextjs/server";
-import { getServicesCollection, getRegistrationsCollection } from "@/lib/mongodb";
+import {
+  getServicesCollection,
+  getRegistrationsCollection,
+} from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
 export async function POST(request, { params }) {
@@ -18,7 +21,10 @@ export async function POST(request, { params }) {
     const { id } = resolvedParams;
 
     if (!ObjectId.isValid(id)) {
-      return NextResponse.json({ error: "Invalid service ID" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid service ID" },
+        { status: 400 }
+      );
     }
 
     const body = await request.json();
@@ -73,7 +79,10 @@ export async function POST(request, { params }) {
     }
 
     // Generate unique registration code
-    const registrationCode = `REG-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+    const registrationCode = `REG-${Date.now()}-${Math.random()
+      .toString(36)
+      .substring(2, 8)
+      .toUpperCase()}`;
 
     // Create registration document
     const registrationDoc = {
@@ -93,7 +102,7 @@ export async function POST(request, { params }) {
 
     // Insert registration and update service count atomically
     await registrationsCollection.insertOne(registrationDoc);
-    
+
     await servicesCollection.updateOne(
       { _id: new ObjectId(id) },
       {
@@ -128,7 +137,10 @@ export async function GET(request, { params }) {
     const { id } = resolvedParams;
 
     if (!ObjectId.isValid(id)) {
-      return NextResponse.json({ error: "Invalid service ID" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid service ID" },
+        { status: 400 }
+      );
     }
 
     const registrationsCollection = await getRegistrationsCollection();
@@ -160,7 +172,10 @@ export async function DELETE(request, { params }) {
     const { id } = resolvedParams;
 
     if (!ObjectId.isValid(id)) {
-      return NextResponse.json({ error: "Invalid service ID" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid service ID" },
+        { status: 400 }
+      );
     }
 
     const servicesCollection = await getServicesCollection();

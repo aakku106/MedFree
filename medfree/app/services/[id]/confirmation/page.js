@@ -8,7 +8,7 @@ import QRCode from "qrcode";
 export default function ConfirmationPage({ params }) {
   const searchParams = useSearchParams();
   const registrationCode = searchParams.get("code");
-  
+
   const [service, setService] = useState(null);
   const [loading, setLoading] = useState(true);
   const [qrCodeUrl, setQrCodeUrl] = useState("");

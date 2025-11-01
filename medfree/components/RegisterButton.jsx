@@ -10,7 +10,7 @@ export default function RegisterButton({ service }) {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  
+
   const [formData, setFormData] = useState({
     userName: "",
     userPhone: "",
@@ -83,9 +83,11 @@ export default function RegisterButton({ service }) {
       }
 
       const data = await response.json();
-      
+
       // Redirect to confirmation page
-      router.push(`/services/${service._id}/confirmation?code=${data.registrationCode}`);
+      router.push(
+        `/services/${service._id}/confirmation?code=${data.registrationCode}`
+      );
     } catch (err) {
       setError(err.message);
       setLoading(false);
@@ -108,7 +110,9 @@ export default function RegisterButton({ service }) {
             <p className="text-yellow-800 font-bold text-lg">
               ⚡ Only {spotsLeft} spots left!
             </p>
-            <p className="text-yellow-600 text-sm mt-1">Register now before it fills up</p>
+            <p className="text-yellow-600 text-sm mt-1">
+              Register now before it fills up
+            </p>
           </div>
         ) : (
           <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 text-center">
