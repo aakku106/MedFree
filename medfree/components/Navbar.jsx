@@ -1,10 +1,11 @@
 "use client";
 import Link from "next/link";
-import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import { SignInButton, UserButton } from "@clerk/nextjs";
 import { useState } from "react";
+import { useOfflineAuth } from "./OfflineAuthProvider";
 
 export default function Navbar() {
-  const { isSignedIn } = useUser();
+  const { isSignedIn, isOffline } = useOfflineAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -40,7 +41,16 @@ export default function Navbar() {
           {/* Auth Button */}
           <div className="hidden md:flex items-center">
             {isSignedIn ? (
-              <UserButton afterSignOutUrl="/" />
+              isOffline ? (
+                <Link
+                  href="/profile"
+                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors font-medium flex items-center gap-2">
+                  <span>Profile</span>
+                  <span className="text-xs text-yellow-600">• Offline</span>
+                </Link>
+              ) : (
+                <UserButton afterSignOutUrl="/" />
+              )
             ) : (
               <SignInButton mode="modal">
                 <button className="px-5 py-2 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition-colors font-medium">
@@ -52,7 +62,14 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-4">
-            {isSignedIn && <UserButton afterSignOutUrl="/" />}
+            {isSignedIn && !isOffline && <UserButton afterSignOutUrl="/" />}
+            {isSignedIn && isOffline && (
+              <Link
+                href="/profile"
+                className="text-sm text-gray-700 font-medium">
+                Profile
+              </Link>
+            )}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

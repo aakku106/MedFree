@@ -8,10 +8,34 @@ const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 const isProfileRoute = createRouteMatcher(["/profile(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
-  const { userId } = await auth();
+  // Protect profile routes - require authentication only
+  // Allow offline access by letting client handle cached auth
+  if (isProfileRoute(req)) {
+    try {
+      const { userId } = await auth();
+      if (userId) {
+        // User is authenticated online, proceed normally
+        return NextResponse.next();
+      }
+    } catch (error) {
+      // Clerk API failed (likely offline or network error)
+      // Allow pass-through so client-side cached auth can handle it
+      console.log(
+        "⚠️ Clerk auth check failed (possibly offline), allowing client-side auth"
+      );
+      return NextResponse.next();
+    }
 
-  // Protect admin routes - require authentication and admin email
+    // If no userId and no error, redirect to sign-in
+    const signInUrl = new URL("/sign-in", req.url);
+    signInUrl.searchParams.set("redirect_url", req.url);
+    return NextResponse.redirect(signInUrl);
+  }
+
+  // Protect admin routes - require ONLINE authentication and admin email
   if (isAdminRoute(req)) {
+    const { userId } = await auth();
+
     if (!userId) {
       // Redirect to sign-in if not authenticated
       const signInUrl = new URL("/sign-in", req.url);
@@ -19,7 +43,7 @@ export default clerkMiddleware(async (auth, req) => {
       return NextResponse.redirect(signInUrl);
     }
 
-    // Fetch user email from Clerk
+    // Fetch user email from Clerk (requires online connection)
     try {
       const client = await clerkClient();
       const user = await client.users.getUser(userId);
@@ -36,15 +60,6 @@ export default clerkMiddleware(async (auth, req) => {
       const homeUrl = new URL("/", req.url);
       homeUrl.searchParams.set("error", "auth_error");
       return NextResponse.redirect(homeUrl);
-    }
-  }
-
-  // Protect profile routes - require authentication only
-  if (isProfileRoute(req)) {
-    if (!userId) {
-      const signInUrl = new URL("/sign-in", req.url);
-      signInUrl.searchParams.set("redirect_url", req.url);
-      return NextResponse.redirect(signInUrl);
     }
   }
 

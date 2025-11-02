@@ -241,10 +241,10 @@ export default function ServicesPage() {
           }
         }
       } catch (err) {
-        console.error("Error fetching services:", err);
-
         // Check if user is offline and we have cached data
         if (err.message === "OFFLINE" || !navigator.onLine) {
+          console.log("📡 Device is offline, loading from cache...");
+
           try {
             const cached = localStorage.getItem(CACHE_KEY);
             if (cached) {
@@ -295,6 +295,8 @@ export default function ServicesPage() {
             "You're offline and no cached data is available. Please connect to the internet."
           );
         } else {
+          // Log actual errors (not offline)
+          console.error("Error fetching services:", err);
           setError("Failed to load services. Please try again.");
         }
       } finally {

@@ -1,14 +1,38 @@
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import CachedServicesViewer from "@/components/CachedServicesViewer";
+import { useOfflineAuth } from "@/components/OfflineAuthProvider";
 
-export default async function CachedServicesPage() {
-  const user = await currentUser();
+export default function CachedServicesPage() {
+  const router = useRouter();
+  const { user, isLoaded, isSignedIn, isOffline } = useOfflineAuth();
+
+  useEffect(() => {
+    if (isLoaded && !isSignedIn && !isOffline) {
+      router.push("/sign-in");
+    }
+  }, [isLoaded, isSignedIn, isOffline, router]);
+
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <div className="flex items-center justify-center h-screen">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!user) {
-    redirect("/sign-in");
+    return null; // Will redirect
   }
 
   return (
