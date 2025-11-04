@@ -186,7 +186,7 @@ export default function DeleteServicePage({ params }) {
         {/* Soft Delete (Deactivate) */}
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
           <div className="flex items-start">
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <svg
                 className="h-6 w-6 text-yellow-600"
                 fill="none"
