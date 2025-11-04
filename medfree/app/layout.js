@@ -17,18 +17,19 @@ export const metadata = {
   keywords:
     "free medical services, government health camps, Nepal healthcare, free checkups",
   manifest: "/manifest.json",
-  themeColor: "#059669",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
     title: "MedFree",
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: "#059669",
 };
 
 export default function RootLayout({ children }) {
