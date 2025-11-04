@@ -5,7 +5,7 @@ const { MongoClient } = require("mongodb");
 
 const uri =
   process.env.MONGODB_URI ||
-  "mongodb+srv://aakku106:1234@cluster0.2r1aj8e.mongodb.net/?appName=Cluster0";
+  "mongodb+srv://aakku106:1234@cluster0.2r1aj8e.mongodb.net/?appName=Cluster0"; // Nice try
 
 // Services near Rupandehi district (Manigram, Shankarnagar, Butwal)
 const rupandehiServices = [
