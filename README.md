@@ -1,7 +1,7 @@
 # MedFree - Free Health Services Platform
 
 **Live Site:** [medfree.adarashagaihre.com.np](https://medfree.adarashagaihre.com.np)  
-**Repository:** [github.com/aakku106/MedFree](https://github.com/aakku106/MedFree/medfree) (see `/medfree` directory)  
+**Repository:** [github.com/aakku106/MedFree](https://github.com/aakku106/MedFree/tree/main/medfree) (see `/medfree` directory)  
 **Presentation:** [Google Drive](https://drive.google.com/drive/folders/1iVKVBsOEE-QBFb-2TNaJN7j35t8o-yUf?usp=sharing)
 
 ---
