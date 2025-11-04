@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import ServiceCard from "@/components/ServiceCard";
@@ -21,7 +21,7 @@ if (typeof window !== "undefined") {
   };
 }
 
-export default function ServicesPage() {
+function ServicesContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const isMounted = useRef(false);
@@ -523,5 +523,27 @@ export default function ServicesPage() {
         </div>
       </main>
     </>
+  );
+}
+
+export default function ServicesPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gray-50">
+          <Navbar />
+          <main className="pt-24 pb-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-12">
+                <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                  Loading Services...
+                </h1>
+              </div>
+            </div>
+          </main>
+        </div>
+      }>
+      <ServicesContent />
+    </Suspense>
   );
 }
