@@ -1,11 +1,13 @@
+"use client";
+
+import { useEffect } from "react";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Offline - MedFree",
-  description: "You are currently offline",
-};
-
 export default function OfflinePage() {
+  // Set page title dynamically since we can't use metadata in client components
+  useEffect(() => {
+    document.title = "Offline - MedFree";
+  }, []);
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
