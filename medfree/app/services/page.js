@@ -27,6 +27,11 @@ function ServicesContent() {
   const isMounted = useRef(false);
   const cacheChecked = useRef(false);
   const servicesRef = useRef([]);
+  const initialFiltersRef = useRef({
+    category: searchParams.get("category") || "all",
+    diagnosis: searchParams.get("diagnosis") || "all",
+    search: searchParams.get("q") || "",
+  });
 
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -68,7 +73,7 @@ function ServicesContent() {
     "Eye Test",
   ];
 
-  // Request location on mount (check cache first)
+  // Request location on mount (check cache first) - ONLY RUNS ONCE
   useEffect(() => {
     if (isMounted.current) return;
     isMounted.current = true;
@@ -81,10 +86,10 @@ function ServicesContent() {
           const { data, timestamp, filters, version } = JSON.parse(cached);
           const now = Date.now();
 
-          // Check if cache is still valid and filters match current URL params
-          const currentCategory = searchParams.get("category") || "all";
-          const currentDiagnosis = searchParams.get("diagnosis") || "all";
-          const currentSearch = searchParams.get("q") || "";
+          // Use initial filters from URL on first mount
+          const currentCategory = initialFiltersRef.current.category;
+          const currentDiagnosis = initialFiltersRef.current.diagnosis;
+          const currentSearch = initialFiltersRef.current.search;
 
           // Validate cache: version match, not expired, filters match
           if (
@@ -142,7 +147,7 @@ function ServicesContent() {
     };
 
     requestLocation();
-  }, [searchParams]); // Depend on searchParams instead of individual filter states
+  }, []); // Empty dependency - only run once on mount
 
   // Fetch services
   const fetchServices = useCallback(
@@ -309,13 +314,42 @@ function ServicesContent() {
   // Initial fetch and refetch on filter changes
   useEffect(() => {
     // Skip initial fetch if cache was just restored
-    if (cacheChecked.current && services.length > 0) {
+    if (cacheChecked.current && servicesRef.current.length > 0) {
+      console.log("⏭️ Skipping fetch - using cached data");
       cacheChecked.current = false;
       return;
     }
 
+    // Only fetch if we don't have cache
+    if (!cacheChecked.current) {
+      return; // Wait for cache check to complete
+    }
+
     fetchServices(1, true);
-  }, [fetchServices, services.length]);
+  }, [fetchServices]);
+
+  // Detect filter changes and invalidate cache
+  useEffect(() => {
+    // Skip on initial mount
+    if (!isMounted.current) return;
+
+    // Check if filters changed from initial values
+    const filtersChanged =
+      selectedCategory !== initialFiltersRef.current.category ||
+      selectedDiagnosis !== initialFiltersRef.current.diagnosis ||
+      searchQuery !== initialFiltersRef.current.search;
+
+    if (filtersChanged) {
+      console.log("🔄 Filters changed, clearing cache and fetching");
+      localStorage.removeItem(CACHE_KEY);
+      initialFiltersRef.current = {
+        category: selectedCategory,
+        diagnosis: selectedDiagnosis,
+        search: searchQuery,
+      };
+      fetchServices(1, true);
+    }
+  }, [selectedCategory, selectedDiagnosis, searchQuery, fetchServices]);
 
   // Update URL params
   useEffect(() => {

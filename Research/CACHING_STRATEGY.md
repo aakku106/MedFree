@@ -65,9 +65,11 @@ Restore instantly
 Cache is **automatically cleared** when:
 
 1. ⏰ **5 minutes expire** - Ensures fresh data
-2. 🔄 **Filters change** - Category, diagnosis, or search query changes
+2. 🔄 **Filters change** - Category, diagnosis, or search query changes (detected on user interaction)
 3. 🆕 **Version mismatch** - When `CACHE_VERSION` is incremented in code
 4. ❌ **Corrupted data** - If JSON parsing fails
+
+**Important:** The cache restoration only happens **once on initial page load**. Navigating back from a service detail page will use the cached data instantly without making new API requests, as long as the cache is still valid (< 5 minutes old and filters haven't changed).
 
 ---
 
@@ -83,7 +85,7 @@ Cache is **automatically cleared** when:
 
 ## User Experience
 
-### Before Caching:
+### Before Caching
 
 ```
 /services → /services/[id] → Back button
@@ -92,7 +94,7 @@ Cache is **automatically cleared** when:
  (1-2s)      (1-2s)          (1-2s) 😞
 ```
 
-### After Caching:
+### After Caching
 
 ```
 /services → /services/[id] → Back button
@@ -134,28 +136,39 @@ The app logs cache operations:
 
 ## Technical Implementation
 
-### Key Features:
+### Key Features
 
 1. **useRef for Service Tracking**
 
    - `servicesRef.current` prevents infinite re-renders
-   - Removed `services` from dependency arrays
+   - `initialFiltersRef.current` tracks original URL filters
+   - Removed problematic dependencies from useEffect arrays
 
 2. **Cache Validation**
 
    - Timestamp check (5-minute expiry)
    - Filter comparison (category, diagnosis, search)
    - Version check (for cache invalidation)
+   - **Only runs once on initial mount** - prevents re-fetching on navigation
 
-3. **Quota Error Handling**
+3. **Filter Change Detection**
+
+   - Separate useEffect monitors filter state changes
+   - Compares current filters to initial filters
+   - Only invalidates cache when user actually changes filters
+   - Prevents false cache invalidation on navigation
+
+4. **Quota Error Handling**
 
    - Catches `QuotaExceededError`
    - Clears old cache and retries
    - Graceful degradation (app works without cache)
 
-4. **Skip Initial Fetch**
+5. **Skip Initial Fetch**
+
    - After cache restoration, skips API call
    - Uses `cacheChecked` ref to coordinate
+   - Runs only once per page mount
 
 ---
 
