@@ -85,7 +85,7 @@ Cache is **automatically cleared** when:
 
 ## User Experience
 
-### Before Caching:
+### Before Caching
 
 ```
 /services → /services/[id] → Back button
@@ -94,7 +94,7 @@ Cache is **automatically cleared** when:
  (1-2s)      (1-2s)          (1-2s) 😞
 ```
 
-### After Caching:
+### After Caching
 
 ```
 /services → /services/[id] → Back button
