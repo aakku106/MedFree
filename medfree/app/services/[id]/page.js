@@ -4,23 +4,31 @@ import Navbar from "@/components/Navbar";
 import RegisterButton from "@/components/RegisterButton";
 import ServiceCacheWrapper from "@/components/ServiceCacheWrapper";
 import { convertToNepaliDate } from "@/lib/utils";
+import { getServicesCollection } from "@/lib/mongodb";
+import { ObjectId } from "mongodb";
 
 async function getService(id) {
   try {
-    const res = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
-      }/api/services/${id}`,
-      {
-        cache: "no-store",
-      }
-    );
-
-    if (!res.ok) {
+    // Validate ObjectId
+    if (!ObjectId.isValid(id)) {
+      console.error("Invalid ObjectId:", id);
       return null;
     }
 
-    return res.json();
+    // Directly query database instead of fetching from API
+    const collection = await getServicesCollection();
+    const service = await collection.findOne({ _id: new ObjectId(id) });
+
+    if (!service) {
+      console.error("Service not found:", id);
+      return null;
+    }
+
+    // Convert ObjectId to string for client components
+    return {
+      ...service,
+      _id: service._id.toString(),
+    };
   } catch (error) {
     console.error("Error fetching service:", error);
     return null;
