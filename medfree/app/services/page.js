@@ -30,7 +30,7 @@ function ServicesContent() {
   const initialFiltersRef = useRef({
     category: searchParams.get("category") || "all",
     diagnosis: searchParams.get("diagnosis") || "all",
-    search: searchParams.get("q") || ""
+    search: searchParams.get("q") || "",
   });
 
   const [services, setServices] = useState([]);
@@ -334,7 +334,7 @@ function ServicesContent() {
     if (!isMounted.current) return;
 
     // Check if filters changed from initial values
-    const filtersChanged = 
+    const filtersChanged =
       selectedCategory !== initialFiltersRef.current.category ||
       selectedDiagnosis !== initialFiltersRef.current.diagnosis ||
       searchQuery !== initialFiltersRef.current.search;
@@ -345,7 +345,7 @@ function ServicesContent() {
       initialFiltersRef.current = {
         category: selectedCategory,
         diagnosis: selectedDiagnosis,
-        search: searchQuery
+        search: searchQuery,
       };
       fetchServices(1, true);
     }
