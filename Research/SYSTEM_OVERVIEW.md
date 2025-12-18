@@ -15,11 +15,13 @@
 ## The Core Problem
 
 Free health camps are organized regularly across Nepal by:
+
 - Government bodies (Ministry of Health, Municipalities)
 - INGOs (International Non-Governmental Organizations)
 - NGOs (Local Organizations)
 
 These camps provide essential services:
+
 - Dental checkups and treatment
 - Eye examinations and glasses
 - General health screenings
@@ -40,6 +42,7 @@ These camps provide essential services:
 **Management:** Admin dashboard for health agents to add/update services in real-time
 
 **Data Collected:**
+
 - Camp name and type (dental, eye, general, etc.)
 - Date, time, and duration
 - Location (address + GPS coordinates)
@@ -54,9 +57,11 @@ These camps provide essential services:
 **The key innovation:** We don't just build a website—we ensure information reaches everyone through the most appropriate channel for them.
 
 #### Channel 1: Progressive Web App (PWA)
+
 **Target:** Digitally connected urban/semi-urban users
 
 **Features:**
+
 - Location-based search
 - Smart filtering by category and diagnosis type
 - Service registration with QR code
@@ -66,6 +71,7 @@ These camps provide essential services:
 - Admin dashboard for health agents
 
 **Technology Stack:**
+
 - Next.js 16 with App Router
 - React 19
 - MongoDB
@@ -76,77 +82,94 @@ These camps provide essential services:
 **Accessibility:** https://medfree.adarashagaihre.com.np
 
 #### Channel 2: SMS Notifications
+
 **Target:** Communities with basic mobile phones, limited internet
 
 **How it works:**
+
 1. When a health camp is added to the system, the system identifies the target area
 2. SMS messages are sent to all registered numbers in that area
 3. Message format: "ABC Dental Camp on [date] at [location]. Organized by [org]. For details: medfree.com"
 4. Smart opt-out: Users who register online are automatically excluded from SMS notifications
 
 **Technology:**
+
 - SMS Gateway integration
 - Location-based targeting
 - Opt-out management system
 
 #### Channel 3: Automated Voice Calls (IVR)
+
 **Target:** Communities with low literacy, elderly citizens
 
 **How it works:**
+
 1. Pre-recorded messages in Nepali (and local languages)
 2. Automated calls to targeted phone numbers in specific areas
 3. Provides essential information: what, when, where
 4. Option to press key for more details or callback
 
 **Benefits:**
+
 - Works for people who can't read SMS
 - Personal touch increases trust
 - Can be in local dialects
 
 #### Channel 4: WhatsApp & Viber
+
 **Target:** Users with smartphones but prefer messaging apps
 
 **How it works:**
+
 - Automated messages through WhatsApp Business API
 - Group messages to community WhatsApp groups
 - Viber Public Accounts for announcements
 - Rich media: images, location maps, clickable links
 
 #### Channel 5: Email Notifications
+
 **Target:** Registered users with email access
 
 **How it works:**
+
 - Personalized email alerts based on location preferences
 - Weekly digest of upcoming camps in user's area
 - Registration confirmations and reminders
 
 #### Channel 6: Vehicle-Based Announcements (Miking)
+
 **Target:** Rural communities, areas with limited network coverage
 
 **How it works:**
+
 1. When a camp is scheduled in a rural area, local coordinators are notified
 2. E-rickshaws, motorcycles, or other vehicles equipped with loudspeakers drive through communities
 3. Announcement in local language: "There's a free dental camp tomorrow at [location], organized by [org]. Everyone is welcome!"
 4. Covers every neighborhood, reaches everyone
 
 **Why this matters:**
+
 - Zero technology requirement
 - Trusted traditional method
 - Reaches elderly and non-tech users
 - Works in areas with no network
 
 #### Channel 7: Community Miking Systems
+
 **Target:** Villages with community loudspeaker systems
 
 **How it works:**
+
 - Integration with existing community announcement systems
 - Morning/evening announcements through village speakers
 - Used for temple announcements, local news—now also for health camps
 
 #### Channel 8: Word-of-Mouth Amplification
+
 **Target:** Extremely remote areas, isolated communities
 
 **How it works:**
+
 - Community health workers receive information
 - Local leaders and teachers are notified
 - Information spreads through trusted local networks
@@ -157,23 +180,27 @@ These camps provide essential services:
 ## Smart Distribution Logic
 
 ### Scenario 1: Urban User
+
 1. Opens website, registers for a camp online
 2. Gets push notification + email confirmation
 3. **Does NOT receive SMS/calls** (smart opt-out)
 
 ### Scenario 2: Rural User with Basic Phone
+
 1. Receives SMS about nearby camp
 2. Gets automated call with details
 3. Can visit website for more info (optional)
 4. Or just shows up based on SMS information
 
 ### Scenario 3: Elderly Citizen Without Phone
+
 1. Hears loudspeaker announcement from vehicle
 2. Community leader also mentions it in gathering
 3. Neighbor who got SMS tells them
 4. Arrives at camp through word-of-mouth
 
 ### Scenario 4: Remote Village
+
 1. Community health worker gets notification
 2. Village miking system broadcasts announcement
 3. Teacher mentions it in school
@@ -184,6 +211,7 @@ These camps provide essential services:
 ## Why Multi-Channel Matters
 
 ### The Reality of Nepal
+
 - **Internet penetration:** ~70% in urban areas, <30% in rural areas
 - **Smartphone ownership:** Limited in rural and low-income communities
 - **Basic phone coverage:** Nearly universal (90%+)
@@ -191,6 +219,7 @@ These camps provide essential services:
 - **Trust factors:** Traditional channels (miking, word-of-mouth) are highly trusted
 
 ### Our Approach: Universal Access
+
 We don't assume everyone has internet. We don't assume everyone can read. We don't assume everyone has smartphones. We meet people where they are.
 
 **Target:** The most underserved communities
@@ -223,6 +252,7 @@ We don't assume everyone has internet. We don't assume everyone can read. We don
 ## Current Status
 
 ### Implemented (Phase 1 & 2)
+
 ✅ Centralized database (MongoDB)
 ✅ Admin dashboard for health agents
 ✅ Progressive Web App with all features
@@ -233,6 +263,7 @@ We don't assume everyone has internet. We don't assume everyone can read. We don
 ✅ Location-based search and filtering
 
 ### In Development
+
 🚧 SMS gateway integration
 🚧 IVR (automated call) system
 🚧 WhatsApp Business API integration
@@ -241,6 +272,7 @@ We don't assume everyone has internet. We don't assume everyone can read. We don
 🚧 Community network partnerships
 
 ### Planned
+
 📋 Expansion to all 753 local governments
 📋 Multi-language support (Nepali, Maithili, Bhojpuri, etc.)
 📋 Integration with Ministry of Health systems
@@ -253,11 +285,13 @@ We don't assume everyone has internet. We don't assume everyone can read. We don
 ## Key Metrics We Track
 
 ### Reach Metrics
+
 - Services listed in database
 - Areas covered (municipalities/wards)
 - Total population reached (estimated)
 
 ### Engagement Metrics
+
 - Website visits
 - Service registrations
 - SMS delivery rate
@@ -265,6 +299,7 @@ We don't assume everyone has internet. We don't assume everyone can read. We don
 - Community announcements made
 
 ### Impact Metrics
+
 - People who attended camps (vs capacity)
 - Camps that reached full capacity
 - First-time camp attendees
@@ -275,11 +310,13 @@ We don't assume everyone has internet. We don't assume everyone can read. We don
 ## Technical Architecture
 
 ### Database Layer
+
 - **MongoDB** for storing service data
 - Geospatial indexing for location queries
 - Admin dashboard for data entry and updates
 
 ### Web Layer (/medfree directory)
+
 - **Next.js 16** with App Router
 - **React 19** for UI
 - **Clerk** for authentication
@@ -288,6 +325,7 @@ We don't assume everyone has internet. We don't assume everyone can read. We don
 - Hosted on Vercel
 
 ### Communication Layer (separate modules)
+
 - **SMS Gateway** (Twilio/local provider)
 - **IVR System** (voice API)
 - **WhatsApp Business API**
@@ -295,6 +333,7 @@ We don't assume everyone has internet. We don't assume everyone can read. We don
 - **Email** (SendGrid/AWS SES)
 
 ### Community Layer (offline coordination)
+
 - Local coordinator network
 - Vehicle miking schedule system
 - Community loudspeaker integration
@@ -321,6 +360,7 @@ We're not building a tech startup. We're building health equity infrastructure.
 - **Sustainability:** Through partnerships, grants, and community ownership
 
 Anyone can:
+
 - Access the data
 - Build on top of our system
 - Use our APIs
@@ -336,6 +376,7 @@ Anyone can:
 **Team:** Team Osteon
 
 **We're looking for:**
+
 - Municipality partnerships
 - Telecom provider collaboration
 - NGO/INGO coordination
