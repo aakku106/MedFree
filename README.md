@@ -34,34 +34,74 @@ In Nepal, free health camps are regularly organized by government bodies, INGOs,
 
 ## 💡 Our Solution
 
-**MedFree** is a centralized platform that:
+**MedFree** is a multi-channel health information distribution system that ensures no one gets left behind:
 
-1. **Collects Data:** We gather information directly from municipalities and health posts about upcoming free health camps
-2. **Centralizes Everything:** All data is stored in a single, verified database accessible to everyone
-3. **Makes it Discoverable:** A Progressive Web App (PWA) that helps people find free health services near them
-4. **Keeps it Updated:** Health agents can add and update services in real-time
-5. **Notifies Users:** People can subscribe to alerts about new health camps in their area
+### The Core System
+
+1. **Centralized Database:** We collect and verify health camp information from municipalities and health posts
+2. **Smart Distribution:** Information reaches people through multiple channels based on their access and preferences
+3. **Admin Dashboard:** Health agents can add and update services in real-time
+
+### How We Reach Everyone
+
+#### For Digitally Connected Users:
+
+- **Progressive Web App (PWA)** - Location-based search, filtering, and registration
+- **Push Notifications & Email** - Instant alerts about new camps
+- **WhatsApp & Viber** - Direct messages with camp details
+
+#### For Communities with Limited Internet:
+
+- **SMS Notifications** - Targeted text messages to specific areas
+- **Automated Voice Calls (IVR)** - Pre-recorded announcements in local language
+- **Smart Opt-out** - Users who register online don't get redundant SMS/calls
+
+#### For Areas with No Network:
+
+- **Vehicle-based Announcements** - Loudspeakers on e-rickshaws, motorcycles
+- **Community Miking** - Reaching every household through local speakers
+- **Word-of-mouth** - Amplified by community leaders and health workers
 
 ### Why This Matters
 
+- **Universal Access:** We meet people where they are—whether online, on basic phones, or through community networks
 - **Free & Public:** This is social work—no revenue model, completely free for everyone
 - **Open Database:** All health camp data is publicly accessible to any organization or platform
-- **Multiple Access Points:** Our PWA is just one way to access the data; others can build on top of our database
+- **Equity First:** The website is just one channel; the goal is information reaching everyone, especially those without internet
 - **Verified Information:** Data comes directly from official sources, reducing misinformation
 
 ---
 
 ## ✨ Key Features
 
-### For General Users
+### Multi-Channel Distribution
 
-- **Location-based Search:** Find free health camps near you automatically
-- **Smart Filters:** Search by category (dental, eye, general checkup, etc.) or diagnosis type
-- **Detailed Information:** See what services are offered, what documents to bring, date/time, and capacity
-- **Service Registration:** Register for health camps and get confirmation with QR code
-- **Offline Access:** Save services and access them even without internet
-- **Push Notifications:** Get notified when new health camps are announced in your area
-- **Works Anywhere:** PWA works on any device—install it like a native app
+**Digital Channels:**
+
+- Progressive Web App with location-based search and smart filters
+- Push notifications, email, WhatsApp, and Viber messaging
+- QR code-based registration and confirmation
+- Offline access for saved services
+
+**Telecommunication Channels:**
+
+- SMS notifications to targeted areas
+- Automated IVR (voice) calls in local language
+- Smart opt-out system (no duplicate notifications)
+
+**Community-Level Outreach:**
+
+- Vehicle-based loudspeaker announcements
+- Community miking systems
+- Word-of-mouth amplification through local networks
+
+### For End Users (All Channels)
+
+- **Find Services:** Get information about nearby health camps through your preferred channel
+- **Targeted Alerts:** Receive notifications only for camps in your area
+- **No Internet Required:** SMS, calls, and community announcements work everywhere
+- **Multiple Languages:** Support for Nepali and English
+- **Free Always:** All channels are completely free to use
 
 ### For Health Agents & Organizations
 

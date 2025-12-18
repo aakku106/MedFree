@@ -1,21 +1,45 @@
-# MedFree - Free Government Medical Services Platform
+# MedFree - Multi-Channel Health Information Distribution System
 
-A progressive web app connecting citizens with free government medical services in Nepal. Find nearby health camps, checkups, and medical services with full offline support.
+A comprehensive platform that ensures free government health camp information reaches every citizen in Nepal—whether they're online, have basic phones, or rely on community networks. The Progressive Web App is just one of many channels we use to achieve universal healthcare information access.
 
-## 🎯 Features
+## 🎯 System Architecture
 
-### Core Functionality
+### Core Components
 
-- **🗺️ Location-aware Discovery** - Automatic geolocation to find services near you
-- **🔍 Smart Filtering** - Filter by category, diagnosis type, city, and search keywords
-- **📱 Progressive Web App** - Install on any device, works offline
-- **🔐 Secure Authentication** - Clerk-powered login with offline fallback
-- **💾 Offline-First** - Access profile, saved services, and cached content without internet
+1. **Centralized Database** - MongoDB storing verified health camp data
+2. **Admin Dashboard** - For municipalities and health posts to update information
+3. **Multi-Channel Distribution Engine** - Routing information through appropriate channels
+
+### Distribution Channels
+
+#### Digital Channels (this /medfree directory)
+
+- **🗺️ Progressive Web App** - Location-aware discovery with offline support
+- **🔍 Smart Filtering** - By category, diagnosis type, city, and keywords
+- **🔐 Secure Authentication** - Clerk-powered with offline fallback
+- **📝 Service Registration** - With QR code confirmation (FR028-FR031)
+- **🔔 Push Notifications** - Web push for new services and reminders (FR032-FR035)
+- **❤️ Saved Services** - Bookmark for later review (FR036)
 - **📊 Admin Dashboard** - Full CRUD operations for health agents (FR021-FR027)
-- **📝 Service Registration** - Users can register for services with QR code confirmation (FR028-FR031)
-- **❤️ Saved Services** - Bookmark services for later review (FR036)
-- **🔔 Push Notifications** - Get notified about new services and reminders (FR032-FR035)
-- **📱 Responsive Design** - Seamless experience on mobile, tablet, and desktop
+
+#### Telecommunication Channels (separate modules)
+
+- **📱 SMS Gateway** - Targeted text messages to specific areas
+- **📞 IVR System** - Automated voice calls with camp details
+- **💬 WhatsApp/Viber** - Instant messaging integration
+- **📧 Email Notifications** - For registered users
+
+#### Community Outreach (offline)
+
+- **📢 Vehicle Miking** - Loudspeaker announcements on e-rickshaws, motorcycles
+- **🏘️ Community Systems** - Integration with local miking networks
+- **👥 Word-of-mouth** - Amplified through community health workers
+
+### Smart Distribution
+
+- Users who register online are automatically opted out of SMS/calls
+- Notifications are targeted by location (only relevant camps)
+- Multiple fallback channels ensure everyone receives information
 
 ### Phase 1 Complete (FR001-FR020) ✅
 
