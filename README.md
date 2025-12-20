@@ -23,6 +23,7 @@
 In Nepal, free health camps are regularly organized by government bodies, INGOs, and NGOs to provide essential healthcare services to underserved communities. However, information about these services is scattered across municipalities, health posts, and various organizations, making it difficult for people to find and access them.
 
 Key challenges:
+
 - No centralized source of health camp information
 - Information verification is difficult
 - Target communities often miss out on free healthcare services
@@ -43,17 +44,20 @@ MedFree is a multi-channel health information distribution system designed to en
 ### Distribution Channels
 
 **Digital Channels:**
+
 - Progressive Web App with location-based search and filtering
 - Push notifications and email alerts
 - WhatsApp and Viber messaging
 - QR code-based registration
 
 **Telecommunication:**
+
 - SMS notifications to targeted geographic areas
 - Automated IVR voice calls in local language
 - Smart opt-out system to prevent duplicate notifications
 
 **Community Outreach:**
+
 - Vehicle-based loudspeaker announcements
 - Integration with community miking systems
 - Word-of-mouth amplification through local networks
