@@ -1,5 +1,5 @@
 ---
-mode: agent
+agent: agent
 ---
 
 # Phase 2 Requirements: Enhanced Features & User Engagement
@@ -224,4 +224,4 @@ After Phase 2 implementation:
 **Estimated Timeline:** 8-10 weeks with 1-2 developers  
 **Dependencies:** Phase 1 (FR001-FR020) must be complete
 
-Built to scale healthcare access in Nepal 🇳🇵❤️
+Built to scale healthcare access in Nepal 🇳🇵
