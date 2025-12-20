@@ -1,162 +1,130 @@
-# MedFree - Free Health Services Platform
+# MedFree - Multi-Channel Health Information Distribution System
 
 **Live Site:** [medfree.adarashagaihre.com.np](https://medfree.adarashagaihre.com.np)  
-**Repository:** [github.com/aakku106/MedFree](https://github.com/aakku106/MedFree/tree/main/medfree) (see `/medfree` directory)  
+**Repository:** [github.com/aakku106/MedFree](https://github.com/aakku106/MedFree/tree/main/medfree)  
 **Presentation:** [Google Drive](https://drive.google.com/drive/folders/1iVKVBsOEE-QBFb-2TNaJN7j35t8o-yUf?usp=sharing)
 
 ---
 
-## 🏆 Hackathon Project
+## Hackathon Background
 
 **Event:** NEPATHONE VOL.1  
-**Powered by:** Nepathya College  
-**Organized by:** Fusion Stack  
+**Organizers:** Fusion Stack, Nepathya College  
 **Duration:** 48-hour hackathon  
-**Dates:** 14, 15, 16 Kartik 2082 B.S.  
+**Dates:** 14-16 Kartik 2082 B.S.  
 **Location:** Tilottama, Manigram  
 **Theme:** Social Impact & Inclusion  
 **Team:** Team Osteon
 
 ---
 
-## 🎯 The Problem
+## Problem Statement
 
-In Nepal, free health camps are regularly organized by government bodies, INGOs, and NGOs to provide essential healthcare services to underserved communities. However:
+In Nepal, free health camps are regularly organized by government bodies, INGOs, and NGOs to provide essential healthcare services to underserved communities. However, information about these services is scattered across municipalities, health posts, and various organizations, making it difficult for people to find and access them.
 
-- **Scattered Information:** Health camp data is distributed across municipalities, health posts, and various organizations
-- **Decentralized Records:** No single source of truth makes it confusing for people to find services
-- **Hard to Verify:** Even when people find information, verifying its accuracy is difficult
-- **Missed Opportunities:** Many people miss out on free health services simply because they don't know about them
-
-**The real impact:** People who need free healthcare the most struggle to access it due to lack of centralized, reliable information.
-
----
-
-## 💡 Our Solution
-
-**MedFree** is a multi-channel health information distribution system that ensures no one gets left behind:
-
-### The Core System
-
-1. **Centralized Database:** We collect and verify health camp information from municipalities and health posts
-2. **Smart Distribution:** Information reaches people through multiple channels based on their access and preferences
-3. **Admin Dashboard:** Health agents can add and update services in real-time
-
-### How We Reach Everyone
-
-#### For Digitally Connected Users:
-
-- **Progressive Web App (PWA)** - Location-based search, filtering, and registration
-- **Push Notifications & Email** - Instant alerts about new camps
-- **WhatsApp & Viber** - Direct messages with camp details
-
-#### For Communities with Limited Internet:
-
-- **SMS Notifications** - Targeted text messages to specific areas
-- **Automated Voice Calls (IVR)** - Pre-recorded announcements in local language
-- **Smart Opt-out** - Users who register online don't get redundant SMS/calls
-
-#### For Areas with No Network:
-
-- **Vehicle-based Announcements** - Loudspeakers on e-rickshaws, motorcycles
-- **Community Miking** - Reaching every household through local speakers
-- **Word-of-mouth** - Amplified by community leaders and health workers
-
-### Why This Matters
-
-- **Universal Access:** We meet people where they are—whether online, on basic phones, or through community networks
-- **Free & Public:** This is social work—no revenue model, completely free for everyone
-- **Open Database:** All health camp data is publicly accessible to any organization or platform
-- **Equity First:** The website is just one channel; the goal is information reaching everyone, especially those without internet
-- **Verified Information:** Data comes directly from official sources, reducing misinformation
+Key challenges:
+- No centralized source of health camp information
+- Information verification is difficult
+- Target communities often miss out on free healthcare services
+- Lack of awareness prevents full utilization of available resources
 
 ---
 
-## ✨ Key Features
+## Solution Overview
 
-### Multi-Channel Distribution
+MedFree is a multi-channel health information distribution system designed to ensure universal access to health camp information regardless of technological capability.
+
+### Core Components
+
+1. **Centralized Database** - Verified health camp data from municipalities and health posts
+2. **Multi-Channel Distribution** - Information delivery through appropriate channels
+3. **Admin Dashboard** - Real-time service management for health agents
+
+### Distribution Channels
 
 **Digital Channels:**
+- Progressive Web App with location-based search and filtering
+- Push notifications and email alerts
+- WhatsApp and Viber messaging
+- QR code-based registration
 
-- Progressive Web App with location-based search and smart filters
-- Push notifications, email, WhatsApp, and Viber messaging
-- QR code-based registration and confirmation
-- Offline access for saved services
+**Telecommunication:**
+- SMS notifications to targeted geographic areas
+- Automated IVR voice calls in local language
+- Smart opt-out system to prevent duplicate notifications
 
-**Telecommunication Channels:**
-
-- SMS notifications to targeted areas
-- Automated IVR (voice) calls in local language
-- Smart opt-out system (no duplicate notifications)
-
-**Community-Level Outreach:**
-
+**Community Outreach:**
 - Vehicle-based loudspeaker announcements
-- Community miking systems
+- Integration with community miking systems
 - Word-of-mouth amplification through local networks
 
-### For End Users (All Channels)
+### Design Principles
 
-- **Find Services:** Get information about nearby health camps through your preferred channel
-- **Targeted Alerts:** Receive notifications only for camps in your area
-- **No Internet Required:** SMS, calls, and community announcements work everywhere
-- **Multiple Languages:** Support for Nepali and English
-- **Free Always:** All channels are completely free to use
+- Universal access regardless of internet connectivity
+- Multiple language support (Nepali, English)
+- Open-source and publicly accessible database
+- Zero-cost for all users and organizations
+- Equity-focused design meeting users where they are
 
-### For Health Agents & Organizations
+---
 
-- **Admin Dashboard:** Add, edit, and manage health camp listings
-- **Real-time Updates:** Changes appear immediately for all users
-- **Capacity Tracking:** Monitor registrations and available spots
-- **Analytics:** See which services are most popular and track engagement
+## Key Features
 
-### Technical Highlights
+### User Capabilities
 
-- Progressive Web App (PWA) - works offline
-- Nepali calendar (Bikram Sambat) support
+- Location-based service discovery
+- Category and diagnosis type filtering
+- Service registration with confirmation
+- Offline access to saved information
+- Targeted notifications by area and preference
+
+### Administrative Functions
+
+- Service creation and management dashboard
+- Real-time data updates across all channels
+- Capacity tracking and analytics
+- Registration monitoring
+
+### Technical Implementation
+
+- Progressive Web App with offline functionality
+- Nepali calendar (Bikram Sambat) integration
+- Secure authentication system
+- Geospatial search capabilities
 - Mobile-first responsive design
-- Secure authentication
-- Real-time capacity tracking
-- Geospatial search and sorting
 
 ---
 
-## 🌍 Social Impact
+## Social Impact
 
-**Target Beneficiaries:**
+**Target Beneficiaries:** Rural communities with limited healthcare access, low-income families seeking free medical services, elderly citizens needing regular health checkups, and people unaware of available free health services.
 
-- Rural communities with limited healthcare access
-- Low-income families seeking free medical services
-- Elderly citizens needing regular health checkups
-- People unaware of free health camp schedules
-
-**Our Vision:**
-Make healthcare information accessible to everyone in Nepal, ensuring no one misses out on free health services due to lack of information.
+**Project Vision:** Make healthcare information accessible to everyone in Nepal, ensuring no one misses out on free health services due to lack of information.
 
 ---
 
-## 🚀 Project Status
+## Project Status
 
-✅ **Phase 1 Complete:** Core platform with service listings, filters, search, and details  
-✅ **Phase 2 Complete:** Admin dashboard, registration system, PWA, offline support, and push notifications
-
----
-
-## 🤝 Contributing
-
-This is a social initiative. If you're a:
-
-- **Municipality/Health Post:** Share your health camp schedules with us
-- **Developer:** Help improve the platform or build on top of our public database
-- **Designer:** Enhance the user experience
-- **Community Member:** Spread the word and help people discover free health services
+**Phase 1 Complete:** Core platform with service listings, filters, search, and details  
+**Phase 2 Complete:** Admin dashboard, registration system, PWA, offline support, and push notifications
 
 ---
 
-## 📞 Contact
+## Contributing
 
-For data contributions, partnerships, or inquiries, please reach out through our [GitHub repository](https://github.com/aakku106).
+This is a social initiative open to collaboration:
+
+- **Municipalities/Health Posts:** Share health camp schedules for centralized distribution
+- **Developers:** Contribute to the platform or build applications using the public database
+- **Designers:** Enhance user experience and accessibility
+- **Community Members:** Help spread awareness about free health services
 
 ---
 
-## Built with ❤️ for the people of Nepal
+## Contact
+
+For data contributions, partnerships, or inquiries, reach out through the [GitHub repository](https://github.com/aakku106).
+
+---
+
+Built for the people of Nepal

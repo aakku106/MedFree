@@ -2,7 +2,7 @@
 
 A comprehensive platform that ensures free government health camp information reaches every citizen in Nepal—whether they're online, have basic phones, or rely on community networks. The Progressive Web App is just one of many channels we use to achieve universal healthcare information access.
 
-## 🎯 System Architecture
+## System Architecture
 
 ### Core Components
 
@@ -14,26 +14,26 @@ A comprehensive platform that ensures free government health camp information re
 
 #### Digital Channels (this /medfree directory)
 
-- **🗺️ Progressive Web App** - Location-aware discovery with offline support
-- **🔍 Smart Filtering** - By category, diagnosis type, city, and keywords
-- **🔐 Secure Authentication** - Clerk-powered with offline fallback
-- **📝 Service Registration** - With QR code confirmation (FR028-FR031)
-- **🔔 Push Notifications** - Web push for new services and reminders (FR032-FR035)
-- **❤️ Saved Services** - Bookmark for later review (FR036)
-- **📊 Admin Dashboard** - Full CRUD operations for health agents (FR021-FR027)
+- Progressive Web App - Location-aware discovery with offline support
+- Smart Filtering - By category, diagnosis type, city, and keywords
+- Secure Authentication - Clerk-powered with offline fallback
+- Service Registration - With QR code confirmation (FR028-FR031)
+- Push Notifications - Web push for new services and reminders (FR032-FR035)
+- Saved Services - Bookmark for later review (FR036)
+- Admin Dashboard - Full CRUD operations for health agents (FR021-FR027)
 
 #### Telecommunication Channels (separate modules)
 
-- **📱 SMS Gateway** - Targeted text messages to specific areas
-- **📞 IVR System** - Automated voice calls with camp details
-- **💬 WhatsApp/Viber** - Instant messaging integration
-- **📧 Email Notifications** - For registered users
+- SMS Gateway - Targeted text messages to specific areas
+- IVR System - Automated voice calls with camp details
+- WhatsApp/Viber - Instant messaging integration
+- Email Notifications - For registered users
 
 #### Community Outreach (offline)
 
-- **📢 Vehicle Miking** - Loudspeaker announcements on e-rickshaws, motorcycles
-- **🏘️ Community Systems** - Integration with local miking networks
-- **👥 Word-of-mouth** - Amplified through community health workers
+- Vehicle Miking - Loudspeaker announcements on e-rickshaws, motorcycles
+- Community Systems - Integration with local miking networks
+- Word-of-mouth - Amplified through community health workers
 
 ### Smart Distribution
 
@@ -41,19 +41,13 @@ A comprehensive platform that ensures free government health camp information re
 - Notifications are targeted by location (only relevant camps)
 - Multiple fallback channels ensure everyone receives information
 
-### Phase 1 Complete (FR001-FR020) ✅
+### Implementation Status
 
-All functional requirements from Instruction1.prompt.md have been implemented.
+**Phase 1 Complete (FR001-FR020):** All functional requirements from Instruction1.prompt.md have been implemented.
 
-### Phase 2 Complete (FR021-FR041) ✅
+**Phase 2 Complete (FR021-FR041):** Admin Dashboard (FR021-FR027), Service Registration System (FR028-FR031), Push Notifications (FR032-FR035), User Profile & Saved Services (FR036-FR037), PWA & Offline Support (FR038-FR041)
 
-- **Admin Dashboard** (FR021-FR027)
-- **Service Registration System** (FR028-FR031)
-- **Push Notifications** (FR032-FR035)
-- **User Profile & Saved Services** (FR036-FR037)
-- **PWA & Offline Support** (FR038-FR041)
-
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -151,7 +145,7 @@ medfree/
 └── middleware.ts              # Auth & admin role middleware
 ```
 
-## 🔑 Key Technologies
+## Key Technologies
 
 - **Next.js 16** - App Router, Server Components, Client Components, API Routes
 - **React 19** - Latest features with concurrent rendering
@@ -165,7 +159,7 @@ medfree/
 - **Lenis** - Smooth scrolling
 - **Geolocation API** - Location-based service discovery
 
-## 🗄️ Database Schema
+## Database Schema
 
 ### Services Collection
 
@@ -337,20 +331,18 @@ Soft delete (deactivate) or permanently delete a service.
 
 Get dashboard statistics (registrations, popular services, etc.).
 
-## � Authentication & Authorization
+## Authentication & Authorization
 
 ### Clerk Integration
 
 MedFree uses Clerk for authentication with custom offline fallback:
 
 **Online Mode:**
-
 - Standard Clerk authentication flow
 - User data synced to localStorage cache
 - Full access to all features
 
 **Offline Mode:**
-
 - Cached user data loaded from localStorage
 - Profile pages accessible with 7-day cache
 - Offline indicator shown throughout UI
@@ -389,7 +381,7 @@ Loads cached user from localStorage
 Profile/Saved Services accessible offline
 ```
 
-## 🎨 Design Principles
+## Design Principles
 
 - **Mobile-first** - Optimized for mobile devices, works great on desktop
 - **Accessibility** - WCAG 2.1 AA compliant, keyboard navigation, screen reader friendly
@@ -399,69 +391,62 @@ Profile/Saved Services accessible offline
 - **Healthcare-focused** - Trustworthy emerald color palette, calming design
 - **Progressive Enhancement** - Works on all browsers, enhanced on modern ones
 
-## 📝 Requirements Status
+## Requirements Status
 
-### Phase 1 (Instruction1.prompt.md) - ✅ COMPLETE
+### Phase 1 (Instruction1.prompt.md) - COMPLETE
 
-- ✅ FR001-FR020: All functional requirements implemented
-- ✅ NFR001-NFR006: All non-functional requirements met
+All functional requirements (FR001-FR020) and non-functional requirements (NFR001-NFR006) implemented.
 
-### Phase 2 (Instruction2.prompt.md) - ✅ COMPLETE
+### Phase 2 (Instruction2.prompt.md) - COMPLETE
 
-- ✅ FR021-FR027: Admin Dashboard with full CRUD
-- ✅ FR028-FR031: Service Registration System with QR codes
-- ✅ FR032-FR035: Push Notifications (setup complete, VAPID required)
-- ✅ FR036-FR037: User Profile, Saved Services, Settings
-- ✅ FR038-FR041: PWA with offline support, Service Worker
-- ⏳ FR042-FR045: Testing suite (planned for Phase 3)
+- Admin Dashboard with full CRUD (FR021-FR027)
+- Service Registration System with QR codes (FR028-FR031)
+- Push Notifications setup complete (FR032-FR035) - VAPID required
+- User Profile, Saved Services, Settings (FR036-FR037)
+- PWA with offline support, Service Worker (FR038-FR041)
+- Testing suite planned for Phase 3 (FR042-FR045)
 
-## 🚧 Planned Enhancements (Phase 3)
+## Planned Enhancements (Phase 3)
 
-- [ ] Automated testing suite (Unit, E2E, Accessibility)
-- [ ] Performance monitoring with Sentry
-- [ ] Advanced analytics dashboard
-- [ ] Multi-language support (Nepali/English)
-- [ ] User reviews and ratings system
-- [ ] SMS notifications alongside push
-- [ ] Payment integration for paid services (future)
-- [ ] Integration with government health databases
+- Automated testing suite (Unit, E2E, Accessibility)
+- Performance monitoring with Sentry
+- Advanced analytics dashboard
+- Multi-language support (Nepali/English)
+- User reviews and ratings system
+- SMS notifications alongside push
+- Payment integration for paid services (future)
+- Integration with government health databases
 
-## 🤝 Contributing
+## Contributing
 
-We welcome contributions! Here's how you can help:
+Contributions are welcome. To contribute:
 
-1. **Fork the repository**
-2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
-3. **Commit your changes** (`git commit -m 'Add amazing feature'`)
-4. **Push to the branch** (`git push origin feature/amazing-feature`)
-5. **Open a Pull Request**
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-Please ensure:
+Please ensure code follows existing style conventions, all tests pass (when test suite is implemented), documentation is updated, and commit messages are descriptive.
 
-- Code follows existing style conventions
-- All tests pass (when test suite is implemented)
-- Documentation is updated
-- Commit messages are descriptive
+## License
 
-## 📄 License
+This project is open-source for public health initiatives. Use and adapt for similar healthcare access projects.
 
-This project is open-source for public health initiatives. Feel free to use and adapt for similar healthcare access projects.
-
-## 📞 Support & Contact
+## Support & Contact
 
 - **Developer:** [@aakku106](https://github.com/aakku106)
 - **Repository:** [github.com/aakku106/MedFree](https://github.com/aakku106/MedFree)
 - **Issues:** [Report bugs or request features](https://github.com/aakku106/MedFree/issues)
 
 For technical questions, refer to:
-
 - `/Research/OFFLINE_AUTH_IMPLEMENTATION.md` - Detailed offline auth guide
 - `/Research/OFFLINE_AUTH_COMPLETE.md` - Implementation summary
 - `.github/prompts/` - Full requirements documentation
 
 ---
 
-### Built with ❤️ for better healthcare access in Nepal 🇳🇵
+Built for better healthcare access in Nepal
 
 **Hackathon Project:** Originally built for a healthcare hackathon challenge to improve medical service discovery and accessibility in Nepal.
 
