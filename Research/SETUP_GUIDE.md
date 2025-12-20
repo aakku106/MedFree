@@ -1,6 +1,6 @@
 # MedFree Setup & Deployment Guide
 
-## 📦 Dependencies to Install
+## Dependencies to Install
 
 Run this command in the medfree directory:
 
@@ -15,7 +15,7 @@ npm install lenis mongodb @clerk/nextjs nepali-date-converter
 - `@clerk/nextjs` - Authentication (already configured in middleware)
 - `nepali-date-converter` - Convert AD to BS dates (used in utils.js)
 
-## 🔧 Environment Setup
+## Environment Setup
 
 ### 1. Clerk Authentication
 
@@ -64,7 +64,7 @@ Add to `.env.local`:
 MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/medfree?retryWrites=true&w=majority
 ```
 
-## 🗃️ Database Setup
+## Database Setup
 
 ### Seed Sample Data
 
@@ -83,7 +83,7 @@ This will:
 
 You can also use MongoDB Compass or the shell to add services manually. Follow the schema in `lib/mongodb.js`.
 
-## 🚀 Running the App
+## Running the App
 
 ```bash
 cd medfree
@@ -92,7 +92,7 @@ npm run dev
 
 Visit: http://localhost:3000
 
-## 📱 Testing Features
+## Testing Features
 
 ### 1. Landing Page
 
@@ -126,7 +126,7 @@ Visit: http://localhost:3000
 - Sign up or sign in
 - User button should replace login button
 
-## 🔍 Testing Location Features
+## Testing Location Features
 
 **Test with allowed location:**
 
@@ -173,7 +173,7 @@ rm -rf node_modules package-lock.json
 npm install
 ```
 
-## 📊 Admin Features (Future)
+## Admin Features (Future)
 
 Currently, services are added via:
 
@@ -183,7 +183,7 @@ Currently, services are added via:
 
 Admin dashboard coming soon!
 
-## 🌐 Production Deployment
+## Production Deployment
 
 ### Vercel (Recommended)
 
@@ -208,7 +208,7 @@ MONGODB_URI=mongodb+srv://...
 NEXT_PUBLIC_APP_URL=https://yourapp.vercel.app
 ```
 
-## ✅ Checklist
+## Checklist
 
 Before going live:
 
@@ -223,14 +223,10 @@ Before going live:
 - [ ] Set up production environment variables
 - [ ] Deploy to Vercel or similar platform
 
-## 📞 Support
+## Support
 
 For issues or questions:
 
 - Check Next.js docs: https://nextjs.org/docs
 - Check Clerk docs: https://clerk.com/docs
 - Check MongoDB docs: https://docs.mongodb.com
-
----
-
-**Happy building! 🚀**
