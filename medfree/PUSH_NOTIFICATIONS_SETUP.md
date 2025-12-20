@@ -199,6 +199,7 @@ This error means the VAPID public key is invalid or not properly formatted.
    ```
 
 5. **Verify the key is loading:** Add this to check in browser console:
+
    ```javascript
    console.log("VAPID Key:", process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY);
    // Should show the full key, not "your_public_key"
