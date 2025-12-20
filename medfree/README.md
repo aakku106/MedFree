@@ -105,7 +105,7 @@ A comprehensive platform that ensures free government health camp information re
 
    Navigate to [http://localhost:3000](http://localhost:3000)
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 medfree/
@@ -249,7 +249,7 @@ medfree/
 
 ````
 
-## 🌐 API Endpoints
+## API Endpoints
 
 ### Public Endpoints
 
@@ -338,11 +338,13 @@ Get dashboard statistics (registrations, popular services, etc.).
 MedFree uses Clerk for authentication with custom offline fallback:
 
 **Online Mode:**
+
 - Standard Clerk authentication flow
 - User data synced to localStorage cache
 - Full access to all features
 
 **Offline Mode:**
+
 - Cached user data loaded from localStorage
 - Profile pages accessible with 7-day cache
 - Offline indicator shown throughout UI
@@ -440,6 +442,7 @@ This project is open-source for public health initiatives. Use and adapt for sim
 - **Issues:** [Report bugs or request features](https://github.com/aakku106/MedFree/issues)
 
 For technical questions, refer to:
+
 - `/Research/OFFLINE_AUTH_IMPLEMENTATION.md` - Detailed offline auth guide
 - `/Research/OFFLINE_AUTH_COMPLETE.md` - Implementation summary
 - `.github/prompts/` - Full requirements documentation
