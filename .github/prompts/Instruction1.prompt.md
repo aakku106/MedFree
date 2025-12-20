@@ -1,5 +1,5 @@
 ---
-mode: agent
+agent: agent
 ---
 
 | Requirement ID | Description                          | User Story                                                                                                           | Expected Behavior/Outcome                                                                                                                                                                                                        |
