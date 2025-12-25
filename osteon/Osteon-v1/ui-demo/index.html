@@ -1,0 +1,369 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Tax Flow Tree — Demo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>Digital Governance — Tax Flow Tree (Demo)</h1>
+        <p class="subtitle">
+          Animated tree showing tax aggregation and distribution. (Visual)
+        </p>
+      </header>
+      <main>
+        <div id="tree-container">
+          <!-- Level Guides -->
+          <div class="level-label" style="--y: 100">Central</div>
+          <div class="level-label" style="--y: 180">Provinces</div>
+          <div class="level-label" style="--y: 300">Districts</div>
+          <div class="level-label" style="--y: 450">Cities</div>
+
+          <!-- Central Government (Root) -->
+          <div class="node central" data-level="0" style="--x: 500; --y: 100">
+            <div class="node-circle"></div>
+            <div class="node-label">Central Government</div>
+            <div class="node-balance">Rs 1000.5M</div>
+          </div>
+
+          <!-- Provinces (Level 1) -->
+          <div class="node province" data-level="1" style="--x: 200; --y: 180">
+            <div class="node-circle"></div>
+            <div class="node-label">Lumbini Province</div>
+            <div class="node-balance">Rs 250.2M</div>
+          </div>
+          <div class="node province" data-level="1" style="--x: 500; --y: 180">
+            <div class="node-circle"></div>
+            <div class="node-label">Province 3</div>
+            <div class="node-balance">Rs 180.8M</div>
+          </div>
+          <div class="node province" data-level="1" style="--x: 800; --y: 180">
+            <div class="node-circle"></div>
+            <div class="node-label">Sudurpashchim Province</div>
+            <div class="node-balance">Rs 320.1M</div>
+          </div>
+
+          <!-- Districts (Level 2) -->
+          <div class="node district" data-level="2" style="--x: 150; --y: 300">
+            <div class="node-circle"></div>
+            <div class="node-label">Rupandehi District</div>
+            <div class="node-balance">Rs 85.5M</div>
+          </div>
+          <div class="node district" data-level="2" style="--x: 350; --y: 300">
+            <div class="node-circle"></div>
+            <div class="node-label">District</div>
+            <div class="node-balance">Rs 65.2M</div>
+          </div>
+          <div class="node district" data-level="2" style="--x: 650; --y: 300">
+            <div class="node-circle"></div>
+            <div class="node-label">District</div>
+            <div class="node-balance">Rs 95.8M</div>
+          </div>
+          <div class="node district" data-level="2" style="--x: 850; --y: 300">
+            <div class="node-circle"></div>
+            <div class="node-label">Kailali District</div>
+            <div class="node-balance">Rs 70.3M</div>
+          </div>
+
+          <!-- Cities (Level 3) -->
+          <div
+            class="node city highlight"
+            data-level="3"
+            style="--x: 100; --y: 450">
+            <div class="node-circle"></div>
+            <div class="node-label">Butwal City</div>
+            <div class="node-balance">Rs 28.5M</div>
+          </div>
+          <div class="node city" data-level="3" style="--x: 300; --y: 450">
+            <div class="node-circle"></div>
+            <div class="node-label">City</div>
+            <div class="node-balance">Rs 22.1M</div>
+          </div>
+          <div class="node city" data-level="3" style="--x: 600; --y: 450">
+            <div class="node-circle"></div>
+            <div class="node-label">City</div>
+            <div class="node-balance">Rs 35.8M</div>
+          </div>
+          <div
+            class="node city highlight"
+            data-level="3"
+            style="--x: 900; --y: 450">
+            <div class="node-circle"></div>
+            <div class="node-label">Dhangadhi</div>
+            <div class="node-balance">Rs 18.4M</div>
+          </div>
+
+          <!-- Connection Lines -->
+          <svg
+            class="connections"
+            viewBox="0 0 1000 600"
+            preserveAspectRatio="none">
+            <defs>
+              <marker
+                id="arrow"
+                markerWidth="8"
+                markerHeight="8"
+                refX="6"
+                refY="4"
+                orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="rgba(255,255,255,0.6)" />
+              </marker>
+            </defs>
+            <!-- Province to Central -->
+            <line
+              class="connection-line"
+              x1="200"
+              y1="180"
+              x2="500"
+              y2="100"
+              marker-end="url(#arrow)" />
+            <line
+              class="connection-line"
+              x1="500"
+              y1="180"
+              x2="500"
+              y2="100"
+              marker-end="url(#arrow)" />
+            <line
+              class="connection-line"
+              x1="800"
+              y1="180"
+              x2="500"
+              y2="100"
+              marker-end="url(#arrow)" />
+
+            <!-- District to Province -->
+            <line
+              class="connection-line"
+              x1="150"
+              y1="300"
+              x2="200"
+              y2="180"
+              marker-end="url(#arrow)" />
+            <line
+              class="connection-line"
+              x1="350"
+              y1="300"
+              x2="200"
+              y2="180"
+              marker-end="url(#arrow)" />
+            <line
+              class="connection-line"
+              x1="650"
+              y1="300"
+              x2="500"
+              y2="180"
+              marker-end="url(#arrow)" />
+            <line
+              class="connection-line"
+              x1="850"
+              y1="300"
+              x2="800"
+              y2="180"
+              marker-end="url(#arrow)" />
+
+            <!-- City to District -->
+            <line
+              class="connection-line"
+              x1="100"
+              y1="450"
+              x2="150"
+              y2="300"
+              marker-end="url(#arrow)" />
+            <line
+              class="connection-line"
+              x1="300"
+              y1="450"
+              x2="350"
+              y2="300"
+              marker-end="url(#arrow)" />
+            <line
+              class="connection-line"
+              x1="600"
+              y1="450"
+              x2="650"
+              y2="300"
+              marker-end="url(#arrow)" />
+            <line
+              class="connection-line"
+              x1="900"
+              y1="450"
+              x2="850"
+              y2="300"
+              marker-end="url(#arrow)" />
+          </svg>
+
+          <!-- Animated Flow Particles (Upwards) -->
+          <!-- Cities -> Districts -->
+          <div
+            class="flow-particle"
+            style="
+              --sx: 100;
+              --sy: 450;
+              --ex: 150;
+              --ey: 300;
+              animation-delay: 0s;
+            "></div>
+          <div
+            class="flow-particle"
+            style="
+              --sx: 300;
+              --sy: 450;
+              --ex: 350;
+              --ey: 300;
+              animation-delay: 0.6s;
+            "></div>
+          <div
+            class="flow-particle"
+            style="
+              --sx: 600;
+              --sy: 450;
+              --ex: 650;
+              --ey: 300;
+              animation-delay: 1.2s;
+            "></div>
+          <div
+            class="flow-particle"
+            style="
+              --sx: 900;
+              --sy: 450;
+              --ex: 850;
+              --ey: 300;
+              animation-delay: 1.8s;
+            "></div>
+          <!-- Districts -> Provinces -->
+          <div
+            class="flow-particle"
+            style="
+              --sx: 150;
+              --sy: 300;
+              --ex: 200;
+              --ey: 180;
+              animation-delay: 2.4s;
+            "></div>
+          <div
+            class="flow-particle"
+            style="
+              --sx: 350;
+              --sy: 300;
+              --ex: 200;
+              --ey: 180;
+              animation-delay: 3s;
+            "></div>
+          <div
+            class="flow-particle"
+            style="
+              --sx: 650;
+              --sy: 300;
+              --ex: 500;
+              --ey: 180;
+              animation-delay: 3.6s;
+            "></div>
+          <div
+            class="flow-particle"
+            style="
+              --sx: 850;
+              --sy: 300;
+              --ex: 800;
+              --ey: 180;
+              animation-delay: 4.2s;
+            "></div>
+          <!-- Provinces -> Central -->
+          <div
+            class="flow-particle"
+            style="
+              --sx: 200;
+              --sy: 180;
+              --ex: 500;
+              --ey: 100;
+              animation-delay: 4.8s;
+            "></div>
+          <div
+            class="flow-particle"
+            style="
+              --sx: 500;
+              --sy: 180;
+              --ex: 500;
+              --ey: 100;
+              animation-delay: 5.4s;
+            "></div>
+          <div
+            class="flow-particle"
+            style="
+              --sx: 800;
+              --sy: 180;
+              --ex: 500;
+              --ey: 100;
+              animation-delay: 6s;
+            "></div>
+
+          <!-- Animated Flow Particles (Downwards for Project Funding) -->
+          <div
+            class="flow-particle reverse"
+            style="
+              --sx: 500;
+              --sy: 100;
+              --ex: 650;
+              --ey: 300;
+              animation-delay: 2.2s;
+            "></div>
+          <div
+            class="flow-particle reverse"
+            style="
+              --sx: 650;
+              --sy: 300;
+              --ex: 600;
+              --ey: 450;
+              animation-delay: 3.8s;
+            "></div>
+        </div>
+
+        <aside id="sidebar">
+          <h2>Citizen Portal</h2>
+          <div class="status-card">
+            <h3>Live Tax Collection</h3>
+            <div class="metric">
+              <span class="label">Today's Collection:</span>
+              <span class="value">Rs 45.2M</span>
+            </div>
+            <div class="metric">
+              <span class="label">Active Projects:</span>
+              <span class="value">127</span>
+            </div>
+          </div>
+
+          <div class="actions-card">
+            <h3>Actions</h3>
+            <button class="action-btn">Track My Tax</button>
+            <button class="action-btn">Vote on Project</button>
+            <button class="action-btn">Add Comment</button>
+          </div>
+
+          <div class="activity-feed">
+            <h3>Live Activity</h3>
+            <div class="activity-item">
+              <div class="time">12:34 PM</div>
+              <div class="text">Butwal collected Rs 2.5M</div>
+            </div>
+            <div class="activity-item">
+              <div class="time">12:33 PM</div>
+              <div class="text">Bridge project funded Rs 15M</div>
+            </div>
+            <div class="activity-item">
+              <div class="time">12:32 PM</div>
+              <div class="text">Province 1 transferred Rs 50M</div>
+            </div>
+          </div>
+        </aside>
+      </main>
+      <footer>
+        <small>Demo for hackathon — Visual representation only</small>
+      </footer>
+    </div>
+  </body>
+</html>

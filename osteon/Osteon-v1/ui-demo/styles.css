@@ -1,0 +1,359 @@
+/** @format */
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  min-height: 100vh;
+}
+
+#app {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+  margin: 8px 0 0 0;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+main {
+  display: flex;
+  gap: 30px;
+  min-height: 600px;
+}
+
+#tree-container {
+  flex: 1;
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Node Styles */
+.node {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  left: calc(var(--x, 0) * 1px);
+  top: calc(var(--y, 0) * 1px);
+  transform: translate(-50%, -50%);
+}
+
+.node:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.node-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  animation: pulse 2s infinite;
+}
+
+.node.highlight .node-circle {
+  width: 68px;
+  height: 68px;
+  box-shadow: 0 0 0 3px rgba(254, 202, 87, 0.6),
+    0 8px 24px rgba(254, 202, 87, 0.4);
+}
+.node.highlight .node-label {
+  color: #ffeaa7;
+  font-weight: 700;
+}
+
+.node-label {
+  margin-top: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.node-balance {
+  margin-top: 4px;
+  font-size: 12px;
+  opacity: 0.9;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* Node Positioning (using CSS variables: --x, --y) */
+
+.central .node-circle {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  width: 80px;
+  height: 80px;
+  /* margin-bottom: 2rem; */
+}
+
+.province .node-circle {
+  background: linear-gradient(135deg, #4834d4, #686de0);
+  margin-top: 6rem;
+}
+
+.district .node-circle {
+  background: linear-gradient(135deg, #00d2d3, #54a0ff);
+  margin-top: 6rem;
+}
+
+.city .node-circle {
+  background: linear-gradient(135deg, #26de81, #20bf6b);
+  margin-top: 6rem;
+}
+
+/* Connection Lines */
+.connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.connection-line {
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 2;
+  stroke-dasharray: 5, 5;
+  animation: dash 3s linear infinite;
+}
+
+/* Flow Particles */
+.flow-particle {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #feca57, #ff9ff3);
+  border-radius: 50%;
+  z-index: 10;
+  animation: flow 4s ease-in-out infinite;
+  box-shadow: 0 0 15px rgba(254, 202, 87, 0.8);
+}
+
+.flow-particle.reverse {
+  animation-name: flowReverse;
+}
+
+@keyframes flow {
+  0% {
+    left: calc(var(--sx) * 1px);
+    top: calc(var(--sy) * 1px);
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    left: calc(var(--ex) * 1px);
+    top: calc(var(--ey) * 1px);
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+@keyframes flowReverse {
+  0% {
+    left: calc(var(--ex) * 1px);
+    top: calc(var(--ey) * 1px);
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    left: calc(var(--sx) * 1px);
+    top: calc(var(--sy) * 1px);
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 30px rgba(255, 255, 255, 0.4);
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+/* Sidebar */
+#sidebar {
+  width: 350px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 25px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  height: fit-content;
+}
+
+#sidebar h2 {
+  margin-top: 0;
+  font-size: 22px;
+  text-align: center;
+}
+
+.status-card,
+.actions-card,
+.activity-feed {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.status-card h3,
+.actions-card h3,
+.activity-feed h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.metric {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.metric .label {
+  opacity: 0.8;
+}
+
+.metric .value {
+  font-weight: 700;
+  color: #feca57;
+}
+
+.action-btn {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.activity-item {
+  display: flex;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.activity-item .time {
+  color: #feca57;
+  margin-right: 10px;
+  font-weight: 600;
+  min-width: 60px;
+}
+
+.activity-item .text {
+  opacity: 0.9;
+}
+
+footer {
+  margin-top: 30px;
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* Level Labels */
+.level-label {
+  position: absolute;
+  left: 12px;
+  top: calc(var(--y) * 1px);
+  transform: translateY(-50%);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1100px) {
+  main {
+    flex-direction: column;
+  }
+
+  #sidebar {
+    width: 100%;
+  }
+
+  .node-label {
+    font-size: 12px;
+  }
+
+  .node-circle {
+    width: 50px;
+    height: 50px;
+  }
+
+  .central .node-circle {
+    width: 70px;
+    height: 70px;
+  }
+}
